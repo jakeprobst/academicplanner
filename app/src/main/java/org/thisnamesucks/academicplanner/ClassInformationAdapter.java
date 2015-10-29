@@ -16,10 +16,10 @@ import java.util.ArrayList;
  */
 public class ClassInformationAdapter extends BaseAdapter {
     Context context;
-    ArrayList<ClassInformation> classList;
+    ArrayList<ClassModel> classList;
 
 
-    public ClassInformationAdapter(Context c, ArrayList<ClassInformation> cl) {
+    public ClassInformationAdapter(Context c, ArrayList<ClassModel> cl) {
         context = c;
         classList = cl;
     }
@@ -71,11 +71,11 @@ public class ClassInformationAdapter extends BaseAdapter {
     }
 
     @Override
-    public ClassInformation getItem(int pos) {
+    public ClassModel getItem(int pos) {
         return classList.get(pos);
     }
 
-    public void add(ClassInformation info) {
+    public void add(ClassModel info) {
         classList.add(info);
         notifyDataSetChanged();
     }

@@ -10,6 +10,8 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 public class SemesterActivity extends AppCompatActivity {
+    //SemesterInformation semesterInformation;
+    //SemesterModel semesterModel;
     ClassInformationAdapter classInfoAdapter;
 
     @Override
@@ -18,12 +20,10 @@ public class SemesterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_semester);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle("Fall 2015"); // to be set based on selected semester
 
-        classInfoAdapter = new ClassInformationAdapter(this, new ArrayList<ClassInformation>());
-        classInfoAdapter.add(new ClassInformation("Software Development", "CS 370", 280, 300));
-        classInfoAdapter.add(new ClassInformation("Data Structures", "CS 315", 350, 450));
-        classInfoAdapter.add(new ClassInformation("Computer Architecture", "CS 351", 10, 110));
+        SemesterModel semesterModel = new SemesterModel(getApplicationContext());
+        setTitle(semesterModel.getName());
+        classInfoAdapter = new ClassInformationAdapter(this, semesterModel.getClasses());
 
         ListView classSelection = (ListView) findViewById(R.id.class_list);
 
