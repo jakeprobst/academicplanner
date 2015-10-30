@@ -45,11 +45,11 @@ public class SemesterModel {
 
     private void makeTestFile(Context ctx) {
 
-        String out = "{`name`: `Fall 2015`, `classes` : [" +
+        String out = ("{`name`: `Fall 2015`, `classes` : [" +
                 "{`name`:`Software Development`, `id`: `CS370`, `currentscore`: 280, `totalscore`: 300}, " +
                 "{`name`:`Data Structures`, `id`: `CS315`, `currentscore`: 350, `totalscore`: 450}, " +
                 "{`name`:`Computer Architecture`, `id`: `CS351`, `currentscore`: 20, `totalscore`: 110} " +
-                "] }".replace('`', '"');
+                "] }").replace('`', '"');
 
         try {
             FileOutputStream file = ctx.openFileOutput("semesterinfo.json", Context.MODE_PRIVATE);
