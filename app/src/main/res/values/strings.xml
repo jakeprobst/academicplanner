@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Academic Planner</string>
     <string name="title_activity_semester">SemesterActivity</string>
+    <string name="title_activity_class">ClassActivity</string>
+    <string name="title_activity_assignment">AssignmentActivity</string>
+    <string name="title_activity_new_class">NewClassActivity</string>
 </resources>
