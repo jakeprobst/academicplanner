@@ -69,7 +69,7 @@ public class ClassDataManager {
         return classcache.get(id);
     }
 
-    public static ArrayList<ClassModel> getByIDs(ArrayList<Integer> ids) {
+    public static ArrayList<ClassModel> getClassesByIDs(ArrayList<Integer> ids) {
         ArrayList<ClassModel> classlist = new ArrayList<>();
         for(Integer id: ids) {
             classlist.add(getClassById(id));

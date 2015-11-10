@@ -26,7 +26,7 @@ public class SemesterActivity extends AppCompatActivity {
 
         SemesterModel semesterModel = SemesterDataManager.getCurrentSemester();
         setTitle(semesterModel.getName());
-        classlist = ClassDataManager.getByIDs(semesterModel.getClasses());
+        classlist = ClassDataManager.getClassesByIDs(semesterModel.getClasses());
         classInfoAdapter = new ClassInformationAdapter(this, classlist);
 
         ListView classSelection = (ListView) findViewById(R.id.class_list);
@@ -51,6 +51,7 @@ public class SemesterActivity extends AppCompatActivity {
         //SemesterModel semesterModel = new SemesterModel(getApplicationContext());
         SemesterDataManager.initialize(this);
         ClassDataManager.initialize(this);
+        AssignmentDataManager.initialize(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
