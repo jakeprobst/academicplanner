@@ -28,7 +28,8 @@ public class ClassActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ClassActivity.this, AssignmentActivity.class);
-                intent.putExtra("classname",getTitle());
+                intent.putExtra("classid", classmodel.getId());
+                intent.putExtra("assignmentid", -1);
                 startActivity(intent);
                 finish();
             }
