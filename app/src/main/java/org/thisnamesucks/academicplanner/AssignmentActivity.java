@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Toast;
 
 public class AssignmentActivity extends AppCompatActivity {
+    ClassModel classModel;
+    AssignmentModel assignmentModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +20,16 @@ public class AssignmentActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final String parentName = getIntent().getExtras().getString("classname");
+        final int classId = getIntent().getExtras().getInt("classid");
+        int assignmentId = getIntent().getExtras().getInt("assignmentid");
+        classModel = ClassDataManager.getClassById(classId);
+        if (assignmentId == -1) {
+            assignmentModel = new AssignmentModel();
+        }
+        else {
+            assignmentModel = AssignmentDataManager.getAssignmentById(assignmentId);
+        }
+        //setTitle(assignmentModel.getName());
         setTitle("Assignment");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -27,7 +38,7 @@ public class AssignmentActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Toast.makeText(AssignmentActivity.this, "Assignment Saved!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(AssignmentActivity.this, ClassActivity.class);
-                intent.putExtra("classname",parentName);
+                intent.putExtra("classid", classId);
                 startActivity(intent);
                 finish();
             }
