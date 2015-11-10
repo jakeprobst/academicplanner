@@ -25,9 +25,12 @@ public class SemesterActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        SemesterModel semesterModel = new SemesterModel(getApplicationContext());
+        //SemesterModel semesterModel = new SemesterModel(getApplicationContext());
+        SemesterDataManager.initialize(this);
+        ClassDataManager.initialize(this);
+        SemesterModel semesterModel = SemesterDataManager.getCurrentSemester();
         setTitle(semesterModel.getName());
-        classInfoAdapter = new ClassInformationAdapter(this, semesterModel.getClasses());
+        classInfoAdapter = new ClassInformationAdapter(this, ClassDataManager.getByIDs(semesterModel.getClasses()));
 
         ListView classSelection = (ListView) findViewById(R.id.class_list);
         classSelection.setAdapter(classInfoAdapter);
@@ -35,7 +38,7 @@ public class SemesterActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(SemesterActivity.this, ClassActivity.class);
-                intent.putExtra("classname", ((ClassModel)parent.getItemAtPosition(position)).name);
+                intent.putExtra("classname", ((ClassModel) parent.getItemAtPosition(position)).getName());
                 startActivity(intent);
             }
         });

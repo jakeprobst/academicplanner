@@ -36,12 +36,12 @@ public class ClassInformationAdapter extends BaseAdapter {
 
         TextView text;
         text = (TextView) classRow.findViewById(R.id.class_name);
-        text.setText(classList.get(pos).name);
+        text.setText(classList.get(pos).getName());
         text = (TextView) classRow.findViewById(R.id.class_id);
-        text.setText(classList.get(pos).id);
+        text.setText(classList.get(pos).getShortName());
         text = (TextView) classRow.findViewById(R.id.class_score);
-        text.setText(Integer.toString(classList.get(pos).currentScore));
-        double grade = 1.0*classList.get(pos).currentScore/classList.get(pos).totalScore;
+        text.setText(Integer.toString(classList.get(pos).getCurrentScore()));
+        double grade = 1.0*classList.get(pos).getCurrentScore()/classList.get(pos).getTotalScore();
 
         if (grade > .9) {
             text.setTextColor(Color.rgb(0, 0xDD, 0));
@@ -60,7 +60,7 @@ public class ClassInformationAdapter extends BaseAdapter {
         }
 
         text = (TextView) classRow.findViewById(R.id.class_total_score);
-        text.setText(Integer.toString(classList.get(pos).totalScore));
+        text.setText(Integer.toString(classList.get(pos).getTotalScore()));
 
         return classRow;
     }
