@@ -11,6 +11,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 public class ClassActivity extends AppCompatActivity {
+    ClassModel classmodel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,13 +20,13 @@ public class ClassActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        setTitle(getIntent().getExtras().getString("classname"));
+        classmodel = ClassDataManager.getClassById(getIntent().getExtras().getInt("classid"));
+        setTitle(classmodel.getName());
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // show add new class activity
                 Intent intent = new Intent(ClassActivity.this, AssignmentActivity.class);
                 intent.putExtra("classname",getTitle());
                 startActivity(intent);

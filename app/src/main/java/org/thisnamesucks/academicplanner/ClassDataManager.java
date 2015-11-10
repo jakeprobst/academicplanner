@@ -13,7 +13,7 @@ public class ClassDataManager {
     private static Context ctx;
     private static ClassDataManagerJSON datastore;
     //private static ArrayList<ClassModel> classes = new ArrayList<>();
-    //private static Map<Integer, ClassModel> classes = new HashMap<>();
+    private static Map<Integer, ClassModel> classcache = new HashMap<>();
 
     public static void makeTestData() {
         ClassModel cs = new ClassModel();
@@ -54,12 +54,19 @@ public class ClassDataManager {
         //datastore.writeClassData();
     }
 
+    public static void writeClassData(ClassModel classdata) {
+        datastore.writeClassData(classdata);
+    }
+
 
     public static ClassModel getClassById(int id) {
         // set a sort of write-callback?
         // like, in the setters call a function I set here?
         // or just save things manually that might just be easier
-        return datastore.getClassData(id);
+        if (!classcache.containsKey(id)){
+            classcache.put(id, datastore.getClassById(id));
+        }
+        return classcache.get(id);
     }
 
     public static ArrayList<ClassModel> getByIDs(ArrayList<Integer> ids) {
