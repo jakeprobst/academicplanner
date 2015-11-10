@@ -27,7 +27,7 @@ public class SemesterDataManagerJSON {
     }
 
     private String getFilePath(int id) {
-        return Integer.toString(id) + ".json";
+        return Integer.toString(id);
     }
 
     /*public ArrayList<SemesterModel> getSemesterData() {

@@ -19,7 +19,7 @@ public class ClassDataManagerJSON {
     }
 
     private String getFilePath(int id) {
-        return Integer.toString(id) + ".json";
+        return Integer.toString(id);
     }
 
     /*public ArrayList<ClassModel> getClassData() {
