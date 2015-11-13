@@ -20,6 +20,7 @@ public class AssignmentDataManager {
 
         as.setId(21);
         as.setName("Project 1");
+        as.setDue("Whenever");
         as.setCurrentScore(100);
         as.setTotalScore(120);
         datastore.writeAssignmentData(as);
@@ -28,8 +29,27 @@ public class AssignmentDataManager {
 
         as.setId(22);
         as.setName("Exam");
+        as.setDue("Tomorrow at 6am, have fun studying!");
         as.setCurrentScore(0);
         as.setTotalScore(100);
+        datastore.writeAssignmentData(as);
+
+        as = new AssignmentModel();
+
+        as.setId(25);
+        as.setName("Essay");
+        as.setDue("This coming Wednesday");
+        as.setCurrentScore(50);
+        as.setTotalScore(50);
+        datastore.writeAssignmentData(as);
+
+        as = new AssignmentModel();
+
+        as.setId(27);
+        as.setName("Lab");
+        as.setDue("Yesterday, it is late!");
+        as.setCurrentScore(0);
+        as.setTotalScore(5000);
         datastore.writeAssignmentData(as);
     }
 

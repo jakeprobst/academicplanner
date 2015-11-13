@@ -12,7 +12,7 @@ import android.widget.EditText;
 public class NewClassActivity extends AppCompatActivity {
 
     private int createNewClass() {
-        long timestamp = System.currentTimeMillis() / 1000L;
+        long timestamp = System.currentTimeMillis();
 
         EditText name_entry = (EditText) findViewById(R.id.new_class_name_entry);
         EditText id_entry = (EditText) findViewById(R.id.new_class_id_entry);

@@ -32,6 +32,7 @@ public class ClassActivity extends AppCompatActivity {
                 intent.putExtra("assignmentid", ((AssignmentModel) parent.getItemAtPosition(position)).getId());
                 intent.putExtra("classid", classmodel.getId());
                 startActivity(intent);
+                finish();
             }
         });
     }
@@ -54,6 +55,7 @@ public class ClassActivity extends AppCompatActivity {
                 intent.putExtra("classid", classmodel.getId());
                 intent.putExtra("assignmentid", -1);
                 startActivity(intent);
+                finish();
             }
         });
     }

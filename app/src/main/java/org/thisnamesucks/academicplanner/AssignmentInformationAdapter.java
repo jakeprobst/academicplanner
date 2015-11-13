@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class AssignmentInformationAdapter extends BaseAdapter {
 
     Context context;
-    ArrayList<AssignmentModel> assignmentList;
+    ArrayList<AssignmentModel> assignmentList = new ArrayList<AssignmentModel>();
 
 
     public AssignmentInformationAdapter(Context c, ArrayList<AssignmentModel> cl) {
@@ -33,7 +33,7 @@ public class AssignmentInformationAdapter extends BaseAdapter {
     @Override
     public View getView(int pos, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-        View classRow = inflater.inflate(R.layout.class_information_layout, parent, false);
+        View classRow = inflater.inflate(R.layout.assignment_information_layout, parent, false);
 
         TextView text;
         text = (TextView) classRow.findViewById(R.id.assignment_name);

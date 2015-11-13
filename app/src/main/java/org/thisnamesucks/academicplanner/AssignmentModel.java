@@ -7,22 +7,22 @@ import com.google.gson.annotations.SerializedName;
  */
 public class AssignmentModel {
     @SerializedName("id")
-    private int id;
+    private int id = 0;
 
     @SerializedName("totalScore")
-    private int totalScore;
+    private int totalScore = 0;
 
     @SerializedName("currentScore")
-    private int currentScore;
+    private int currentScore = 0;
 
     @SerializedName("name")
-    private String name;
+    private String name = "";
 
     @SerializedName("due")
-    private String due;
+    private String due = "";
 
     public String getDue() {
-        return due;
+        return this.due;
     }
 
     public void setDue(String due) {
@@ -33,7 +33,7 @@ public class AssignmentModel {
 
     public void setName(String name) {this.name = name;}
 
-    public int getId() {return id;}
+    public int getId() {return this.id;}
 
     public void setId(int id) {this.id = id;}
 
@@ -46,7 +46,7 @@ public class AssignmentModel {
     }
 
     public int getCurrentScore() {
-        return currentScore;
+        return this.currentScore;
     }
 
     public void setCurrentScore(int currentScore) {

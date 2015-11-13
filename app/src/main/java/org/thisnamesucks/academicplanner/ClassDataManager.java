@@ -33,6 +33,7 @@ public class ClassDataManager {
         cs.setShortName("CS 370");
         cs.setCurrentScore(120);
         cs.setTotalScore(170);
+        cs.getAssignments().add(25);
         datastore.writeClassData(cs);
 
         cs = new ClassModel();
@@ -41,6 +42,7 @@ public class ClassDataManager {
         cs.setShortName("CS 351");
         cs.setCurrentScore(10);
         cs.setTotalScore(100);
+        cs.getAssignments().add(27);
         datastore.writeClassData(cs);
     }
 
