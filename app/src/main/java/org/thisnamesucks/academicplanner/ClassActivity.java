@@ -3,15 +3,38 @@ package org.thisnamesucks.academicplanner;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import java.util.ArrayList;
 
 public class ClassActivity extends AppCompatActivity {
     ClassModel classmodel;
+    ArrayList<AssignmentModel> assignmentList;
+    AssignmentInformationAdapter assignmentInfoAdapter;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        classmodel = ClassDataManager.getClassById(getIntent().getExtras().getInt("classid"));
+        assignmentList = AssignmentDataManager.getAssignmentsByIds(classmodel.getAssignments());
+        assignmentInfoAdapter = new AssignmentInformationAdapter(this, assignmentList);
+
+        ListView assignmentSelection = (ListView) findViewById(R.id.class_list);
+        assignmentSelection.setAdapter(assignmentInfoAdapter);
+        assignmentSelection.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(ClassActivity.this, AssignmentActivity.class);
+                intent.putExtra("assignmentid", ((AssignmentModel) parent.getItemAtPosition(position)).getId());
+                intent.putExtra("classid", classmodel.getId());
+                startActivity(intent);
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +54,6 @@ public class ClassActivity extends AppCompatActivity {
                 intent.putExtra("classid", classmodel.getId());
                 intent.putExtra("assignmentid", -1);
                 startActivity(intent);
-                finish();
             }
         });
     }

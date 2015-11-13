@@ -16,6 +16,21 @@ public class AssignmentDataManager {
     private static Map<Integer, AssignmentModel> assignmentcache = new HashMap<>();
 
     public static void makeTestData() {
+        AssignmentModel as = new AssignmentModel();
+
+        as.setId(21);
+        as.setName("Project 1");
+        as.setCurrentScore(100);
+        as.setTotalScore(120);
+        datastore.writeAssignmentData(as);
+
+        as = new AssignmentModel();
+
+        as.setId(22);
+        as.setName("Exam");
+        as.setCurrentScore(0);
+        as.setTotalScore(100);
+        datastore.writeAssignmentData(as);
     }
 
     public static void initialize(Context ctx) {

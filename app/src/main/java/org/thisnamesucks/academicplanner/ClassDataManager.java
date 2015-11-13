@@ -17,11 +17,14 @@ public class ClassDataManager {
 
     public static void makeTestData() {
         ClassModel cs = new ClassModel();
+
         cs.setId(11);
         cs.setName("Data Structures");
         cs.setShortName("CS 315");
         cs.setCurrentScore(100);
         cs.setTotalScore(120);
+        cs.getAssignments().add(21);
+        cs.getAssignments().add(22);
         datastore.writeClassData(cs);
 
         cs = new ClassModel();
@@ -46,13 +49,11 @@ public class ClassDataManager {
         ClassDataManager.datastore = new ClassDataManagerJSON(ctx);
 
         makeTestData();
-
-        //classes = datastore.getClassData();
     }
 
-    public static void writeData() {
-        //datastore.writeClassData();
-    }
+    //public static void writeData(ClassModel classdata) {
+    //    datastore.writeClassData(classdata);
+    //}
 
     public static void writeClassData(ClassModel classdata) {
         datastore.writeClassData(classdata);

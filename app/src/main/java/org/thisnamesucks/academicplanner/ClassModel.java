@@ -2,6 +2,8 @@ package org.thisnamesucks.academicplanner;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 /**
  * Created by jake on 10/29/15.
  */
@@ -16,14 +18,20 @@ public class ClassModel {
     private int currentScore;
     @SerializedName("totalscore")
     private int totalScore;
+    @SerializedName("assignmentList")
+    private ArrayList<Integer> assignmentList = new ArrayList<>();
 
-    public int getId() {
-        return id;
+    public ArrayList<Integer> getAssignments() {
+        return assignmentList;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setAssignments(ArrayList<Integer> assignmentList) {
+        this.assignmentList = assignmentList;
     }
+
+    public int getId() {return id;}
+
+    public void setId(int id) {this.id = id;}
 
     public String getName() {
         return name;

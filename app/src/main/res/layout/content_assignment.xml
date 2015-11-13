@@ -10,4 +10,17 @@
     tools:showIn="@layout/activity_assignment"
     tools:context="org.thisnamesucks.academicplanner.AssignmentActivity">
 
+    <EditText
+        android:id="@+id/assignment_name_entry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Assignment Name"/>
+
+    <EditText
+        android:id="@+id/assignment_due"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/assignment_name_entry"
+        android:hint="Assignment Due Date"/>
+
 </RelativeLayout>
