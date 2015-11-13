@@ -56,9 +56,6 @@ public class AssignmentActivity extends AppCompatActivity {
             public void onClick(View view) {
                 saveAssignment(assignmentId);
                 Toast.makeText(AssignmentActivity.this, "Assignment Saved!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(AssignmentActivity.this, ClassActivity.class);
-                intent.putExtra("classid", classId);
-                startActivity(intent);
                 finish();
             }
         });

@@ -8,6 +8,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class ClassActivity extends AppCompatActivity {
@@ -23,6 +27,13 @@ public class ClassActivity extends AppCompatActivity {
         assignmentList = AssignmentDataManager.getAssignmentsByIds(classmodel.getAssignments());
         assignmentInfoAdapter = new AssignmentInformationAdapter(this, assignmentList);
 
+        //Create empty assignment list notice
+        if(assignmentList.isEmpty())
+        {
+            TextView view = (TextView) this.findViewById(R.id.empty_notice);
+            view.setVisibility(view.VISIBLE);
+        }
+
         ListView assignmentSelection = (ListView) findViewById(R.id.class_list);
         assignmentSelection.setAdapter(assignmentInfoAdapter);
         assignmentSelection.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -32,7 +43,6 @@ public class ClassActivity extends AppCompatActivity {
                 intent.putExtra("assignmentid", ((AssignmentModel) parent.getItemAtPosition(position)).getId());
                 intent.putExtra("classid", classmodel.getId());
                 startActivity(intent);
-                finish();
             }
         });
     }
@@ -55,7 +65,6 @@ public class ClassActivity extends AppCompatActivity {
                 intent.putExtra("classid", classmodel.getId());
                 intent.putExtra("assignmentid", -1);
                 startActivity(intent);
-                finish();
             }
         });
     }
