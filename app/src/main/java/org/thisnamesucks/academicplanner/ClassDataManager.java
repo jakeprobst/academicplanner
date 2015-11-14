@@ -21,8 +21,8 @@ public class ClassDataManager {
         cs.setId(11);
         cs.setName("Data Structures");
         cs.setShortName("CS 315");
-        cs.setCurrentScore(100);
-        cs.setTotalScore(120);
+        cs.setCurrentScore(175);
+        cs.setTotalScore(220);
         cs.getAssignments().add(21);
         cs.getAssignments().add(22);
         datastore.writeClassData(cs);
@@ -31,8 +31,8 @@ public class ClassDataManager {
         cs.setId(12);
         cs.setName("Software Development");
         cs.setShortName("CS 370");
-        cs.setCurrentScore(120);
-        cs.setTotalScore(170);
+        cs.setCurrentScore(50);
+        cs.setTotalScore(50);
         cs.getAssignments().add(25);
         datastore.writeClassData(cs);
 
@@ -40,7 +40,7 @@ public class ClassDataManager {
         cs.setId(13);
         cs.setName("Computer Architecture");
         cs.setShortName("CS 351");
-        cs.setCurrentScore(10);
+        cs.setCurrentScore(80);
         cs.setTotalScore(100);
         cs.getAssignments().add(27);
         datastore.writeClassData(cs);
