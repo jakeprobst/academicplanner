@@ -35,32 +35,41 @@ public class ClassInformationAdapter extends BaseAdapter {
         View classRow = inflater.inflate(R.layout.class_information_layout, parent, false);
 
         TextView text;
+        ClassModel classItem = classList.get(pos);
+
         text = (TextView) classRow.findViewById(R.id.class_name);
-        text.setText(classList.get(pos).getName());
+        text.setText(classItem.getName());
         text = (TextView) classRow.findViewById(R.id.class_id);
-        text.setText(classList.get(pos).getShortName());
-        text = (TextView) classRow.findViewById(R.id.class_score);
-        text.setText(Integer.toString(classList.get(pos).getCurrentScore()));
-        double grade = 1.0*classList.get(pos).getCurrentScore()/classList.get(pos).getTotalScore();
+        text.setText(classItem.getShortName());
 
-        if (grade > .9) {
-            text.setTextColor(Color.rgb(0, 0xDD, 0));
-        }
-        else if (grade > .8) {
-            text.setTextColor(Color.rgb(0x22, 0xCC, 0));
-        }
-        else if (grade > .7) {
-            text.setTextColor(Color.rgb(0x99, 0xBB, 0));
-        }
-        else if (grade > .6) {
-            text.setTextColor(Color.rgb(0xDD, 0, 0));
-        }
-        else {
-            text.setTextColor(Color.rgb(0xFF, 0, 0));
-        }
+        if(classItem.getTotalScore() > 0) {
+            text = (TextView) classRow.findViewById(R.id.class_score);
+            text.setText(Integer.toString(classItem.getCurrentScore()));
+            double grade = 1.0 *classItem.getCurrentScore() / classItem.getTotalScore();
 
-        text = (TextView) classRow.findViewById(R.id.class_total_score);
-        text.setText(Integer.toString(classList.get(pos).getTotalScore()));
+            if (grade > .9) {
+                text.setTextColor(Color.rgb(0, 0xDD, 0));
+            } else if (grade > .8) {
+                text.setTextColor(Color.rgb(0x22, 0xCC, 0));
+            } else if (grade > .7) {
+                text.setTextColor(Color.rgb(0x99, 0xBB, 0));
+            } else if (grade > .6) {
+                text.setTextColor(Color.rgb(0xDD, 0, 0));
+            } else {
+                text.setTextColor(Color.rgb(0xFF, 0, 0));
+            }
+
+            text = (TextView) classRow.findViewById(R.id.class_total_score);
+            text.setText(Integer.toString(classItem.getTotalScore()));
+        }
+        else{
+            text = (TextView) classRow.findViewById(R.id.score_slash);
+
+            if(classItem.getCurrentScore() == 0)
+                text.setText("No Scores Set");
+            else
+                text.setText("Current points: " + Integer.toString(classItem.getCurrentScore()));
+        }
 
         return classRow;
     }

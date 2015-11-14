@@ -41,13 +41,7 @@ public class AssignmentActivity extends AppCompatActivity {
 
             assignmentModel = AssignmentDataManager.getAssignmentById(assignmentId);
 
-            TextView text;
-            text = (TextView) this.findViewById(R.id.assignment_name_entry);
-            text.setText(assignmentModel.getName());
-            text = (TextView) this.findViewById(R.id.assignment_due);
-            text.setText(assignmentModel.getDue());
-
-            setTitle(assignmentModel.getName());
+            updateAssignmentView(assignmentModel);
         }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -67,27 +61,78 @@ public class AssignmentActivity extends AppCompatActivity {
         {
             long timestamp = System.currentTimeMillis();
 
-            EditText name_entry = (EditText) findViewById(R.id.assignment_name_entry);
-            EditText date_entry = (EditText) findViewById(R.id.assignment_due);
-
             AssignmentModel model = new AssignmentModel();
             model.setId((int) timestamp); // panic in 23 years
-            model.setName(name_entry.getText().toString());
-            model.setDue(date_entry.getText().toString());
+
+            updateAssignmentModel(model);
             AssignmentDataManager.writeData(model);
             classModel.getAssignments().add((int) timestamp);
             ClassDataManager.writeClassData(classModel);
         }
         else //Otherwise change current values
         {
-            EditText name_entry = (EditText) findViewById(R.id.assignment_name_entry);
-            EditText date_entry = (EditText) findViewById(R.id.assignment_due);
-
             AssignmentModel model = AssignmentDataManager.getAssignmentById(id);
-            model.setName(name_entry.getText().toString());
-            model.setDue(date_entry.getText().toString());
+
+            updateAssignmentModel(model);
+
             AssignmentDataManager.writeData(model);
             ClassDataManager.writeClassData(classModel);
+        }
+    }
+
+    private  void updateAssignmentView(AssignmentModel model)
+    {
+        String name = model.getName();
+        String dueDate = model.getDue();
+        Integer score = model.getCurrentScore();
+        Integer total = model.getTotalScore();
+
+        TextView text;
+        text = (TextView) this.findViewById(R.id.assignment_name_entry);
+        text.setText(name);
+        text = (TextView) this.findViewById(R.id.assignment_due_entry);
+        text.setText(dueDate);
+        text = (TextView) this.findViewById(R.id.assignment_score_entry);
+        text.setText(score.toString());
+
+        if(total != 0)
+        {
+            text = (TextView) this.findViewById(R.id.assignment_total_score_entry);
+            text.setText(total.toString());
+        }
+
+        setTitle(model.getName());
+    }
+
+    private void updateAssignmentModel(AssignmentModel model)
+    {
+        EditText name_entry = (EditText) this.findViewById(R.id.assignment_name_entry);
+        EditText date_entry = (EditText) findViewById(R.id.assignment_due_entry);
+        EditText score_entry = (EditText) findViewById(R.id.assignment_score_entry);
+        EditText total_entry = (EditText) findViewById(R.id.assignment_total_score_entry);
+
+        model.setName(name_entry.getText().toString());
+        model.setDue(date_entry.getText().toString());
+
+        String score = score_entry.getText().toString();
+        String total = total_entry.getText().toString();
+
+        if(score.isEmpty())
+        {
+            model.setCurrentScore(0);
+        }
+        else
+        {
+            model.setCurrentScore(Integer.parseInt(score));
+        }
+
+        if(total.isEmpty())
+        {
+            model.setTotalScore(0);
+        }
+        else
+        {
+            model.setTotalScore(Integer.parseInt(total));
         }
     }
 }

@@ -24,6 +24,8 @@ public class ClassActivity extends AppCompatActivity {
         super.onResume();
 
         classmodel = ClassDataManager.getClassById(getIntent().getExtras().getInt("classid"));
+        updateScores(classmodel);
+
         assignmentList = AssignmentDataManager.getAssignmentsByIds(classmodel.getAssignments());
         assignmentInfoAdapter = new AssignmentInformationAdapter(this, assignmentList);
 
@@ -32,6 +34,11 @@ public class ClassActivity extends AppCompatActivity {
         {
             TextView view = (TextView) this.findViewById(R.id.empty_notice);
             view.setVisibility(view.VISIBLE);
+        }
+        else
+        {
+            TextView view = (TextView) this.findViewById(R.id.empty_notice);
+            view.setVisibility(view.INVISIBLE);
         }
 
         ListView assignmentSelection = (ListView) findViewById(R.id.class_list);
@@ -67,5 +74,22 @@ public class ClassActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private  void updateScores(ClassModel thisClass)
+    {
+        int curScore = 0;
+        int totScore = 0;
+        AssignmentModel tmp;
+        AssignmentDataManager data = new AssignmentDataManager();
+
+        for(Integer id: thisClass.getAssignments()) {
+            tmp = data.getAssignmentById(id);
+            curScore += tmp.getCurrentScore();
+            totScore += tmp.getTotalScore();
+        }
+
+        thisClass.setCurrentScore(curScore);
+        thisClass.setTotalScore(totScore);
     }
 }

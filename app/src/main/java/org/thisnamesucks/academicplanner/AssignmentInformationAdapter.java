@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class AssignmentInformationAdapter extends BaseAdapter {
 
     Context context;
-    ArrayList<AssignmentModel> assignmentList = new ArrayList<AssignmentModel>();
+    ArrayList<AssignmentModel> assignmentList = new ArrayList<>();
 
 
     public AssignmentInformationAdapter(Context c, ArrayList<AssignmentModel> cl) {
@@ -33,38 +33,51 @@ public class AssignmentInformationAdapter extends BaseAdapter {
     @Override
     public View getView(int pos, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-        View classRow = inflater.inflate(R.layout.assignment_information_layout, parent, false);
+        View assignmentRow = inflater.inflate(R.layout.assignment_information_layout, parent, false);
 
         TextView text;
-        text = (TextView) classRow.findViewById(R.id.assignment_name);
+
+        text = (TextView) assignmentRow.findViewById(R.id.assignment_name);
         Log.d("pos", Integer.toString(pos));
         Log.d("list", assignmentList.toString());
-        text.setText(assignmentList.get(pos).getName());
 
-        text = (TextView) classRow.findViewById(R.id.assignment_score);
-        text.setText(Integer.toString(assignmentList.get(pos).getCurrentScore()));
-        double grade = 1.0*assignmentList.get(pos).getCurrentScore()/assignmentList.get(pos).getTotalScore();
+        AssignmentModel assignment = assignmentList.get(pos);
+        text.setText(assignment.getName());
 
-        if (grade > .9) {
-            text.setTextColor(Color.rgb(0, 0xDD, 0));
+        if(assignment.getTotalScore() > 0) {
+            text = (TextView) assignmentRow.findViewById(R.id.assignment_score);
+            text.setText(Integer.toString(assignment.getCurrentScore()));
+            double grade = 1.0*assignment.getCurrentScore()/assignment.getTotalScore();
+
+            if (grade > .9) {
+                text.setTextColor(Color.rgb(0, 0xDD, 0));
+            }
+            else if (grade > .8) {
+                text.setTextColor(Color.rgb(0x22, 0xCC, 0));
+            }
+            else if (grade > .7) {
+                text.setTextColor(Color.rgb(0x99, 0xBB, 0));
+            }
+            else if (grade > .6) {
+                text.setTextColor(Color.rgb(0xDD, 0, 0));
+            }
+            else {
+                text.setTextColor(Color.rgb(0xFF, 0, 0));
+            }
+
+            text = (TextView) assignmentRow.findViewById(R.id.assignment_total_score);
+            text.setText(Integer.toString(assignment.getTotalScore()));
         }
-        else if (grade > .8) {
-            text.setTextColor(Color.rgb(0x22, 0xCC, 0));
-        }
-        else if (grade > .7) {
-            text.setTextColor(Color.rgb(0x99, 0xBB, 0));
-        }
-        else if (grade > .6) {
-            text.setTextColor(Color.rgb(0xDD, 0, 0));
-        }
-        else {
-            text.setTextColor(Color.rgb(0xFF, 0, 0));
+        else{
+            text = (TextView) assignmentRow.findViewById(R.id.score_slash);
+
+            if(assignment.getCurrentScore() == 0)
+                text.setText("No Score Set");
+            else
+                text.setText("Current score: " + Integer.toString(assignment.getCurrentScore()));
         }
 
-        text = (TextView) classRow.findViewById(R.id.assignment_total_score);
-        text.setText(Integer.toString(assignmentList.get(pos).getTotalScore()));
-
-        return classRow;
+        return assignmentRow;
     }
 
     @Override
