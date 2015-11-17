@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by jake on 11/9/15.
+ * Created by jake on 11/9/15. Updated by Carlos 11/13/15.
  */
 public class ClassDataManager {
     private static Context ctx;
@@ -53,7 +53,7 @@ public class ClassDataManager {
         makeTestData();
     }
 
-    //public static void writeData(ClassModel classdata) {
+    //public static void writeAssignmentData(ClassModel classdata) {
     //    datastore.writeClassData(classdata);
     //}
 
@@ -61,6 +61,7 @@ public class ClassDataManager {
         datastore.writeClassData(classdata);
     }
 
+    public static void deleteClassData(ClassModel model) { datastore.removeClassData(model.getId());}
 
     public static ClassModel getClassById(int id) {
         // set a sort of write-callback?
@@ -73,14 +74,32 @@ public class ClassDataManager {
     }
 
     public static ArrayList<ClassModel> getClassesByIDs(ArrayList<Integer> ids) {
-        ArrayList<ClassModel> classlist = new ArrayList<>();
+        ArrayList<ClassModel> classList = new ArrayList<>();
         for(Integer id: ids) {
-            classlist.add(getClassById(id));
+            classList.add(getClassById(id));
         }
-        return classlist;
+        return classList;
     }
 
 
+    public static void removeClassData(int classID)
+    {
+        Util.removeFile(ctx,Integer.toString(classID));
+    }
 
+    public static void updateScores(ClassModel model)
+    {
+        int curScore = 0;
+        int totScore = 0;
+        AssignmentModel tmp;
 
+        for(Integer id: model.getAssignments()) {
+            tmp = AssignmentDataManager.getAssignmentById(id);
+            curScore += tmp.getCurrentScore();
+            totScore += tmp.getTotalScore();
+        }
+
+        model.setCurrentScore(curScore);
+        model.setTotalScore(totScore);
+    }
 }

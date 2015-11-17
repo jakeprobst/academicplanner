@@ -45,26 +45,24 @@ public class AssignmentInformationAdapter extends BaseAdapter {
         text.setText(assignment.getName());
 
         if(assignment.getTotalScore() > 0) {
-            text = (TextView) assignmentRow.findViewById(R.id.assignment_score);
-            text.setText(Integer.toString(assignment.getCurrentScore()));
-            double grade = 1.0*assignment.getCurrentScore()/assignment.getTotalScore();
+            text = (TextView) assignmentRow.findViewById(R.id.assignment_percent);
+            int grade = (100*assignment.getCurrentScore()) / assignment.getTotalScore();
 
-            if (grade > .9) {
+            if (grade > 90) {
                 text.setTextColor(Color.rgb(0, 0xDD, 0));
-            }
-            else if (grade > .8) {
+            } else if (grade > 80) {
                 text.setTextColor(Color.rgb(0x22, 0xCC, 0));
-            }
-            else if (grade > .7) {
+            } else if (grade > 70) {
                 text.setTextColor(Color.rgb(0x99, 0xBB, 0));
-            }
-            else if (grade > .6) {
+            } else if (grade > 60) {
                 text.setTextColor(Color.rgb(0xDD, 0, 0));
-            }
-            else {
+            } else {
                 text.setTextColor(Color.rgb(0xFF, 0, 0));
             }
+            text.setText(Integer.toString(grade) + "%");
 
+            text = (TextView) assignmentRow.findViewById(R.id.assignment_score);
+            text.setText(Integer.toString(assignment.getCurrentScore()));
             text = (TextView) assignmentRow.findViewById(R.id.assignment_total_score);
             text.setText(Integer.toString(assignment.getTotalScore()));
         }

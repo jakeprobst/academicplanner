@@ -6,7 +6,7 @@
         android:id="@+id/assignment_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
+        android:textSize="20sp"
         />
 
     <TextView
@@ -16,6 +16,7 @@
         android:layout_below="@+id/assignment_name"
         android:textSize="14sp"
         />
+
     <TextView
         android:id="@+id/assignment_score"
         android:layout_width="wrap_content"
@@ -40,6 +41,14 @@
         android:layout_below="@+id/assignment_name"
         android:layout_alignParentRight="true"
         android:textSize="16sp"
+        />
+    <TextView
+        android:id="@+id/assignment_percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/score_slash"
+        android:layout_alignParentRight="true"
+        android:textSize="18sp"
         />
 
 </RelativeLayout>

@@ -2,6 +2,8 @@ package org.thisnamesucks.academicplanner;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.sql.Date;
+
 /**
  * Created by jake on 11/10/15.
  */
@@ -20,6 +22,24 @@ public class AssignmentModel {
 
     @SerializedName("due")
     private String due = "";
+
+    public  AssignmentModel()
+    {
+        id = 0;
+        totalScore = 0;
+        currentScore = 0;
+        name = "";
+        due = "";
+    }
+
+    public AssignmentModel (int id)
+    {
+        this.id = id;
+        totalScore = 0;
+        currentScore = 0;
+        name = "";
+        due = "";
+    }
 
     public String getDue() {
         return this.due;

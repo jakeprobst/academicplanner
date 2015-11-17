@@ -22,6 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/assignment_name_entry"
+        android:inputType="datetime"
         android:hint="Enter Due Date" />
 
     <EditText

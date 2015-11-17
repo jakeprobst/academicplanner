@@ -43,24 +43,28 @@ public class ClassInformationAdapter extends BaseAdapter {
         text.setText(classItem.getShortName());
 
         if(classItem.getTotalScore() > 0) {
-            text = (TextView) classRow.findViewById(R.id.class_score);
-            text.setText(Integer.toString(classItem.getCurrentScore()));
-            double grade = 1.0 *classItem.getCurrentScore() / classItem.getTotalScore();
 
-            if (grade > .9) {
+            text = (TextView) classRow.findViewById(R.id.class_percent);
+            int grade = (100*classItem.getCurrentScore()) / classItem.getTotalScore();
+
+            if (grade > 90) {
                 text.setTextColor(Color.rgb(0, 0xDD, 0));
-            } else if (grade > .8) {
+            } else if (grade > 80) {
                 text.setTextColor(Color.rgb(0x22, 0xCC, 0));
-            } else if (grade > .7) {
+            } else if (grade > 70) {
                 text.setTextColor(Color.rgb(0x99, 0xBB, 0));
-            } else if (grade > .6) {
+            } else if (grade > 60) {
                 text.setTextColor(Color.rgb(0xDD, 0, 0));
             } else {
                 text.setTextColor(Color.rgb(0xFF, 0, 0));
             }
+            text.setText(Integer.toString(grade) + "%");
 
+            text = (TextView) classRow.findViewById(R.id.class_score);
+            text.setText(Integer.toString(classItem.getCurrentScore()));
             text = (TextView) classRow.findViewById(R.id.class_total_score);
             text.setText(Integer.toString(classItem.getTotalScore()));
+
         }
         else{
             text = (TextView) classRow.findViewById(R.id.score_slash);

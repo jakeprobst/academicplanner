@@ -2,7 +2,9 @@ package org.thisnamesucks.academicplanner;
 
 import android.content.Context;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,7 +49,7 @@ public class AssignmentDataManager {
 
         as.setId(27);
         as.setName("Lab");
-        as.setDue("Yesterday, it is late!");
+        as.setDue("Edge of tommorow");
         as.setCurrentScore(80);
         as.setTotalScore(100);
         datastore.writeAssignmentData(as);
@@ -60,7 +62,7 @@ public class AssignmentDataManager {
         makeTestData();
     }
 
-    public static void writeData(AssignmentModel assignment) {
+    public static void writeAssignmentData(AssignmentModel assignment) {
         datastore.writeAssignmentData(assignment);
     }
 
@@ -69,6 +71,23 @@ public class AssignmentDataManager {
             assignmentcache.put(id, datastore.getAssignmentById(id));
         }
         return assignmentcache.get(id);
+    }
+
+    public static void removeAssignmentData(int assignmentID)
+    {
+        Util.removeFile(ctx,Integer.toString(assignmentID));
+    }
+
+    public static AssignmentModel duplicateAssignmentData(AssignmentModel original, int newId)
+    {
+        AssignmentModel copy = new AssignmentModel(newId);
+
+        copy.setName(original.getName());
+        copy.setDue(original.getDue());
+        copy.setCurrentScore(original.getCurrentScore());
+        copy.setTotalScore(original.getTotalScore());
+
+        return copy;
     }
 
     public static ArrayList<AssignmentModel> getAssignmentsByIds(ArrayList<Integer> ids) {
