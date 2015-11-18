@@ -32,4 +32,9 @@ public class AssignmentDataManagerJSON {
         Log.d("to file", json);
         Util.writeToFile(ctx, getFilePath(assignment.getId()), json);
     }
+
+    public void removeAssignmentData(int assignmentID)
+    {
+        Util.removeFile(ctx, Integer.toString(assignmentID));
+    }
 }

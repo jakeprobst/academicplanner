@@ -40,4 +40,9 @@ public class ClassDataManagerJSON {
         Log.d("class to file", json);
         Util.writeToFile(ctx, getFilePath(classdata.getId()), json);
     }
+
+    public void removeClassData(int classID)
+    {
+        Util.removeFile(ctx,Integer.toString(classID));
+    }
 }

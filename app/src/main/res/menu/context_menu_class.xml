@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/delete"
+        android:title="Delete"
+        android:titleCondensed="Delete"
+    android:alphabeticShortcut="string"
+    android:numericShortcut="string"
+    android:visible="true"
+    android:enabled="true" />
+
+    <item android:id="@+id/duplicate"
+        android:title="Duplicate"
+        android:titleCondensed="Duplicate"
+        android:alphabeticShortcut="string"
+        android:numericShortcut="string"
+        android:visible="true"
+        android:enabled="true" />
+
+</menu>

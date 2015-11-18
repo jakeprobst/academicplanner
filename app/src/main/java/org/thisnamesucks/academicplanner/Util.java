@@ -32,6 +32,18 @@ public class Util {
         return s;
     }
 
+    public static void removeFile(Context ctx, String path) {
+
+        try {
+            if(ctx.deleteFile(path)){
+                boolean worked = true;
+            }
+        }
+        catch (Exception e) {
+            Log.d("exception", "stringbuilding: " + e.toString());
+        }
+    }
+
     public static void writeToFile(Context ctx, String path, String data) {
         try {
             FileOutputStream file = ctx.openFileOutput(path, Context.MODE_PRIVATE);
