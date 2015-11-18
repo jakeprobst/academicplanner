@@ -33,7 +33,7 @@
                 android:value=".ClassActivity"/>
             </activity>
         <activity
-            android:name=".NewClassActivity"
+            android:name=".ClassInfoActivity"
             android:label="@string/title_activity_new_class"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>

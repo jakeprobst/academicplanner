@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by jake on 11/9/15.
+ * Created by jake on 11/9/15. Updated by Carlos 11/13/15.
  */
 public class ClassDataManager {
     private static Context ctx;
@@ -17,27 +17,32 @@ public class ClassDataManager {
 
     public static void makeTestData() {
         ClassModel cs = new ClassModel();
+
         cs.setId(11);
         cs.setName("Data Structures");
         cs.setShortName("CS 315");
-        cs.setCurrentScore(100);
-        cs.setTotalScore(120);
+        cs.setCurrentScore(175);
+        cs.setTotalScore(220);
+        cs.getAssignments().add(21);
+        cs.getAssignments().add(22);
         datastore.writeClassData(cs);
 
         cs = new ClassModel();
         cs.setId(12);
         cs.setName("Software Development");
         cs.setShortName("CS 370");
-        cs.setCurrentScore(120);
-        cs.setTotalScore(170);
+        cs.setCurrentScore(50);
+        cs.setTotalScore(50);
+        cs.getAssignments().add(25);
         datastore.writeClassData(cs);
 
         cs = new ClassModel();
         cs.setId(13);
         cs.setName("Computer Architecture");
         cs.setShortName("CS 351");
-        cs.setCurrentScore(10);
+        cs.setCurrentScore(80);
         cs.setTotalScore(100);
+        cs.getAssignments().add(27);
         datastore.writeClassData(cs);
     }
 
@@ -46,18 +51,17 @@ public class ClassDataManager {
         ClassDataManager.datastore = new ClassDataManagerJSON(ctx);
 
         makeTestData();
-
-        //classes = datastore.getClassData();
     }
 
-    public static void writeData() {
-        //datastore.writeClassData();
-    }
+    //public static void writeAssignmentData(ClassModel classdata) {
+    //    datastore.writeClassData(classdata);
+    //}
 
     public static void writeClassData(ClassModel classdata) {
         datastore.writeClassData(classdata);
     }
 
+    public static void deleteClassData(ClassModel model) { datastore.removeClassData(model.getId());}
 
     public static ClassModel getClassById(int id) {
         // set a sort of write-callback?
@@ -70,14 +74,32 @@ public class ClassDataManager {
     }
 
     public static ArrayList<ClassModel> getClassesByIDs(ArrayList<Integer> ids) {
-        ArrayList<ClassModel> classlist = new ArrayList<>();
+        ArrayList<ClassModel> classList = new ArrayList<>();
         for(Integer id: ids) {
-            classlist.add(getClassById(id));
+            classList.add(getClassById(id));
         }
-        return classlist;
+        return classList;
     }
 
 
+    public static void removeClassData(int classID)
+    {
+        Util.removeFile(ctx,Integer.toString(classID));
+    }
 
+    public static void updateScores(ClassModel model)
+    {
+        int curScore = 0;
+        int totScore = 0;
+        AssignmentModel tmp;
 
+        for(Integer id: model.getAssignments()) {
+            tmp = AssignmentDataManager.getAssignmentById(id);
+            curScore += tmp.getCurrentScore();
+            totScore += tmp.getTotalScore();
+        }
+
+        model.setCurrentScore(curScore);
+        model.setTotalScore(totScore);
+    }
 }

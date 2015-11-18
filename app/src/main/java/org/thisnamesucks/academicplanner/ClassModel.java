@@ -2,6 +2,8 @@ package org.thisnamesucks.academicplanner;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 /**
  * Created by jake on 10/29/15.
  */
@@ -16,14 +18,63 @@ public class ClassModel {
     private int currentScore;
     @SerializedName("totalscore")
     private int totalScore;
+    @SerializedName("assignmentList")
+    private ArrayList<Integer> assignmentList;
 
-    public int getId() {
-        return id;
+    public  ClassModel()
+    {
+        id = 0;
+        name = "";
+        shortName = "";
+        currentScore = 0;
+        totalScore = 0;
+        assignmentList = new ArrayList<>();
     }
 
-    public void setId(int id) {
+    public ClassModel (int id)
+    {
         this.id = id;
+        name = "";
+        shortName = "";
+        currentScore = 0;
+        totalScore = 0;
+        assignmentList = new ArrayList<>();
     }
+
+    public ArrayList<Integer> getAssignments() {
+        return assignmentList;
+    }
+
+    public void setAssignments(ArrayList<Integer> assignmentList) {
+        this.assignmentList = assignmentList;
+    }
+
+    public  void addAssignment(AssignmentModel assignment)
+    {
+        AssignmentDataManager.writeAssignmentData(assignment);
+        assignmentList.add(assignment.getId());
+        ClassDataManager.writeClassData(this);
+    }
+
+    public void duplicateAssignment(AssignmentModel assignment, String newName)
+    {
+        long timestamp = System.currentTimeMillis();
+        AssignmentModel copy = AssignmentDataManager.duplicateAssignmentData(assignment, (int) timestamp);
+
+        AssignmentDataManager.writeAssignmentData(copy);
+        assignmentList.add(copy.getId());
+        ClassDataManager.writeClassData(this);
+    }
+
+    public  void removeAssignment(AssignmentModel assignment)
+    {
+        assignmentList.remove((Object) assignment.getId());
+        AssignmentDataManager.removeAssignmentData(assignment.getId());
+    }
+
+    public int getId() {return id;}
+
+    public void setId(int id) {this.id = id;}
 
     public String getName() {
         return name;

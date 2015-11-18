@@ -1,26 +1,9 @@
 package org.thisnamesucks.academicplanner;
 
 
-import android.content.Context;
-import android.util.Log;
-import android.util.StringBuilderPrinter;
-
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.gson.annotations.SerializedName;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import com.google.gson.Gson;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.json.JSONTokener;
 
 /**
  * Created by jake on 10/29/15.
@@ -33,6 +16,18 @@ public class SemesterModel {
     @SerializedName("classes")
     private ArrayList<Integer> classes = new ArrayList<>();
 
+    public  void addClass(ClassModel model)
+    {
+        ClassDataManager.writeClassData(model);
+        classes.add(model.getId());
+        SemesterDataManager.writeClassData(this);
+    }
+
+    public  void removeClass(ClassModel model)
+    {
+        classes.remove((Object) model.getId());
+        ClassDataManager.removeClassData(model.getId());
+    }
 
     public ArrayList<Integer> getClasses() {
         return classes;
