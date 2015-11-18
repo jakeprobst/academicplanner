@@ -16,6 +16,8 @@ public class ClassModel {
     private int currentScore;
     @SerializedName("totalscore")
     private int totalScore;
+    @SerializedName("rubric")
+    private RubricModel rubric;
 
     public int getId() {
         return id;
@@ -55,5 +57,13 @@ public class ClassModel {
 
     public void setCurrentScore(int currentScore) {
         this.currentScore = currentScore;
+    }
+
+    public RubricModel getRubric() {
+        return rubric;
+    }
+
+    public void setRubric(RubricModel rubric) {
+        this.rubric = rubric;
     }
 }
