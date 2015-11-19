@@ -36,36 +36,22 @@ public class ClassInformationAdapter extends BaseAdapter {
             return 0;
         }
 
-        //int[] scores = new int[classModel.getRubric().getRubricItems().size()+1];
-        //int[] totals = new int[classModel.getRubric().getRubricItems().size()+1];
         double[] scores = new double[AssignmentType.values().length];
         double[] totals = new double[AssignmentType.values().length];
 
         ArrayList<AssignmentModel> assignments = AssignmentDataManager.getAssignmentsByIds(classModel.getAssignments());
-        Log.d("assignments?", Integer.toString(assignments.size()));
-        Log.d("assignments?", assignments.toString());
-        Log.d("assignment[0]", Integer.toString(assignments.get(0).getCurrentScore()));
         for(AssignmentModel a: assignments) {
             scores[a.getType().ordinal()] += a.getCurrentScore();
             totals[a.getType().ordinal()] += a.getTotalScore();
         }
 
-        Log.d("scores", scores.toString());
-        Log.d("totals", totals.toString());
-
         double weightedscore = 0;
         double weightedtotal = 0;
         RubricModel rubric = classModel.getRubric();
         for(RubricItem item: rubric.getRubricItems()) {
-            //Log.d("score:", Integer.toString(scores[item.getType().ordinal()]));
             weightedscore += scores[item.getType().ordinal()]*(item.getWeight());
-            //weightedtotal += totals[item.getType().ordinal()]*item.getWeight();
             weightedtotal += totals[item.getType().ordinal()]*(item.getWeight());
-            //weightedtotal += totals[item.getType().ordinal()];
         }
-
-        Log.d("wscores", Double.toString(weightedscore));
-        Log.d("wtotals", Double.toString(weightedtotal));
 
         return (int)(100*(weightedscore/weightedtotal));
     }
