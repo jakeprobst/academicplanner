@@ -3,6 +3,7 @@ package org.thisnamesucks.academicplanner;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,46 @@ public class ClassInformationAdapter extends BaseAdapter {
         return classList.size();
     }
 
+    private int calculateGrade(ClassModel classModel) {
+        // theoretically this test should not be needed with entirely user inputted data?
+        if (classModel.getRubric() == null) {
+            return 0;
+        }
+
+        //int[] scores = new int[classModel.getRubric().getRubricItems().size()+1];
+        //int[] totals = new int[classModel.getRubric().getRubricItems().size()+1];
+        double[] scores = new double[AssignmentType.values().length];
+        double[] totals = new double[AssignmentType.values().length];
+
+        ArrayList<AssignmentModel> assignments = AssignmentDataManager.getAssignmentsByIds(classModel.getAssignments());
+        Log.d("assignments?", Integer.toString(assignments.size()));
+        Log.d("assignments?", assignments.toString());
+        Log.d("assignment[0]", Integer.toString(assignments.get(0).getCurrentScore()));
+        for(AssignmentModel a: assignments) {
+            scores[a.getType().ordinal()] += a.getCurrentScore();
+            totals[a.getType().ordinal()] += a.getTotalScore();
+        }
+
+        Log.d("scores", scores.toString());
+        Log.d("totals", totals.toString());
+
+        double weightedscore = 0;
+        double weightedtotal = 0;
+        RubricModel rubric = classModel.getRubric();
+        for(RubricItem item: rubric.getRubricItems()) {
+            //Log.d("score:", Integer.toString(scores[item.getType().ordinal()]));
+            weightedscore += scores[item.getType().ordinal()]*(item.getWeight());
+            //weightedtotal += totals[item.getType().ordinal()]*item.getWeight();
+            weightedtotal += totals[item.getType().ordinal()]*(item.getWeight());
+            //weightedtotal += totals[item.getType().ordinal()];
+        }
+
+        Log.d("wscores", Double.toString(weightedscore));
+        Log.d("wtotals", Double.toString(weightedtotal));
+
+        return (int)(100*(weightedscore/weightedtotal));
+    }
+
     @Override
     public View getView(int pos, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
@@ -45,7 +86,8 @@ public class ClassInformationAdapter extends BaseAdapter {
         if(classItem.getTotalScore() > 0) {
 
             text = (TextView) classRow.findViewById(R.id.class_percent);
-            int grade = (100*classItem.getCurrentScore()) / classItem.getTotalScore();
+            int grade = calculateGrade(classItem);
+            //int grade = (100*classItem.getCurrentScore()) / classItem.getTotalScore();
 
             if (grade > 90) {
                 text.setTextColor(Color.rgb(0, 0xDD, 0));

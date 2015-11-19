@@ -25,6 +25,7 @@ public class AssignmentDataManager {
         as.setDue("Whenever");
         as.setCurrentScore(100);
         as.setTotalScore(120);
+        as.setType(AssignmentType.Project);
         datastore.writeAssignmentData(as);
 
         as = new AssignmentModel();
@@ -34,6 +35,7 @@ public class AssignmentDataManager {
         as.setDue("Tomorrow at 6am, have fun studying!");
         as.setCurrentScore(75);
         as.setTotalScore(100);
+        as.setType(AssignmentType.Exam);
         datastore.writeAssignmentData(as);
 
         as = new AssignmentModel();
@@ -67,10 +69,11 @@ public class AssignmentDataManager {
     }
 
     public static AssignmentModel getAssignmentById(int id) {
-        if (!assignmentcache.containsKey(id)){
+        /*if (!assignmentcache.containsKey(id)){
             assignmentcache.put(id, datastore.getAssignmentById(id));
         }
-        return assignmentcache.get(id);
+        return assignmentcache.get(id);*/
+        return datastore.getAssignmentById(id);
     }
 
     public static void removeAssignmentData(int assignmentID)
@@ -80,8 +83,9 @@ public class AssignmentDataManager {
 
     public static AssignmentModel duplicateAssignmentData(AssignmentModel original, int newId)
     {
-        AssignmentModel copy = new AssignmentModel(newId);
+        AssignmentModel copy = new AssignmentModel();
 
+        copy.setId(newId);
         copy.setName(original.getName());
         copy.setDue(original.getDue());
         copy.setCurrentScore(original.getCurrentScore());

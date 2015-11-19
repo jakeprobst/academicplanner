@@ -9,5 +9,13 @@ import java.util.ArrayList;
  */
 public class RubricModel {
     @SerializedName("rubricitems")
-    ArrayList<RubricItem> rubricItems;
+    private ArrayList<RubricItem> rubricItems;
+
+    public ArrayList<RubricItem> getRubricItems() {
+        return rubricItems;
+    }
+
+    public void setRubricItems(ArrayList<RubricItem> rubricItems) {
+        this.rubricItems = rubricItems;
+    }
 }

@@ -50,7 +50,7 @@ public class RubricItemAdapter extends BaseAdapter {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                rubricitem.type = AssignmentType.values()[position];
+                rubricitem.setType(AssignmentType.values()[position]);
             }
 
             @Override
@@ -58,16 +58,10 @@ public class RubricItemAdapter extends BaseAdapter {
 
             }
         });
-        /*{
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                rubricitem.type = AssignmentType.values()[position];
-            }
-        });*/
 
-        spinner.setSelection(rubricitem.type.ordinal());
+        spinner.setSelection(rubricitem.getType().ordinal());
         EditText weight = (EditText) itemrow.findViewById(R.id.rubric_weight);
-        weight.setText(Integer.toString(rubricitem.weight));
+        weight.setText(Integer.toString(rubricitem.getWeight()));
         weight.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -77,10 +71,10 @@ public class RubricItemAdapter extends BaseAdapter {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 try {
-                    rubricitem.weight = Integer.parseInt(s.toString());
+                    rubricitem.setWeight(Integer.parseInt(s.toString()));
                 }
                 catch (NumberFormatException e) {
-                    rubricitem.weight = 0;
+                    rubricitem.setWeight(0);
                     // ok its not a number so ignore it!
                 }
             }
@@ -90,13 +84,6 @@ public class RubricItemAdapter extends BaseAdapter {
 
             }
         });
-        /*weight.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                rubricitem.weight = Integer.parseInt(v.getText().toString());
-                return true; // I have no idea what this is for?
-            }
-        });*/
 
         return itemrow;
     }

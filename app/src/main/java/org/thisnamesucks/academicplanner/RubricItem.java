@@ -7,7 +7,24 @@ import com.google.gson.annotations.SerializedName;
  */
 public class RubricItem {
     @SerializedName("Type")
-    AssignmentType type = AssignmentType.Homework;
+    private AssignmentType type = AssignmentType.Homework;
     @SerializedName("weight")
-    int weight = 0;
+    private int weight = 0;
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public AssignmentType getType() {
+        return type;
+    }
+
+    public void setType(AssignmentType type) {
+        this.type = type;
+    }
+
 }

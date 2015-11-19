@@ -37,10 +37,10 @@ public class RubricActivity extends AppCompatActivity {
         if (rubric == null) {
             Log.d("zzz", "hella null");
             rubric = new RubricModel();
-            rubric.rubricItems = new ArrayList<>();
+            rubric.setRubricItems(new ArrayList<RubricItem>());
         }
 
-        final RubricItemAdapter rubricadapter = new RubricItemAdapter(this, rubric.rubricItems);
+        final RubricItemAdapter rubricadapter = new RubricItemAdapter(this, rubric.getRubricItems());
 
         ListView rubriclist = (ListView) findViewById(R.id.rubric_item_list);
         ImageButton additem = (ImageButton) findViewById(R.id.new_rubric_item);

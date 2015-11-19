@@ -10,36 +10,16 @@ import java.sql.Date;
 public class AssignmentModel {
     @SerializedName("id")
     private int id = 0;
-
     @SerializedName("totalScore")
     private int totalScore = 0;
-
     @SerializedName("currentScore")
     private int currentScore = 0;
-
     @SerializedName("name")
     private String name = "";
-
     @SerializedName("due")
     private String due = "";
-
-    public  AssignmentModel()
-    {
-        id = 0;
-        totalScore = 0;
-        currentScore = 0;
-        name = "";
-        due = "";
-    }
-
-    public AssignmentModel (int id)
-    {
-        this.id = id;
-        totalScore = 0;
-        currentScore = 0;
-        name = "";
-        due = "";
-    }
+    @SerializedName("type")
+    AssignmentType type = AssignmentType.Homework;
 
     public String getDue() {
         return this.due;
@@ -71,5 +51,13 @@ public class AssignmentModel {
 
     public void setCurrentScore(int currentScore) {
         this.currentScore = currentScore;
+    }
+
+    public AssignmentType getType() {
+        return type;
+    }
+
+    public void setType(AssignmentType type) {
+        this.type = type;
     }
 }
