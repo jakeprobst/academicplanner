@@ -12,4 +12,5 @@
         <item>Spring</item>
         <item>Fall</item>
     </string-array>
+    <string name="title_activity_rubric">RubricActivity</string>
 </resources>

@@ -67,10 +67,11 @@ public class ClassDataManager {
         // set a sort of write-callback?
         // like, in the setters call a function I set here?
         // or just save things manually that might just be easier
-        if (!classcache.containsKey(id)){
+        /*if (!classcache.containsKey(id)){
             classcache.put(id, datastore.getClassById(id));
         }
-        return classcache.get(id);
+        return classcache.get(id);*/
+        return datastore.getClassById(id);
     }
 
     public static ArrayList<ClassModel> getClassesByIDs(ArrayList<Integer> ids) {

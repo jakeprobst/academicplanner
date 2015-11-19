@@ -25,5 +25,11 @@
         android:layout_below="@+id/class_name_entry"
         android:hint="Class ID"/>
 
+    <Button
+        android:id="@+id/class_modify_rubric"
+        android:text="Modify Rubric"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/class_id_entry"/>
 
 </RelativeLayout>
