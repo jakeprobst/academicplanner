@@ -110,7 +110,6 @@ public class SemesterActivity extends AppCompatActivity {
     }
 
     public void edit(ClassModel item) {
-
         Intent intent = new Intent(SemesterActivity.this, ClassInfoActivity.class);
         intent.putExtra("classid", item.getId());
         startActivity(intent);
@@ -119,14 +118,11 @@ public class SemesterActivity extends AppCompatActivity {
     }
 
     public void delete(ClassModel item) {
-
-        semesterModel.removeClass(item);
-        classList = ClassDataManager.getClassesByIDs(semesterModel.getClasses());
-
-        //Reset the activity
-        finish();
-
-        startActivity(getIntent());
+        semesterModel.getClasses().remove((Object)item.getId());
+        ClassDataManager.deleteClass(item);
+        SemesterDataManager.writeSemesterData(semesterModel);
+        classList.remove(item);
+        classInfoAdapter.notifyDataSetChanged();
 
         Toast.makeText(SemesterActivity.this, "Class Deleted!", Toast.LENGTH_SHORT).show();
     }
