@@ -26,53 +26,37 @@ public class AssignmentActivity extends AppCompatActivity {
 
         if (assignmentId == -1) {
             assignmentModel = new AssignmentModel();
+            assignmentModel.setId((int)System.currentTimeMillis()); // panic in 23 years
             setTitle("New Assignment");
         }
         else {
-
             assignmentModel = AssignmentDataManager.getAssignmentById(assignmentId);
-
-            updateAssignmentView(assignmentModel);
+            modelToView(assignmentModel);
         }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveAssignment(assignmentId);
+                saveAssignment();
                 Toast.makeText(AssignmentActivity.this, "Assignment Saved!", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
     }
 
-    private void saveAssignment(int id)
+    private void saveAssignment()
     {
-        if(id == -1) //If new assignment, create new assignment object and set values
-        {
-            long timestamp = System.currentTimeMillis();
+        viewToModel(assignmentModel);
+        AssignmentDataManager.writeAssignmentData(assignmentModel);
 
-            AssignmentModel model = new AssignmentModel();
-            model.setId((int) timestamp); // panic in 23 years
-
-            updateAssignmentModel(model);
-            classModel.addAssignment(model);
-            //AssignmentDataManager.writeAssignmentData(model);
-            //classModel.getAssignments().add((int) timestamp);
-            //ClassDataManager.writeClassData(classModel);
+        if (!classModel.getAssignments().contains(assignmentModel.getId())) {
+            classModel.getAssignments().add(assignmentModel.getId());
         }
-        else //Otherwise change current values
-        {
-            AssignmentModel model = AssignmentDataManager.getAssignmentById(id);
-
-            updateAssignmentModel(model);
-
-            AssignmentDataManager.writeAssignmentData(model);
-            ClassDataManager.writeClassData(classModel);
-        }
+        ClassDataManager.writeClassData(classModel);
     }
 
-    private  void updateAssignmentView(AssignmentModel model)
+    private void modelToView(AssignmentModel model)
     {
         String name = model.getName();
         String dueDate = model.getDue();
@@ -96,7 +80,7 @@ public class AssignmentActivity extends AppCompatActivity {
         setTitle(model.getName());
     }
 
-    private void updateAssignmentModel(AssignmentModel model)
+    private void viewToModel(AssignmentModel model)
     {
         EditText name_entry = (EditText) this.findViewById(R.id.assignment_name_entry);
         EditText date_entry = (EditText) findViewById(R.id.assignment_due_entry);
