@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,7 +27,7 @@ public class ClassActivity extends AppCompatActivity {
         super.onResume();
 
         classModel = ClassDataManager.getClassById(getIntent().getExtras().getInt("classid"));
-        ClassDataManager.updateScores(classModel);
+        //ClassDataManager.updateScores(classModel);
 
         assignmentList = AssignmentDataManager.getAssignmentsByIds(classModel.getAssignments());
         assignmentInfoAdapter = new AssignmentInformationAdapter(this, assignmentList);
@@ -92,7 +93,6 @@ public class ClassActivity extends AppCompatActivity {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-
         AssignmentModel model = assignmentInfoAdapter.getItem(info.position);
 
         switch (item.getItemId()) {
@@ -108,23 +108,23 @@ public class ClassActivity extends AppCompatActivity {
     }
 
     public void duplicate(AssignmentModel item) {
-
-        classModel.duplicateAssignment(item, item.getName() + " (copy)");
-
-        //Reset the activity
-        finish();
-        startActivity(getIntent());
+        AssignmentModel copy = item.clone();
+        copy.setId((int) System.currentTimeMillis());
+        classModel.getAssignments().add(copy.getId());
+        AssignmentDataManager.writeAssignmentData(copy);
+        ClassDataManager.writeClassData(classModel);
+        assignmentList.add(copy);
+        assignmentInfoAdapter.notifyDataSetChanged();
 
         Toast.makeText(ClassActivity.this, "Assignment Duplicated! " + item.getName(), Toast.LENGTH_SHORT).show();
     }
 
     public void delete(AssignmentModel item) {
-
-        classModel.removeAssignment(item);
-
-        //Reset the activity
-        finish();
-        startActivity(getIntent());
+        classModel.getAssignments().remove((Object)item.getId());
+        ClassDataManager.writeClassData(classModel);
+        AssignmentDataManager.deleteAssignment(item);
+        assignmentList.remove(item);
+        assignmentInfoAdapter.notifyDataSetChanged();
 
         Toast.makeText(ClassActivity.this, item.getName() + " Assignment Deleted!", Toast.LENGTH_SHORT).show();
     }
