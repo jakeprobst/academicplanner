@@ -21,27 +21,7 @@ public class ClassModel {
     @SerializedName("rubric")
     private RubricModel rubric;
     @SerializedName("assignmentList")
-    private ArrayList<Integer> assignmentList;
-
-    public  ClassModel()
-    {
-        id = 0;
-        name = "";
-        shortName = "";
-        currentScore = 0;
-        totalScore = 0;
-        assignmentList = new ArrayList<>();
-    }
-
-    public ClassModel (int id)
-    {
-        this.id = id;
-        name = "";
-        shortName = "";
-        currentScore = 0;
-        totalScore = 0;
-        assignmentList = new ArrayList<>();
-    }
+    private ArrayList<Integer> assignmentList = new ArrayList<>();
 
     public ArrayList<Integer> getAssignments() {
         return assignmentList;
@@ -49,29 +29,6 @@ public class ClassModel {
 
     public void setAssignments(ArrayList<Integer> assignmentList) {
         this.assignmentList = assignmentList;
-    }
-
-    public  void addAssignment(AssignmentModel assignment)
-    {
-        AssignmentDataManager.writeAssignmentData(assignment);
-        assignmentList.add(assignment.getId());
-        ClassDataManager.writeClassData(this);
-    }
-
-    public void duplicateAssignment(AssignmentModel assignment, String newName)
-    {
-        long timestamp = System.currentTimeMillis();
-        AssignmentModel copy = AssignmentDataManager.duplicateAssignmentData(assignment, (int) timestamp);
-
-        AssignmentDataManager.writeAssignmentData(copy);
-        assignmentList.add(copy.getId());
-        ClassDataManager.writeClassData(this);
-    }
-
-    public  void removeAssignment(AssignmentModel assignment)
-    {
-        assignmentList.remove((Object) assignment.getId());
-        AssignmentDataManager.removeAssignmentData(assignment.getId());
     }
 
     public int getId() {return id;}
