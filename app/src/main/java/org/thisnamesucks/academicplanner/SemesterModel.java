@@ -16,29 +16,9 @@ public class SemesterModel {
     @SerializedName("classes")
     private ArrayList<Integer> classes = new ArrayList<>();
 
-    public  void addClass(ClassModel model)
-    {
-        ClassDataManager.writeClassData(model);
-        classes.add(model.getId());
-        SemesterDataManager.writeClassData(this);
-    }
-
-    public  void removeClass(ClassModel model)
-    {
-        classes.remove((Object) model.getId());
-        ClassDataManager.removeClassData(model.getId());
-    }
-
     public ArrayList<Integer> getClasses() {
         return classes;
     }
-
-    /*@SerializedName("classes")
-    private ArrayList<ClassModel> classes;
-
-    public ArrayList<ClassModel> getClasses() {
-        return classes;
-    }*/
 
     public int getId() {
         return id;
