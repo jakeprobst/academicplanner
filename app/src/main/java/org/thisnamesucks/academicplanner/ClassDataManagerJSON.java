@@ -41,8 +41,8 @@ public class ClassDataManagerJSON {
         Util.writeToFile(ctx, getFilePath(classdata.getId()), json);
     }
 
-    public void removeClassData(int classID)
+    public void deleteClass(ClassModel classModel)
     {
-        Util.removeFile(ctx,Integer.toString(classID));
+        Util.removeFile(ctx,getFilePath(classModel.getId()));
     }
 }

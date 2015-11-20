@@ -53,24 +53,11 @@ public class ClassDataManager {
         makeTestData();
     }
 
-    //public static void writeAssignmentData(ClassModel classdata) {
-    //    datastore.writeClassData(classdata);
-    //}
-
     public static void writeClassData(ClassModel classdata) {
         datastore.writeClassData(classdata);
     }
 
-    public static void deleteClassData(ClassModel model) { datastore.removeClassData(model.getId());}
-
     public static ClassModel getClassById(int id) {
-        // set a sort of write-callback?
-        // like, in the setters call a function I set here?
-        // or just save things manually that might just be easier
-        /*if (!classcache.containsKey(id)){
-            classcache.put(id, datastore.getClassById(id));
-        }
-        return classcache.get(id);*/
         return datastore.getClassById(id);
     }
 
@@ -82,13 +69,16 @@ public class ClassDataManager {
         return classList;
     }
 
-
-    public static void removeClassData(int classID)
+    public static void deleteClass(ClassModel classModel)
     {
-        Util.removeFile(ctx,Integer.toString(classID));
+        for(AssignmentModel a: AssignmentDataManager.getAssignmentsByIds(classModel.getAssignments())) {
+            AssignmentDataManager.deleteAssignment(a);
+        }
+        datastore.deleteClass(classModel);
+
     }
 
-    public static void updateScores(ClassModel model)
+    /*public static void updateScores(ClassModel model)
     {
         int curScore = 0;
         int totScore = 0;
@@ -102,5 +92,5 @@ public class ClassDataManager {
 
         model.setCurrentScore(curScore);
         model.setTotalScore(totScore);
-    }
+    }*/
 }
