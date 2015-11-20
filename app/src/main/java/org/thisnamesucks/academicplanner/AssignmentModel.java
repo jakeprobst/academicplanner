@@ -7,7 +7,7 @@ import java.sql.Date;
 /**
  * Created by jake on 11/10/15.
  */
-public class AssignmentModel {
+public class AssignmentModel implements Cloneable {
     @SerializedName("id")
     private int id = 0;
     @SerializedName("totalScore")
@@ -20,6 +20,18 @@ public class AssignmentModel {
     private String due = "";
     @SerializedName("type")
     AssignmentType type = AssignmentType.Homework;
+
+    public AssignmentModel clone() {
+        AssignmentModel copy = new AssignmentModel();
+        copy.id = id;
+        copy.totalScore = totalScore;
+        copy.currentScore = currentScore;
+        copy.name = name;
+        copy.due = due;
+        copy.type = type;
+        return copy;
+    }
+
 
     public String getDue() {
         return this.due;
