@@ -69,29 +69,12 @@ public class AssignmentDataManager {
     }
 
     public static AssignmentModel getAssignmentById(int id) {
-        /*if (!assignmentcache.containsKey(id)){
-            assignmentcache.put(id, datastore.getAssignmentById(id));
-        }
-        return assignmentcache.get(id);*/
         return datastore.getAssignmentById(id);
     }
 
-    public static void removeAssignmentData(int assignmentID)
+    public static void deleteAssignment(AssignmentModel assignmentModel)
     {
-        Util.removeFile(ctx,Integer.toString(assignmentID));
-    }
-
-    public static AssignmentModel duplicateAssignmentData(AssignmentModel original, int newId)
-    {
-        AssignmentModel copy = new AssignmentModel();
-
-        copy.setId(newId);
-        copy.setName(original.getName());
-        copy.setDue(original.getDue());
-        copy.setCurrentScore(original.getCurrentScore());
-        copy.setTotalScore(original.getTotalScore());
-
-        return copy;
+        datastore.deleteAssignment(assignmentModel);
     }
 
     public static ArrayList<AssignmentModel> getAssignmentsByIds(ArrayList<Integer> ids) {
