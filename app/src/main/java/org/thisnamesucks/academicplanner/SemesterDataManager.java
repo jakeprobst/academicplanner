@@ -36,7 +36,7 @@ public class SemesterDataManager {
         //semesters = datastore.getSemesterData();
     }
 
-    public static void writeClassData(SemesterModel semester) {
+    public static void writeSemesterData(SemesterModel semester) {
         datastore.writeSemesterData(semester);
     }
 
