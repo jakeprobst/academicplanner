@@ -19,14 +19,14 @@ import java.util.ArrayList;
 public class ClassInfoActivity extends AppCompatActivity {
     ClassModel classModel;
     private ClassModel createNewClass() {
-        long timestamp = System.currentTimeMillis();
-        ClassModel classModel = new ClassModel((int) timestamp);
+        ClassModel classModel = new ClassModel();
+        classModel.setId((int)System.currentTimeMillis());
 
         ClassDataManager.writeClassData(classModel);
         SemesterModel semester = SemesterDataManager.getCurrentSemester();
 
-        semester.addClass(classModel);
-        SemesterDataManager.writeClassData(semester);
+        semester.getClasses().add(classModel.getId());
+        SemesterDataManager.writeSemesterData(semester);
 
         return classModel;
     }
@@ -41,7 +41,7 @@ public class ClassInfoActivity extends AppCompatActivity {
         text = (TextView) this.findViewById(R.id.class_id_entry);
         text.setText(shortName);
 
-        ClassDataManager.updateScores(model);
+        //ClassDataManager.updateScores(model);
         setTitle(model.getName());
     }
 
