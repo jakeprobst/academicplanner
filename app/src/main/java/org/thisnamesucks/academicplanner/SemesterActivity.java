@@ -51,12 +51,12 @@ public class SemesterActivity extends AppCompatActivity {
         if(classList.isEmpty())
         {
             TextView view = (TextView) this.findViewById(R.id.empty_class_notice);
-            view.setVisibility(view.VISIBLE);
+            view.setVisibility(View.VISIBLE);
         }
         else
         {
             TextView view = (TextView) this.findViewById(R.id.empty_class_notice);
-            view.setVisibility(view.INVISIBLE);
+            view.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -129,7 +129,8 @@ public class SemesterActivity extends AppCompatActivity {
 
     private void createAndShowWarningDialog(final ClassModel model) {
         AlertDialog.Builder builder = new AlertDialog.Builder(SemesterActivity.this);
-        builder.setTitle("Are you sure you want to delete this class?");
+        builder.setTitle("Warning");
+        builder.setMessage("Are you sure you want to delete this class?");
 
         builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {

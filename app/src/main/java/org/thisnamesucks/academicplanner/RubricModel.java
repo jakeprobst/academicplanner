@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class RubricModel {
     @SerializedName("rubricitems")
-    private ArrayList<RubricItem> rubricItems;
+    private ArrayList<RubricItem> rubricItems = new ArrayList<>();
 
     public ArrayList<RubricItem> getRubricItems() {
         return rubricItems;

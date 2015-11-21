@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by jake on 11/10/15.
+ * Created by jake on 11/10/15.  Updated by Carlos 11/21/15
  */
 public class AssignmentDataManager {
     private static Context ctx;
@@ -26,6 +26,9 @@ public class AssignmentDataManager {
         as.setCurrentScore(100);
         as.setTotalScore(120);
         as.setType(AssignmentType.Project);
+        as.setExtraCredit(false);
+        as.setDescription("This is a description about the project (optional)");
+        as.setNotes("These are specific notes about the project (optional)");
         datastore.writeAssignmentData(as);
 
         as = new AssignmentModel();
@@ -36,6 +39,9 @@ public class AssignmentDataManager {
         as.setCurrentScore(75);
         as.setTotalScore(100);
         as.setType(AssignmentType.Exam);
+        as.setExtraCredit(false);
+        as.setDescription("This is a description of the exam (optional)");
+        as.setNotes("These are specific notes about the exam (optional)");
         datastore.writeAssignmentData(as);
 
         as = new AssignmentModel();
@@ -45,15 +51,23 @@ public class AssignmentDataManager {
         as.setDue("This coming Wednesday");
         as.setCurrentScore(50);
         as.setTotalScore(50);
+        as.setType(AssignmentType.Essay);
+        as.setExtraCredit(false);
+        as.setDescription("This is a description about the essay (optional)");
+        as.setNotes("These are specific notes on the essay (optional)");
         datastore.writeAssignmentData(as);
 
         as = new AssignmentModel();
 
         as.setId(27);
         as.setName("Lab");
-        as.setDue("Edge of tommorow");
+        as.setDue("Edge of tomorrow");
         as.setCurrentScore(80);
         as.setTotalScore(100);
+        as.setType(AssignmentType.Lab);
+        as.setExtraCredit(false);
+        as.setDescription("This is a description about the essay (optional)");
+        as.setNotes("These are specific notes on the essay (optional)");
         datastore.writeAssignmentData(as);
     }
 

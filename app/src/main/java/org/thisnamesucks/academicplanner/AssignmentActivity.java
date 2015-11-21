@@ -5,7 +5,11 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +23,7 @@ public class AssignmentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_assignment);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        initializeAssignmentSpinner();//Fill auto-complete options for Assignment Type
 
         final int classId = getIntent().getExtras().getInt("classid");
         final int assignmentId = getIntent().getExtras().getInt("assignmentid");
@@ -56,20 +61,42 @@ public class AssignmentActivity extends AppCompatActivity {
         ClassDataManager.writeClassData(classModel);
     }
 
+    private void initializeAssignmentSpinner()
+    {
+        Spinner spinner = (Spinner) findViewById(R.id.assignment_type_entry);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.assignment_type_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+    }
+
     private void modelToView(AssignmentModel model)
     {
         String name = model.getName();
         String dueDate = model.getDue();
+        String description = model.getDescription();
+        String notes = model.getNotes();
+        String type = model.getType().name();
         Integer score = model.getCurrentScore();
         Integer total = model.getTotalScore();
+        boolean extraCredit = model.isExtraCredit();
 
         TextView text;
         text = (TextView) this.findViewById(R.id.assignment_name_entry);
         text.setText(name);
         text = (TextView) this.findViewById(R.id.assignment_due_entry);
         text.setText(dueDate);
+        text = (TextView) this.findViewById(R.id.assignment_description_entry);
+        text.setText(description);
+        text = (TextView) this.findViewById(R.id.assignment_notes_entry);
+        text.setText(notes);
         text = (TextView) this.findViewById(R.id.assignment_score_entry);
         text.setText(score.toString());
+
+        Spinner dropdown = (Spinner) this.findViewById(R.id.assignment_type_entry);
+
+        dropdown.setSelection(getIndex(dropdown,type),true);
+        RadioButton isExtraCredit = (RadioButton) this.findViewById(R.id.assignment_extra_credit_entry);
+        isExtraCredit.setChecked(extraCredit);
 
         if(total != 0)
         {
@@ -80,6 +107,20 @@ public class AssignmentActivity extends AppCompatActivity {
         setTitle(model.getName());
     }
 
+    //private method to get index of specific dropdown value
+    private int getIndex(Spinner spinner, String myString)
+    {
+        int index = 0;
+
+        for (int i=0;i<spinner.getCount();i++){
+            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(myString)){
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+
     private void viewToModel(AssignmentModel model)
     {
         EditText name_entry = (EditText) this.findViewById(R.id.assignment_name_entry);
@@ -87,8 +128,17 @@ public class AssignmentActivity extends AppCompatActivity {
         EditText score_entry = (EditText) findViewById(R.id.assignment_score_entry);
         EditText total_entry = (EditText) findViewById(R.id.assignment_total_score_entry);
 
+        Spinner type_entry = (Spinner) findViewById(R.id.assignment_type_entry);
+        EditText description_entry = (EditText) findViewById(R.id.assignment_description_entry);
+        EditText notes_entry = (EditText) findViewById(R.id.assignment_notes_entry);
+        RadioButton isExtraCredit = (RadioButton) findViewById(R.id.assignment_extra_credit_entry);
+
         model.setName(name_entry.getText().toString());
+        model.setType(AssignmentType.valueOf(type_entry.getSelectedItem().toString()));
         model.setDue(date_entry.getText().toString());
+        model.setDescription(description_entry.getText().toString());
+        model.setNotes(notes_entry.getText().toString());
+        model.setExtraCredit(isExtraCredit.isChecked());
 
         String score = score_entry.getText().toString();
         String total = total_entry.getText().toString();
