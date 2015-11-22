@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
@@ -95,7 +96,7 @@ public class AssignmentActivity extends AppCompatActivity {
         Spinner dropdown = (Spinner) this.findViewById(R.id.assignment_type_entry);
 
         dropdown.setSelection(getIndex(dropdown,type),true);
-        RadioButton isExtraCredit = (RadioButton) this.findViewById(R.id.assignment_extra_credit_entry);
+        CheckBox isExtraCredit = (CheckBox) this.findViewById(R.id.assignment_extra_credit_entry);
         isExtraCredit.setChecked(extraCredit);
 
         if(total != 0)
@@ -131,7 +132,7 @@ public class AssignmentActivity extends AppCompatActivity {
         Spinner type_entry = (Spinner) findViewById(R.id.assignment_type_entry);
         EditText description_entry = (EditText) findViewById(R.id.assignment_description_entry);
         EditText notes_entry = (EditText) findViewById(R.id.assignment_notes_entry);
-        RadioButton isExtraCredit = (RadioButton) findViewById(R.id.assignment_extra_credit_entry);
+        CheckBox isExtraCredit = (CheckBox) findViewById(R.id.assignment_extra_credit_entry);
 
         model.setName(name_entry.getText().toString());
         model.setType(AssignmentType.valueOf(type_entry.getSelectedItem().toString()));

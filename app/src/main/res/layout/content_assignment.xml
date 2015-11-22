@@ -50,7 +50,7 @@
         android:layout_toRightOf="@+id/textView4"
         android:layout_toEndOf="@+id/textView4" />
 
-    <RadioButton
+    <CheckBox
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Extra Credit Assigment"
