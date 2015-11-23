@@ -7,16 +7,9 @@ import com.google.gson.annotations.SerializedName;
  */
 public class RubricItem {
     @SerializedName("Type")
-    private AssignmentType type;
+    private AssignmentType type = AssignmentType.Homework;
     @SerializedName("weight")
-    private int weight;
-
-    //Constructors
-    public RubricItem()
-    {
-        this.type = AssignmentType.Homework;
-        this.weight = 0;
-    }
+    private int weight = 0;
 
     public RubricItem(AssignmentType type, int weight)
     {
