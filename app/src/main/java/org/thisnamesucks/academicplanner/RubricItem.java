@@ -11,6 +11,9 @@ public class RubricItem {
     @SerializedName("weight")
     private int weight = 0;
 
+    public  RubricItem() {
+    }
+
     public RubricItem(AssignmentType type, int weight)
     {
         this.type = type;
