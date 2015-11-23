@@ -114,8 +114,10 @@ public class SemesterActivity extends AppCompatActivity {
         intent.putExtra("classid", item.getId());
         startActivity(intent);
 
-        Toast.makeText(SemesterActivity.this, "Class Opened!", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(SemesterActivity.this, "Class Opened!", Toast.LENGTH_SHORT).show();
     }
+
+
 
     public void delete(ClassModel item) {
         semesterModel.getClasses().remove((Object)item.getId());
@@ -124,7 +126,7 @@ public class SemesterActivity extends AppCompatActivity {
         classList.remove(item);
         classInfoAdapter.notifyDataSetChanged();
 
-        Toast.makeText(SemesterActivity.this, "Class Deleted!", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(SemesterActivity.this, "Class Deleted!", Toast.LENGTH_SHORT).show();
     }
 
     private void createAndShowWarningDialog(final ClassModel model) {

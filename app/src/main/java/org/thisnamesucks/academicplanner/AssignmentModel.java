@@ -14,6 +14,10 @@ public class AssignmentModel implements Cloneable {
     private int totalScore = 0;
     @SerializedName("currentScore")
     private int currentScore = 0;
+    //@SerializedName("totalWeightedScore") //In case we decide to display weighted scores for assignments too
+    //private double totalWeightedScore = 0;
+    //@SerializedName("currentWeightedScore")
+    //private int currentWeightedScore = 0;
     @SerializedName("name")
     private String name = "";
     @SerializedName("due")
@@ -61,6 +65,14 @@ public class AssignmentModel implements Cloneable {
     public int getCurrentScore() { return this.currentScore; }
 
     public void setCurrentScore(int currentScore) { this.currentScore = currentScore; }
+/*
+    public double getTotlalWeightedScore() { return totalWeightedScore; }
+
+    public void setTotlalWeightedScore(double totlalWeightedScore) { this.totalWeightedScore = totlalWeightedScore; }
+
+    public int getCurrentWeightedScore() { return currentWeightedScore; }
+
+    public void setCurrentWeightedScore(int currentWeightedScore) { this.currentWeightedScore = currentWeightedScore; }*/
 
     public AssignmentType getType() {
         return type;

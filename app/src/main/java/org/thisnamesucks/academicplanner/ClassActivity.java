@@ -36,12 +36,12 @@ public class ClassActivity extends AppCompatActivity {
         if(assignmentList.isEmpty())
         {
             TextView view = (TextView) this.findViewById(R.id.empty_assignment_notice);
-            view.setVisibility(view.VISIBLE);
+            view.setVisibility(TextView.VISIBLE);
         }
         else
         {
             TextView view = (TextView) this.findViewById(R.id.empty_assignment_notice);
-            view.setVisibility(view.INVISIBLE);
+            view.setVisibility(TextView.INVISIBLE);
         }
 
         ListView assignmentSelection = (ListView) findViewById(R.id.assignment_list);
@@ -116,7 +116,7 @@ public class ClassActivity extends AppCompatActivity {
         assignmentList.add(copy);
         assignmentInfoAdapter.notifyDataSetChanged();
 
-        Toast.makeText(ClassActivity.this, "Assignment Duplicated! " + item.getName(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(ClassActivity.this, "Assignment Duplicated! " + item.getName(), Toast.LENGTH_SHORT).show();
     }
 
     public void delete(AssignmentModel item) {
@@ -126,6 +126,6 @@ public class ClassActivity extends AppCompatActivity {
         assignmentList.remove(item);
         assignmentInfoAdapter.notifyDataSetChanged();
 
-        Toast.makeText(ClassActivity.this, item.getName() + " Assignment Deleted!", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(ClassActivity.this, item.getName() + " Assignment Deleted!", Toast.LENGTH_SHORT).show();
     }
 }
