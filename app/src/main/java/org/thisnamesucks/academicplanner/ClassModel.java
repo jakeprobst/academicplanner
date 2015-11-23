@@ -12,12 +12,16 @@ public class ClassModel {
     private int id;
     @SerializedName("name")
     private String name = "";
-    @SerializedName("shortname")
+    @SerializedName("shortName")
     private String shortName = "";
-    @SerializedName("currentscore")
+    @SerializedName("currentScore")
     private int currentScore = 0;
-    @SerializedName("totalscore")
-    private int totalScore = 0;
+    @SerializedName("currentScoreWeighted")
+    private double currentScoreWeighted = 0;
+    @SerializedName("totalScore")
+    private int totalScore= 0;
+    @SerializedName("totalScoreWeighted")
+    private double totalScoreWeighted = 0;
     @SerializedName("rubric")
     private RubricModel rubric = new RubricModel();
     @SerializedName("units")
@@ -77,6 +81,14 @@ public class ClassModel {
     public void setCurrentScore(int currentScore) {
         this.currentScore = currentScore;
     }
+
+    public double getCurrentScoreWeighted() { return currentScoreWeighted; }
+
+    public void setCurrentScoreWeighted(double currentScoreWeighted) { this.currentScoreWeighted = currentScoreWeighted; }
+
+    public double getTotalScoreWeighted() { return totalScoreWeighted; }
+
+    public void setTotalScoreWeighted(double totalScoreWeighted) { this.totalScoreWeighted = totalScoreWeighted; }
 
     public RubricModel getRubric() {
         return rubric;
