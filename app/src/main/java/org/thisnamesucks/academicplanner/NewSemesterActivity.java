@@ -2,6 +2,7 @@ package org.thisnamesucks.academicplanner;
 
 import android.app.DialogFragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -35,7 +36,7 @@ public class NewSemesterActivity extends AppCompatActivity {
         Button start_btn = (Button) findViewById(R.id.startdate_btn);
         start_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Do something in response to button click
+
             }
         });
 
