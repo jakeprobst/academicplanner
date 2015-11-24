@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
- * Created by CAD on 010 11/10/2015.
+ * Created by CAD on 11/10/2015.
  */
 public class AssignmentInformationAdapter extends BaseAdapter {
 
@@ -32,7 +32,7 @@ public class AssignmentInformationAdapter extends BaseAdapter {
 
     @Override
     public View getView(int pos, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View assignmentRow = inflater.inflate(R.layout.assignment_information_layout, parent, false);
 
         TextView text;

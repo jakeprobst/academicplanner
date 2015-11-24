@@ -1,5 +1,7 @@
 package org.thisnamesucks.academicplanner;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,49 +11,89 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
-
 public class ClassInfoActivity extends AppCompatActivity {
     ClassModel classModel;
-    private ClassModel createNewClass() {
-        ClassModel classModel = new ClassModel();
-        classModel.setId((int)System.currentTimeMillis());
-
-        ClassDataManager.writeClassData(classModel);
-        SemesterModel semester = SemesterDataManager.getCurrentSemester();
-
-        semester.getClasses().add(classModel.getId());
-        SemesterDataManager.writeSemesterData(semester);
-
-        return classModel;
-    }
+    boolean newClassModel = false;
 
     private void updateClassInfoView(ClassModel model) {
         String name = model.getName();
         String shortName = model.getShortName();
+        String instructor = model.getInstructor();
+        String location = model.getLocation();
+        String notes = model.getNotes();
+        String units = Double.toString(model.getUnits());
+        String meetTimes = model.getMeetTimes();
 
         TextView text;
         text = (TextView) this.findViewById(R.id.class_name_entry);
         text.setText(name);
         text = (TextView) this.findViewById(R.id.class_id_entry);
         text.setText(shortName);
+        text = (TextView) this.findViewById(R.id.class_instructor_entry);
+        text.setText(instructor);
+        text = (TextView) this.findViewById(R.id.class_location_entry);
+        text.setText(location);
+        text = (TextView) this.findViewById(R.id.class_notes_entry);
+        text.setText(notes);
+        text = (TextView) this.findViewById(R.id.class_units_entry);
+        text.setText(units);
+        text = (TextView) this.findViewById(R.id.class_meeting_times_entry);
+        text.setText(meetTimes);
+
+        RadioButton isLetterGrade = (RadioButton) findViewById(R.id.class_letter_grade_entry);
+        RadioButton isPassNoPass = (RadioButton) findViewById(R.id.class_pass_fail_entry);
+        isLetterGrade.setChecked(model.isLetterGrade());
+        isPassNoPass.setChecked(!model.isLetterGrade());
 
         //ClassDataManager.updateScores(model);
         setTitle(model.getName());
     }
 
     private void updateClassModel(ClassModel model) {
-        EditText name_entry = (EditText) this.findViewById(R.id.class_name_entry);
-        EditText id_name = (EditText) this.findViewById(R.id.class_id_entry);
+        EditText name = (EditText) this.findViewById(R.id.class_name_entry);
+        EditText id_entry = (EditText) this.findViewById(R.id.class_id_entry);
+        EditText instructor = (EditText) this.findViewById(R.id.class_instructor_entry);
+        EditText location = (EditText) this.findViewById(R.id.class_location_entry);
+        EditText notes = (EditText) this.findViewById(R.id.class_notes_entry);
+        EditText units = (EditText) this.findViewById(R.id.class_units_entry);
+        EditText meetTimes = (EditText) this.findViewById(R.id.class_meeting_times_entry);
+        RadioButton isLetterGrade = (RadioButton) findViewById(R.id.class_letter_grade_entry);
 
-        model.setName(name_entry.getText().toString());
-        model.setShortName(id_name.getText().toString());
+        model.setName(name.getText().toString());
+        model.setShortName(id_entry.getText().toString());
+        model.setInstructor(instructor.getText().toString());
+        model.setLocation(location.getText().toString());
+        model.setNotes(notes.getText().toString());
+        model.setMeetTimes(meetTimes.getText().toString());
+        model.setLetterGrade(isLetterGrade.isChecked());
+
+        String unitText = units.getText().toString();
+
+        if(unitText.isEmpty())
+        {
+            model.setUnits(0);
+        }
+        else
+        {
+            model.setUnits(Double.parseDouble(unitText));
+        }
+
         ClassDataManager.writeClassData(model);
+    }
+
+    public void saveNewClass()
+    {
+        ClassDataManager.writeClassData(classModel);
+        SemesterModel semester = SemesterDataManager.getCurrentSemester();
+
+        semester.getClasses().add(classModel.getId());
+        SemesterDataManager.writeSemesterData(semester);
     }
 
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
@@ -63,6 +105,44 @@ public class ClassInfoActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed()
+    {
+        showWarningDialog();
+    }
+
+    public void showWarningDialog()
+    {
+        //Make warning message that changes won't be saved
+        AlertDialog.Builder builder = new AlertDialog.Builder(ClassInfoActivity.this);
+        builder.setTitle("Warning");
+        builder.setMessage("Your changes haven't been saved. Do you wish to save changes?");
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+                if(newClassModel)
+                {
+                    saveNewClass();
+                }
+
+                updateClassModel(classModel);
+                ClassInfoActivity.super.onBackPressed();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+
+                ClassInfoActivity.super.onBackPressed();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+
+        dialog.show();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class_info);
@@ -71,10 +151,13 @@ public class ClassInfoActivity extends AppCompatActivity {
 
         int classId = getIntent().getExtras().getInt("classid");
 
-        //final ClassModel classModel;
         if (classId == -1) {
             setTitle("Create New Class");
-            classModel = createNewClass();
+
+            classModel = new ClassModel();
+            classModel.setId((int)System.currentTimeMillis());
+
+            newClassModel = true;
         }
         else {
             classModel = ClassDataManager.getClassById(classId);
@@ -96,11 +179,21 @@ public class ClassInfoActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ClassInfoActivity.this, ClassActivity.class);
+
+                Intent intent;
 
                 updateClassModel(classModel);
 
-                intent.putExtra("classid", classModel.getId());
+                if(newClassModel)//Go to class view if a new class was created
+                {
+                    intent = new Intent(ClassInfoActivity.this, ClassActivity.class);
+                    intent.putExtra("classid", classModel.getId());
+                    saveNewClass();
+                }
+                else
+                {
+                    intent = new Intent(ClassInfoActivity.this, SemesterActivity.class);
+                }
 
                 Toast.makeText(ClassInfoActivity.this, "Class Saved!", Toast.LENGTH_SHORT).show();
 

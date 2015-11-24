@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -82,6 +83,15 @@ public class RubricItemAdapter extends BaseAdapter {
             @Override
             public void afterTextChanged(Editable s) {
 
+            }
+        });
+
+        ImageButton del = (ImageButton) itemrow.findViewById(R.id.rubric_item_delete);
+        del.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                itemlist.remove(rubricitem);
+                notifyDataSetChanged();
             }
         });
 
