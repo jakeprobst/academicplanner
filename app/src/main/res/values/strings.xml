@@ -7,10 +7,18 @@
     <string name="empty_class_list_notice">No classes added yet!</string>
     <string name="empty_assignment_list_notice">No assignments added yet!</string>
     <string-array name="semester_spinner_array">
+        <item>Semester Season</item>
         <item>Fall</item>
         <item>Winter</item>
         <item>Spring</item>
-        <item>Fall</item>
+        <item>Summer</item>
     </string-array>
+    <string-array name="schools_array">
+        <item>sonoma state university</item>
+        <item>santa rosa junior college</item>
+        <item>empire college</item>
+        <item>university of phoenix</item>
+    </string-array>
+
     <string name="title_activity_rubric">RubricActivity</string>
 </resources>

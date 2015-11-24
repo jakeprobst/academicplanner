@@ -9,8 +9,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar" >
         <activity
-            android:name=".SemesterActivity"
-            android:label="@string/title_activity_semester"
+            android:name=".NewSemesterActivity"
+            android:label="New Semester"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,6 +42,11 @@
             android:label="@string/title_activity_rubric"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>
