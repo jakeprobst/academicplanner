@@ -6,6 +6,7 @@
     <string name="title_activity_new_class">NewClassActivity</string>
     <string name="empty_class_list_notice">No classes added yet!</string>
     <string name="empty_assignment_list_notice">No assignments added yet!</string>
+    <bool name="showWeightedScores">false</bool>
     <string-array name="semester_spinner_array">
         <item>Fall</item>
         <item>Winter</item>

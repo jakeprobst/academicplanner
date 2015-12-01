@@ -1,5 +1,6 @@
 package org.thisnamesucks.academicplanner;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -125,8 +126,11 @@ public class ClassInformationAdapter extends BaseAdapter {
             }
             text.setText(Integer.toString(grade) + "%");
 
-            //Display weighted score if a rubric is available
-            if(!classItem.getRubric().getRubricItems().isEmpty())
+            //Temporary option variable for showing weighted scores
+            boolean showWeighted = false;
+
+            //Display weighted score if a rubric is available and option to display weighted scores is true
+            if(!(classItem.getRubric().getRubricItems().isEmpty()) && showWeighted)
             {
                 text = (TextView) classRow.findViewById(R.id.class_score);
                 text.setText(Double.toString(classItem.getCurrentScoreWeighted()));
