@@ -1,5 +1,6 @@
 package org.thisnamesucks.academicplanner;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -14,21 +15,32 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class AssignmentActivity extends AppCompatActivity {
     ClassModel classModel;
     AssignmentModel assignmentModel;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_assignment);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        initializeAssignmentSpinner();//Fill auto-complete options for Assignment Type
 
         final int classId = getIntent().getExtras().getInt("classid");
         final int assignmentId = getIntent().getExtras().getInt("assignmentid");
         classModel = ClassDataManager.getClassById(classId);
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_assignment);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        //Display assignment type spinner if there are types listed in the rubric
+        if(!initializeAssignmentSpinner(classModel))
+        {
+            View view = findViewById(R.id.assignment_type_entry);
+            view.setVisibility(View.INVISIBLE);
+            view = findViewById(R.id.label_assignment_type);
+            view.setVisibility(View.INVISIBLE);
+        }
 
         if (assignmentId == -1) {
             assignmentModel = new AssignmentModel();
@@ -62,12 +74,25 @@ public class AssignmentActivity extends AppCompatActivity {
         ClassDataManager.writeClassData(classModel);
     }
 
-    private void initializeAssignmentSpinner()
+    //Initializes a spinner to display current assignment types from the grading rubric. Returns false if the rubric was empty and no spinner was made.
+    private boolean initializeAssignmentSpinner(ClassModel classModel)
     {
+        if(classModel.getRubric().getRubricItems().isEmpty())
+            return false;
+
+        ArrayList<AssignmentType> assignments = new ArrayList<>();
+        for(RubricItem r : classModel.getRubric().getRubricItems())
+            assignments.add(r.getType());
+
+        AssignmentType[] types = new AssignmentType[assignments.size()];
+        types = assignments.toArray(types);
+
         Spinner spinner = (Spinner) findViewById(R.id.assignment_type_entry);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.assignment_type_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<AssignmentType> adapter = new ArrayAdapter<AssignmentType>(this, android.R.layout.simple_list_item_1, types);
+        adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
         spinner.setAdapter(adapter);
+
+        return true;
     }
 
     private void modelToView(AssignmentModel model)
@@ -135,7 +160,6 @@ public class AssignmentActivity extends AppCompatActivity {
         CheckBox isExtraCredit = (CheckBox) findViewById(R.id.assignment_extra_credit_entry);
 
         model.setName(name_entry.getText().toString());
-        model.setType(AssignmentType.valueOf(type_entry.getSelectedItem().toString()));
         model.setDue(date_entry.getText().toString());
         model.setDescription(description_entry.getText().toString());
         model.setNotes(notes_entry.getText().toString());
