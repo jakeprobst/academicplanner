@@ -1,23 +1,31 @@
 <resources>
+
     <string name="app_name">Academic Planner</string>
+    <string name="empty_class_list_notice">No classes added yet!</string>
+    <string name="empty_assignment_list_notice">No assignments added yet!</string>
     <string name="title_activity_semester">SemesterActivity</string>
     <string name="title_activity_class">ClassActivity</string>
     <string name="title_activity_assignment">AssignmentActivity</string>
     <string name="title_activity_new_class">NewClassActivity</string>
-    <string name="empty_class_list_notice">No classes added yet!</string>
-    <string name="empty_assignment_list_notice">No assignments added yet!</string>
+    <string name="title_activity_rubric">RubricActivity</string>
+
     <string-array name="semester_spinner_array">
+        <item>Select Semester Type :</item>
         <item>Fall</item>
         <item>Winter</item>
         <item>Spring</item>
-        <item>Fall</item>
+        <item>Summer</item>
     </string-array>
+
     <string-array name="schools_array">
         <item>sonoma state university</item>
         <item>santa rosa junior college</item>
+        <item>University of southern california</item>
+        <item>University of California, Berkeley</item>
         <item>empire college</item>
         <item>university of phoenix</item>
     </string-array>
+
     <string-array name="assignment_type_array">
         <item>Homework</item>
         <item>Project</item>
@@ -32,5 +40,5 @@
         <item>Report</item>
         <item>Other</item>
     </string-array>
-    <string name="title_activity_rubric">RubricActivity</string>
+
 </resources>

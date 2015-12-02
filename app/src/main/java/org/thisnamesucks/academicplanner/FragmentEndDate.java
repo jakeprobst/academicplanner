@@ -26,20 +26,15 @@ public class FragmentEndDate extends DialogFragment implements DatePickerDialog.
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
 
-        //Create a new DatePickerDialog instance and return it
-        /*
-            DatePickerDialog Public Constructors - Here we uses first one
-            public DatePickerDialog (Context context, DatePickerDialog.OnDateSetListener callBack, int year, int monthOfYear, int dayOfMonth)
-            public DatePickerDialog (Context context, int theme, DatePickerDialog.OnDateSetListener listener, int year, int monthOfYear, int dayOfMonth)
-         */
         return new DatePickerDialog(getActivity(), this, year, month, day);
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day)
     {
         //Do something with the date chosen by the user
+        month=month+1;
         TextView tv = (TextView) getActivity().findViewById(R.id.enddate_tv);
         String stringOfDate = month + "/" + day + "/" + year;
-        tv.setText("Formatted date: " + stringOfDate);
+        tv.setText("End Date: " + stringOfDate);
     }
 }
