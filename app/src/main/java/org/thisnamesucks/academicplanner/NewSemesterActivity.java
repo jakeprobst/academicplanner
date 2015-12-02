@@ -25,45 +25,52 @@ public class NewSemesterActivity extends AppCompatActivity {
         setTitle("Create New Semester");
 
         Spinner spinner = (Spinner) findViewById(R.id.semester_spinner);
-// Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.semester_spinner_array, android.R.layout.simple_spinner_item);
-// Specify the layout to use when the list of choices appears
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.
+                createFromResource(this,
+                R.array.semester_spinner_array,
+                android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
         spinner.setAdapter(adapter);
 
         Button start_btn = (Button) findViewById(R.id.startdate_btn);
-        start_btn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
+        start_btn.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                DialogFragment newFragment = new FragmentStartDate();
+                newFragment.show(getFragmentManager(),"Date Picker");
             }
         });
 
         Button end_btn = (Button) findViewById(R.id.enddate_btn);
-        end_btn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Do something in response to button click
+        end_btn.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                DialogFragment newFragment = new FragmentEndDate();
+                newFragment.show(getFragmentManager(),"Date Picker");
             }
         });
 
-        // Get a reference to the AutoCompleteTextView in the layout
-        AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.autocomplete_country);
-// Get the string array
         String[] schools = getResources().getStringArray(R.array.schools_array);
-// Create the adapter and set it to the AutoCompleteTextView
-        ArrayAdapter<String> schoolsAdapter =
-                new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, schools);
-        textView.setAdapter(adapter);
+        getResources().openRawResource(R.raw.sorted_schools);
+        AutoCompleteTextView textView = (AutoCompleteTextView)
+                findViewById(R.id.autocomplete_school);
+        ArrayAdapter<String> schoolsAdapter = new ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_list_item_1,
+                Util.getStringArrayFromResource(this, R.raw.sorted_schools));
+        textView.setAdapter(schoolsAdapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        fab.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
     }
-
 }

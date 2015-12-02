@@ -6,22 +6,23 @@ import android.util.Log;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
 /**
  * Created by jake on 11/9/15.
+ * edited 12-1-15
  */
 public class Util {
-    public static String getFileContents(Context ctx, String path) {
+    public static String getFileContentsFromStream(InputStream file) {
         String s = "";
         try {
-            FileInputStream file = ctx.openFileInput(path);
             BufferedReader br = new BufferedReader(new InputStreamReader(file));
             StringBuilder sb = new StringBuilder();
 
             String line;
             while ((line = br.readLine()) != null) {
-                sb.append(line);
+                sb.append(line + '\n');
             }
             br.close();
             s = sb.toString();
@@ -30,6 +31,16 @@ public class Util {
             Log.d("exception", "stringbuilding: " + e.toString());
         }
         return s;
+    }
+
+    public static String getFileContents(Context ctx, String path) {
+        try {
+            return getFileContentsFromStream(ctx.openFileInput(path));
+        }
+        catch (Exception e) {
+            Log.d("exception", "getfilecontents: " + e.toString());
+        }
+        return "";
     }
 
     public static void removeFile(Context ctx, String path) {
@@ -52,5 +63,18 @@ public class Util {
         } catch (Exception e) {
             Log.d("exception", "writeToFile: " + e.toString());
         }
+    }
+
+    public static String[] getStringArrayFromResource(Context ctx, int id) {
+        String data = getFileContentsFromStream(ctx.getResources().openRawResource(id));
+        String[] out = data.split("\\n");
+
+        Log.d("len:", Integer.toString(out.length));
+
+        Log.d("l0:", out[0]);
+        Log.d("l1:", out[1]);
+
+
+        return out;
     }
 }

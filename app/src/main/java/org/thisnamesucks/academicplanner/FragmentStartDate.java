@@ -1,16 +1,12 @@
 package org.thisnamesucks.academicplanner;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.DatePicker;
+import android.app.Fragment;
 import android.widget.TextView;
-
+import android.widget.DatePicker;
+import android.app.Dialog;
 import java.util.Calendar;
 
 /**
@@ -28,20 +24,14 @@ public class FragmentStartDate extends DialogFragment implements DatePickerDialo
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
 
-        //Create a new DatePickerDialog instance and return it
-        /*
-            DatePickerDialog Public Constructors - Here we uses first one
-            public DatePickerDialog (Context context, DatePickerDialog.OnDateSetListener callBack, int year, int monthOfYear, int dayOfMonth)
-            public DatePickerDialog (Context context, int theme, DatePickerDialog.OnDateSetListener listener, int year, int monthOfYear, int dayOfMonth)
-         */
         return new DatePickerDialog(getActivity(), this, year, month, day);
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day)
     {
-        //Do something with the date chosen by the user
+        month = month+1;
         TextView tv = (TextView) getActivity().findViewById(R.id.startdate_tv);
         String stringOfDate = month + "/" + day + "/" + year;
-        tv.setText("Formatted date: " + stringOfDate);
+        tv.setText("Start Date: " + stringOfDate);
     }
 }

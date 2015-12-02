@@ -1,6 +1,7 @@
 package org.thisnamesucks.academicplanner;
 
 import android.app.DatePickerDialog;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,6 +11,7 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -40,19 +42,23 @@ public class AssignmentActivity extends AppCompatActivity {
         classModel = ClassDataManager.getClassById(classId);
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_assignment2);
+        setContentView(R.layout.activity_assignment);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
-        //setDateTimeField();//For the date picker
+        //date-picker for assignment
+        Button start_btn = (Button) findViewById(R.id.startdate_btn);
+        start_btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                DialogFragment newFragment = new FragmentStartDate();
+                newFragment.show(getFragmentManager(), "Date Picker");
+            }
+        });
 
         //Display assignment type spinner if there are types listed in the rubric
         if(!initializeAssignmentSpinner(classModel))
         {
             View view = findViewById(R.id.assignment_type_entry);
-            view.setVisibility(View.INVISIBLE);
-            view = findViewById(R.id.label_assignment_type);
             view.setVisibility(View.INVISIBLE);
         }
 
