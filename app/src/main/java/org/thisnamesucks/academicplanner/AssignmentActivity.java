@@ -1,25 +1,36 @@
 package org.thisnamesucks.academicplanner;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class AssignmentActivity extends AppCompatActivity {
     ClassModel classModel;
     AssignmentModel assignmentModel;
+
+    /*private EditText assignmentDate = (EditText) findViewById(R.id.assignment_due_entry);
+    private DatePickerDialog datePickerDialog;
+    private SimpleDateFormat dateFormatter;*/
+
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -29,9 +40,12 @@ public class AssignmentActivity extends AppCompatActivity {
         classModel = ClassDataManager.getClassById(classId);
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_assignment);
+        setContentView(R.layout.activity_assignment2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
+        //setDateTimeField();//For the date picker
 
         //Display assignment type spinner if there are types listed in the rubric
         if(!initializeAssignmentSpinner(classModel))
@@ -44,8 +58,17 @@ public class AssignmentActivity extends AppCompatActivity {
 
         if (assignmentId == -1) {
             assignmentModel = new AssignmentModel();
-            assignmentModel.setId((int)System.currentTimeMillis()); // panic in 23 years
-            setTitle("New Assignment");
+            assignmentModel.setName("Assignment " + String.valueOf(classModel.getAssignments().size())); //Set default name
+
+            if(!classModel.getRubric().getRubricItems().isEmpty()) //Set default type if rubric available
+                assignmentModel.setType(classModel.getRubric().getRubricItems().get(0).getType());
+
+            assignmentModel.setId((int)System.currentTimeMillis()); //Set ID panic in 23 years
+
+            //Update assignment view display
+            setTitle(assignmentModel.getName());
+            TextView text = (TextView) this.findViewById(R.id.assignment_name_entry);
+            text.setText(assignmentModel.getName());
         }
         else {
             assignmentModel = AssignmentDataManager.getAssignmentById(assignmentId);
@@ -73,6 +96,28 @@ public class AssignmentActivity extends AppCompatActivity {
         }
         ClassDataManager.writeClassData(classModel);
     }
+
+    //Initialize Date-Time field
+    /*private void setDateTimeField() {
+        assignmentDate.setInputType(InputType.TYPE_NULL);
+        assignmentDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                datePickerDialog.show();
+            }
+        });
+
+        Calendar newCalendar = Calendar.getInstance();
+        datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                assignmentDate.setText(dateFormatter.format(newDate.getTime()));
+            }
+
+        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+    }*/
 
     //Initializes a spinner to display current assignment types from the grading rubric. Returns false if the rubric was empty and no spinner was made.
     private boolean initializeAssignmentSpinner(ClassModel classModel)
