@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 public class NavigationActivity extends AppCompatActivity
@@ -24,15 +25,22 @@ public class NavigationActivity extends AppCompatActivity
     protected DrawerLayout drawer;
     protected ActionBarDrawerToggle toggle;
 
+    private NavDrawerClassAdapter classAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_navigation);
 
+        SemesterDataManager.initialize(this);
+        ClassDataManager.initialize(this);
+        AssignmentDataManager.initialize(this);
+
+
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        //NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        //navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -45,9 +53,11 @@ public class NavigationActivity extends AppCompatActivity
 
         toolbar = (Toolbar) getLayoutInflater().inflate(layoutId, frameLayout, true).findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
         super.setContentView(fullLayout);
+
+        ListView dueList = (ListView) findViewById(R.id.navbar_due);
+        classAdapter = new NavDrawerClassAdapter(this);
+        dueList.setAdapter(classAdapter);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
@@ -88,7 +98,6 @@ public class NavigationActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.

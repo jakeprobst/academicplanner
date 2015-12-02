@@ -67,9 +67,6 @@ public class SemesterActivity extends NavigationActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_semester);
 
-        SemesterDataManager.initialize(this);
-        ClassDataManager.initialize(this);
-        AssignmentDataManager.initialize(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
