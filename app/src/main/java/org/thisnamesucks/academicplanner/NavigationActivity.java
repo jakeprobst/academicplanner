@@ -1,6 +1,7 @@
 package org.thisnamesucks.academicplanner;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -65,7 +67,7 @@ public class NavigationActivity extends AppCompatActivity
             ListView assignments = (ListView) cView.findViewById(R.id.navbar_assignments);
             NavDrawerAssignmentAdapter asAdapter = new NavDrawerAssignmentAdapter(this, c.getId());
             assignments.setAdapter(asAdapter);
-
+            assignments.setOnItemClickListener(asAdapter);
             layout.addView(cView);
         }
     }
@@ -80,11 +82,7 @@ public class NavigationActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         super.setContentView(fullLayout);
 
-        /*ListView dueList = (ListView) findViewById(R.id.navbar_due);
-        classAdapter = new NavDrawerClassAdapter(this);
-        dueList.setAdapter(classAdapter);*/
         fillToDoList();
-
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(

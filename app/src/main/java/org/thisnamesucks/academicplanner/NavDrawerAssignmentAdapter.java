@@ -1,10 +1,12 @@
 package org.thisnamesucks.academicplanner;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -16,7 +18,7 @@ import java.util.ArrayList;
 /**
  * Created by jake on 12/1/15.
  */
-public class NavDrawerAssignmentAdapter extends BaseAdapter {
+public class NavDrawerAssignmentAdapter extends BaseAdapter implements AdapterView.OnItemClickListener {
     Context context;
     int classId;
     ArrayList<AssignmentModel> assignmentsDue;
@@ -36,16 +38,13 @@ public class NavDrawerAssignmentAdapter extends BaseAdapter {
         for(AssignmentModel assignment: AssignmentDataManager.getAssignmentsByIds(ClassDataManager.getClassById(classId).getAssignments())) {
             // filter here!
             out.add(assignment);
-            Log.d("pendadd:", assignment.getName());
         }
 
-        Log.d("pending", out.toString());
         notifyDataSetChanged();
         return out;
     }
 
     public int getCount() {
-        Log.d("count", Integer.toString(assignmentsDue.size()));
         return assignmentsDue.size();
     }
 
@@ -68,6 +67,14 @@ public class NavDrawerAssignmentAdapter extends BaseAdapter {
     }
 
     @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(view.getContext(), AssignmentActivity.class);
+        intent.putExtra("assignmentid", ((AssignmentModel) parent.getItemAtPosition(position)).getId());
+        intent.putExtra("classid", classId);
+        view.getContext().startActivity(intent);
+    }
+
+    @Override
     public long getItemId(int pos) {
         return pos;
     }
@@ -80,5 +87,9 @@ public class NavDrawerAssignmentAdapter extends BaseAdapter {
     public void setData(ArrayList<AssignmentModel> assignments) {
         assignmentsDue = assignments;
         notifyDataSetChanged();
+    }
+
+    public int getClassId() {
+        return classId;
     }
 }
