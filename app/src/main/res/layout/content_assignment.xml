@@ -22,22 +22,13 @@
         android:gravity="center_horizontal"
         android:textColor="@color/colorPrimaryDark" />
 
-    <Button
-        android:id="@+id/startdate_btn"
-        android:layout_below="@id/assignment_name_entry"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Set Due Date"
-        android:onClick="onButtonClicked"
-        android:textSize="18sp" />
-
-    <EditText
+    <TextView
         android:id="@+id/due_date_et"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/assignment_type_entry"
-        android:layout_toRightOf="@+id/startdate_btn"
-        android:layout_toEndOf="@+id/startdate_btn" />
+        android:clickable="true"
+        android:onClick="onButtonClicked"
+        android:layout_below="@+id/assignment_score_entry" />
 
     <EditText
         android:id="@+id/assignment_score_entry"
