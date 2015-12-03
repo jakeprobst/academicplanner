@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -16,7 +17,7 @@ import java.util.Calendar;
 /**
  * Created by toogymonster on 11/22/15.
  */
-public class FragmentEndDate extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+public class FragmentDueDate extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -33,8 +34,9 @@ public class FragmentEndDate extends DialogFragment implements DatePickerDialog.
     {
         //Do something with the date chosen by the user
         month=month+1;
-        TextView tv = (TextView) getActivity().findViewById(R.id.enddate_tv);
+
+        EditText et = (EditText) getActivity().findViewById(R.id.due_date_et);
         String stringOfDate = month + "/" + day + "/" + year;
-        tv.setText("End Date: " + stringOfDate);
+        et.setText(stringOfDate);
     }
 }

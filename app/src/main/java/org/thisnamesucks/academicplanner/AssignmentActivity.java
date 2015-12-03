@@ -1,29 +1,20 @@
 package org.thisnamesucks.academicplanner;
 
-import android.app.DatePickerDialog;
 import android.app.DialogFragment;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.InputType;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Locale;
 
 public class AssignmentActivity extends AppCompatActivity {
     ClassModel classModel;
@@ -50,7 +41,7 @@ public class AssignmentActivity extends AppCompatActivity {
         Button start_btn = (Button) findViewById(R.id.startdate_btn);
         start_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                DialogFragment newFragment = new FragmentStartDate();
+                DialogFragment newFragment = new FragmentDueDate();
                 newFragment.show(getFragmentManager(), "Date Picker");
             }
         });
@@ -160,7 +151,7 @@ public class AssignmentActivity extends AppCompatActivity {
         TextView text;
         text = (TextView) this.findViewById(R.id.assignment_name_entry);
         text.setText(name);
-        text = (TextView) this.findViewById(R.id.assignment_due_entry);
+        text = (TextView) this.findViewById(R.id.due_date_et);
         text.setText(dueDate);
         text = (TextView) this.findViewById(R.id.assignment_description_entry);
         text.setText(description);
@@ -201,7 +192,7 @@ public class AssignmentActivity extends AppCompatActivity {
     private void viewToModel(AssignmentModel model)
     {
         EditText name_entry = (EditText) this.findViewById(R.id.assignment_name_entry);
-        EditText date_entry = (EditText) findViewById(R.id.assignment_due_entry);
+        EditText date_entry = (EditText) findViewById(R.id.due_date_et);
         EditText score_entry = (EditText) findViewById(R.id.assignment_score_entry);
         EditText total_entry = (EditText) findViewById(R.id.assignment_total_score_entry);
 
