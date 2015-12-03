@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
@@ -18,7 +20,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class SemesterActivity extends AppCompatActivity {
+public class SemesterActivity extends NavigationActivity {
     //SemesterInformation semesterInformation;
     SemesterModel semesterModel;
     ArrayList<ClassModel> classList;
@@ -64,13 +66,7 @@ public class SemesterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_semester);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        //SemesterModel semesterModel = new SemesterModel(getApplicationContext());
-        SemesterDataManager.initialize(this);
-        ClassDataManager.initialize(this);
-        AssignmentDataManager.initialize(this);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

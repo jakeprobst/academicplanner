@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class ClassActivity extends AppCompatActivity {
+public class ClassActivity extends NavigationActivity {
     ClassModel classModel;
     ArrayList<AssignmentModel> assignmentList;
     AssignmentInformationAdapter assignmentInfoAdapter;
@@ -62,8 +62,6 @@ public class ClassActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_class);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         classModel = ClassDataManager.getClassById(getIntent().getExtras().getInt("classid"));
         setTitle(classModel.getName());
