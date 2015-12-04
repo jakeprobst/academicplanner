@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -14,7 +15,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.Date;
 
 public class AssignmentActivity extends AppCompatActivity {
     ClassModel classModel;
@@ -38,10 +44,31 @@ public class AssignmentActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //date-picker for assignment
-        TextView start_btn = (TextView) findViewById(R.id.due_date_et);
+        final TextView start_btn = (TextView) findViewById(R.id.due_date_et);
         start_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                DialogFragment newFragment = new FragmentDueDate();
+                FragmentDatePicker newFragment = new FragmentDatePicker();
+                newFragment.setCallback(new FragmentDatePicker.FragmentDateCallback() {
+                    @Override
+                    public void setDate(int year, int month, int day) {
+                        //String stringOfDate = month + "/" + day + "/" + year;
+                        Calendar cal = Calendar.getInstance(); //new Calendar(year-1900, month, day);
+                        cal.set(year, month, day);
+                        start_btn.setText(dateFormat.format(cal.getTime()));
+                    }
+                    public Calendar getDate() {
+                        Calendar cal = Calendar.getInstance();
+                        try {
+                            cal.setTime(dateFormat.parse(start_btn.getText().toString()));
+                        }
+                        catch (ParseException e) {
+                            Log.d("parse exception", e.getMessage());
+                            cal = Calendar.getInstance();
+                        }
+
+                        return cal;
+                    }
+                });
                 newFragment.show(getFragmentManager(), "Date Picker");
             }
         });
@@ -229,3 +256,4 @@ public class AssignmentActivity extends AppCompatActivity {
         }
     }
 }
+
