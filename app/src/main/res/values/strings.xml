@@ -34,4 +34,5 @@
         <item>Other</item>
     </string-array>
     <string name="title_activity_rubric">RubricActivity</string>
+    <string name="title_activity_semester_list">SemesterListActivity</string>
 </resources>
