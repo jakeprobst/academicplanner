@@ -22,7 +22,7 @@ public class AssignmentDataManager {
 
         as.setId(21);
         as.setName("Project 1");
-        as.setDue("12/6");
+        as.setDue("12/6/2015");
         as.setCurrentScore(100);
         as.setTotalScore(120);
         as.setType(AssignmentType.Project);
@@ -35,7 +35,7 @@ public class AssignmentDataManager {
 
         as.setId(22);
         as.setName("Exam");
-        as.setDue("12/8!");
+        as.setDue("12/8/2015");
         as.setCurrentScore(75);
         as.setTotalScore(100);
         as.setType(AssignmentType.Exam);
@@ -48,7 +48,7 @@ public class AssignmentDataManager {
 
         as.setId(25);
         as.setName("Essay");
-        as.setDue("12/12");
+        as.setDue("12/12/2015");
         as.setCurrentScore(50);
         as.setTotalScore(50);
         as.setType(AssignmentType.Essay);
@@ -61,7 +61,7 @@ public class AssignmentDataManager {
 
         as.setId(27);
         as.setName("Lab");
-        as.setDue("Edge of tomorrow");
+        as.setDue("12/12/2015");
         as.setCurrentScore(80);
         as.setTotalScore(100);
         as.setType(AssignmentType.Lab);
@@ -75,7 +75,7 @@ public class AssignmentDataManager {
         AssignmentDataManager.ctx = ctx;
         AssignmentDataManager.datastore = new AssignmentDataManagerJSON(ctx);
 
-        //makeTestData();
+        makeTestData();
     }
 
     public static void writeAssignmentData(AssignmentModel assignment) {
