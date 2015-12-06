@@ -20,11 +20,6 @@ public class AssignmentActivity extends AppCompatActivity {
     ClassModel classModel;
     AssignmentModel assignmentModel;
 
-    /*private EditText assignmentDate = (EditText) findViewById(R.id.assignment_due_entry);
-    private DatePickerDialog datePickerDialog;
-    private SimpleDateFormat dateFormatter;*/
-
-
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
 
@@ -93,28 +88,6 @@ public class AssignmentActivity extends AppCompatActivity {
         }
         ClassDataManager.writeClassData(classModel);
     }
-
-    //Initialize Date-Time field
-    /*private void setDateTimeField() {
-        assignmentDate.setInputType(InputType.TYPE_NULL);
-        assignmentDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                datePickerDialog.show();
-            }
-        });
-
-        Calendar newCalendar = Calendar.getInstance();
-        datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                Calendar newDate = Calendar.getInstance();
-                newDate.set(year, monthOfYear, dayOfMonth);
-                assignmentDate.setText(dateFormatter.format(newDate.getTime()));
-            }
-
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
-    }*/
 
     //Initializes a spinner to display current assignment types from the grading rubric. Returns false if the rubric was empty and no spinner was made.
     private boolean initializeAssignmentSpinner(ClassModel classModel)

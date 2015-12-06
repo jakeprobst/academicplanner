@@ -28,6 +28,10 @@ public class SemesterModel
     @SerializedName("classes")
     private ArrayList<Integer> classes = new ArrayList<>();
 
+    public void setClasses(ArrayList<Integer> classes) {
+        this.classes = classes;
+    }
+
     public ArrayList<Integer> getClasses() {
         return classes;
     }
@@ -78,10 +82,6 @@ public class SemesterModel
 
     public void setEnddate(String enddate) {
         this.enddate = enddate;
-    }
-
-    public void setClasses(ArrayList<Integer> classes) {
-        this.classes = classes;
     }
 
 }

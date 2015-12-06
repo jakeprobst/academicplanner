@@ -30,10 +30,7 @@ public class SemesterDataManager {
     public static void initialize(Context ctx) {
         SemesterDataManager.ctx = ctx;
         SemesterDataManager.datastore = new SemesterDataManagerJSON(ctx);
-
         makeTestData();
-
-        //semesters = datastore.getSemesterData();
     }
 
     public static void writeSemesterData(SemesterModel semester) {

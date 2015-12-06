@@ -19,7 +19,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class SemesterActivity extends AppCompatActivity {
-    //SemesterInformation semesterInformation;
+
     SemesterModel semesterModel;
     ArrayList<ClassModel> classList;
     ClassInformationAdapter classInfoAdapter;
