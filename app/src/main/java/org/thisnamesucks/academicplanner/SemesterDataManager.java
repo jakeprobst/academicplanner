@@ -14,7 +14,6 @@ import java.util.Map;
 public class SemesterDataManager {
     private static Context ctx;
     private static SemesterDataManagerJSON datastore;
-    //private static ArrayList<SemesterModel> semesters = new ArrayList<>();
     private static Map<Integer, SemesterModel> semestercache = new HashMap<>();
 
     public static void makeTestData() {

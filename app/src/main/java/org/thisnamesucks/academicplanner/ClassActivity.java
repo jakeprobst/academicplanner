@@ -27,8 +27,6 @@ public class ClassActivity extends AppCompatActivity {
         super.onResume();
 
         classModel = ClassDataManager.getClassById(getIntent().getExtras().getInt("classid"));
-        //ClassDataManager.updateScores(classModel);
-
         assignmentList = AssignmentDataManager.getAssignmentsByIds(classModel.getAssignments());
         assignmentInfoAdapter = new AssignmentInformationAdapter(this, assignmentList);
 

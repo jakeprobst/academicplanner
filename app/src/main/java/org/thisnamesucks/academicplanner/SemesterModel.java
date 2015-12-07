@@ -13,7 +13,6 @@ public class SemesterModel
 {
     @SerializedName("id")
     private int id;
-
     @SerializedName("name")
     private String name;
     @SerializedName("season")
