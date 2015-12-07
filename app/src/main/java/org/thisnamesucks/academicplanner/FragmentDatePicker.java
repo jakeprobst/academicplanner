@@ -11,6 +11,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+// TODO: replace other Fragment*Date objects
+
 /**
  * Created by student on 12/3/15.
  */

@@ -22,13 +22,11 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:paddingBottom="48dp">
 
-        <EditText
+        <Button
             android:id="@+id/assignment_due_entry"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="datetime"
-            android:layout_alignRight="@+id/assignment_score_entry"
-            android:layout_alignEnd="@+id/assignment_score_entry"
+            android:textSize="16sp"
             android:layout_below="@+id/textView2" />
 
         <EditText
