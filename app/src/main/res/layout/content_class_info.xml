@@ -42,7 +42,7 @@
 
         <Button
             android:id="@+id/class_modify_rubric"
-            android:text="Update Grading Rubric"
+            android:text="Edit Grading Rubric"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#ea9341"
