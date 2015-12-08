@@ -11,13 +11,18 @@ import java.util.ArrayList;
 
 public class ScheduleActivity extends AppCompatActivity
 {
-    SemesterModel semesterModel;
-    ArrayList<SemesterModel> semesterList;
+    ScheduleModel scheduleModel;
+    ArrayList<ScheduleModel> scheduleList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        ///scheduleModel = ScheduleDataManager.getScheduleById(getIntent().getExtras().getInt("id"));
+        ///scheduleList = ScheduleDataManager.getScheduleById(scheduleModel.getAssignments());
+        ///assignmentInfoAdapter = new AssignmentInformationAdapter(this, assignmentList);
+
         setContentView(R.layout.activity_schedule);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

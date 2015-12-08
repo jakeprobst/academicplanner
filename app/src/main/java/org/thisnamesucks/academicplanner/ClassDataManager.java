@@ -79,17 +79,21 @@ public class ClassDataManager {
         makeTestData();
     }
 
-    public static void writeClassData(ClassModel classdata) {
+    public static void writeClassData(ClassModel classdata)
+    {
         datastore.writeClassData(classdata);
     }
 
-    public static ClassModel getClassById(int id) {
+    public static ClassModel getClassById(int id)
+    {
         return datastore.getClassById(id);
     }
 
-    public static ArrayList<ClassModel> getClassesByIDs(ArrayList<Integer> ids) {
+    public static ArrayList<ClassModel> getClassesByIDs(ArrayList<Integer> ids)
+    {
         ArrayList<ClassModel> classList = new ArrayList<>();
-        for(Integer id: ids) {
+        for(Integer id: ids)
+        {
             classList.add(getClassById(id));
         }
         return classList;
@@ -97,26 +101,11 @@ public class ClassDataManager {
 
     public static void deleteClass(ClassModel classModel)
     {
-        for(AssignmentModel a: AssignmentDataManager.getAssignmentsByIds(classModel.getAssignments())) {
+        for(AssignmentModel a: AssignmentDataManager.getAssignmentsByIds(classModel.getAssignments()))
+        {
             AssignmentDataManager.deleteAssignment(a);
         }
         datastore.deleteClass(classModel);
 
     }
-
-    /*public static void updateScores(ClassModel model)
-    {
-        int curScore = 0;
-        int totScore = 0;
-        AssignmentModel tmp;
-
-        for(Integer id: model.getAssignments()) {
-            tmp = AssignmentDataManager.getAssignmentById(id);
-            curScore += tmp.getCurrentScore();
-            totScore += tmp.getTotalScore();
-        }
-
-        model.setCurrentScore(curScore);
-        model.setTotalScore(totScore);
-    }*/
 }

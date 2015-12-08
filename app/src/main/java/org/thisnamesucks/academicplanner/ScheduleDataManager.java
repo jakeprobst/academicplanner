@@ -17,20 +17,27 @@ public class ScheduleDataManager
     public static void makeTestData()
     {//// TODO: 12/6/15 create schedule data
         ScheduleModel schedulemodel = new ScheduleModel();
+        schedulemodel.setSeason("Spring");
+        schedulemodel.setId(2);
+        scheduleData.writeScheduleData(schedulemodel);
     }
 
-    public static void initialize(Context ctx) {
+    public static void initialize(Context ctx)
+    {
         ScheduleDataManager.ctx = ctx;
         ScheduleDataManager.scheduleData = new ScheduleDataManagerJSON(ctx);
         makeTestData();
     }
 
-    public static void writeScheduleData(ScheduleModel schedule) {
+    public static void writeScheduleData(ScheduleModel schedule)
+    {
+        ScheduleModel schedulemodel = new ScheduleModel();
         scheduleData.writeScheduleData(schedule);
     }
 
-    public static ScheduleModel getCurrentSchedule() {
-        return getScheduleById(1);
+    public static ScheduleModel getCurrentSchedule()
+    {
+        return getScheduleById(2);
     }
 
     public static ScheduleModel getScheduleById(int id)
