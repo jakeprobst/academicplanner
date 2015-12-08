@@ -75,7 +75,15 @@ public class AssignmentListProvider implements RemoteViewsService.RemoteViewsFac
         assignmentList.clear();
         for(ClassModel c: classes) {
             for(AssignmentModel a: AssignmentDataManager.getAssignmentsByIds(c.getAssignments())) {
-                assignmentList.add(new SCAPair(sem, c, a));
+                ArrayList<Integer> date = a.getDue();
+                Calendar cal = Calendar.getInstance();
+                cal.set(date.get(0), date.get(1), date.get(2));
+
+                Calendar now = Calendar.getInstance();
+                long days = TimeUnit.MILLISECONDS.toDays(cal.getTimeInMillis() - now.getTimeInMillis());
+                if (days >= 0) {
+                    assignmentList.add(new SCAPair(sem, c, a));
+                }
             }
         }
         Collections.sort(assignmentList);
@@ -107,16 +115,15 @@ public class AssignmentListProvider implements RemoteViewsService.RemoteViewsFac
         Calendar cal = Calendar.getInstance();
         cal.set(date.get(0), date.get(1), date.get(2));
 
-        //assignmentRow.setTextViewText(R.id.widget_due, dateFormat.format(cal.getTime()));
         Calendar now = Calendar.getInstance();
         long days = TimeUnit.MILLISECONDS.toDays(cal.getTimeInMillis() - now.getTimeInMillis());
-        if (days <= 0) {
-            assignmentRow.setTextViewText(R.id.widget_due, "due!");
+        if (days == 0) {
+            assignmentRow.setTextViewText(R.id.widget_due, "Today!");
         }
         else if (days == 1) {
             assignmentRow.setTextViewText(R.id.widget_due, "1 day");
         }
-        else {
+        else if (days > 1){
             assignmentRow.setTextViewText(R.id.widget_due, Long.toString(days) + " days");
         }
 
