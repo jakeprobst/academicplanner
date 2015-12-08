@@ -68,9 +68,9 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:textStyle="bold|italic"
-            android:textColor="#000000"
+            android:textColor="@color/textAccentColor"
             style="@android:style/TextAppearance.Holo.Small"
-            android:alpha=".6" />
+            android:alpha=".8" />
 
         <Spinner
             android:layout_width="wrap_content"
@@ -83,7 +83,10 @@
             android:layout_below="@+id/label_assignment_type"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            style="@android:style/TextAppearance.Holo.Small" />
+            style="@android:style/TextAppearance.Holo.Small"
+            android:alpha=".8"
+            android:background="@drawable/drop_down_background"
+            android:layout_margin="10dp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -95,8 +98,8 @@
             android:layout_below="@+id/assignment_name_entry"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:textColor="#000000"
-            android:alpha=".6" />
+            android:textColor="@color/textAccentColor"
+            android:alpha=".8" />
 
         <TextView
             android:layout_width="match_parent"
@@ -114,8 +117,8 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_below="@+id/assignment_type_entry"
-            android:textColor="#000000"
-            android:alpha=".6" />
+            android:textColor="@color/textAccentColor"
+            android:alpha=".8" />
 
         <TextView
             android:layout_width="match_parent"
@@ -128,8 +131,8 @@
             android:layout_below="@+id/assignment_due_entry"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:textColor="#000000"
-            android:alpha=".6" />
+            android:textColor="@color/textAccentColor"
+            android:alpha=".8" />
 
         <TextView
             android:layout_width="match_parent"
@@ -142,8 +145,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/assignment_score_entry"
-            android:textColor="#000000"
-            android:alpha=".6" />
+            android:textColor="@color/textAccentColor"
+            android:alpha=".8" />
 
         <TextView
             android:layout_width="match_parent"
@@ -157,8 +160,8 @@
             android:layout_alignRight="@+id/assignment_total_score_entry"
             android:layout_alignEnd="@+id/assignment_total_score_entry"
             android:textStyle="bold"
-            android:textColor="#000000"
-            android:alpha=".6" />
+            android:textColor="@color/textAccentColor"
+            android:alpha=".8" />
 
         <EditText
             android:layout_width="match_parent"
@@ -194,8 +197,8 @@
             android:layout_below="@+id/assignment_description_entry"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:textColor="#000000"
-            android:alpha=".6" />
+            android:textColor="@color/textAccentColor"
+            android:alpha=".8" />
 
         <EditText
             android:id="@+id/assignment_name_entry"

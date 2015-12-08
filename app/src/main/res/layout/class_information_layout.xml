@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/row_background">
 
     <TextView
         android:id="@+id/class_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        />
+        android:textColor="@color/textAccentColor" />
 
     <TextView
         android:id="@+id/class_id"
@@ -15,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/class_name"
         android:textSize="14sp"
-        />
+        android:textColor="@color/textAccentColor" />
     <TextView
         android:id="@+id/class_score"
         android:layout_width="wrap_content"
@@ -23,7 +24,7 @@
         android:layout_alignTop="@+id/class_total_score"
         android:layout_toLeftOf="@+id/score_slash"
         android:textSize="16sp"
-        />
+        android:textColor="@color/textAccentColor" />
     <TextView
         android:id="@+id/score_slash"
         android:layout_width="wrap_content"
@@ -32,7 +33,7 @@
         android:layout_alignTop="@+id/class_total_score"
         android:layout_toLeftOf="@+id/class_total_score"
         android:textSize="16sp"
-        />
+        android:textColor="@color/textAccentColor" />
     <TextView
         android:id="@+id/class_total_score"
         android:layout_width="wrap_content"
@@ -40,7 +41,7 @@
         android:layout_below="@+id/class_name"
         android:layout_alignParentRight="true"
         android:textSize="16sp"
-        />
+        android:textColor="@color/textAccentColor" />
     <TextView
         android:id="@+id/class_percent"
         android:layout_width="wrap_content"
@@ -48,5 +49,5 @@
         android:layout_above="@id/score_slash"
         android:layout_alignParentRight="true"
         android:textSize="18sp"
-        />
+        android:textColor="@color/textAccentColor" />
 </RelativeLayout>

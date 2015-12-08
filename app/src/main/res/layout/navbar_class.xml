@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/navbar_layout"
-    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/navbar_classname"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:textStyle="bold"
-        android:textSize="20sp"/>
+        android:textStyle="bold|italic"
+        android:textSize="20sp"
+        android:textColor="@color/textAccentColor" />
     <ListView
         android:id="@+id/navbar_assignments"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@null"
-        android:scrollbars="none"
-        />
+        android:scrollbars="none" />
     <!--android:dividerHeight="0dp"-->
 </LinearLayout>

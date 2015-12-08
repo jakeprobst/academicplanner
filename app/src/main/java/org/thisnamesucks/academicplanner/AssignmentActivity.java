@@ -123,7 +123,7 @@ public class AssignmentActivity extends AppCompatActivity {
         types = assignments.toArray(types);
 
         Spinner spinner = (Spinner) findViewById(R.id.assignment_type_entry);
-        ArrayAdapter<AssignmentType> adapter = new ArrayAdapter<AssignmentType>(this, android.R.layout.simple_list_item_1, types);
+        ArrayAdapter<AssignmentType> adapter = new ArrayAdapter<AssignmentType>(this, R.layout.custom_spinner, types);
         adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
         spinner.setAdapter(adapter);
 

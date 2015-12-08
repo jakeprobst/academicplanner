@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--
     <color name="colorPrimary">#007f7f</color>
     <color name="colorPrimaryDark">#003030</color>
     <color name="colorAccent">#007F7F</color>
@@ -7,5 +8,19 @@
     <color name="gradeB">#00CC00</color>
     <color name="gradeC">#7f7f00</color>
     <color name="gradeD">#FF0000</color>
+    <color name="gradeF">#FF0000</color> -->
+
+    <color name="colorPrimary">#009688</color>
+    <color name="colorPrimaryDark">#00796B</color>
+    <color name="colorAccent">#98002E</color>
+    <color name="textPrimaryColor">#E0F2F1</color>
+    <color name="colorPrimaryBackground">#E2E2E2</color>
+    <color name="colorRowBackground">#FAFAFF</color>
+    <color name="textAccentColor">#4682B4</color>
+    <color name="gradeA">#00FF00</color>
+    <color name="gradeB">#00CC00</color>
+    <color name="gradeC">#7f7f00</color>
+    <color name="gradeD">#FF0000</color>
     <color name="gradeF">#FF0000</color>
+
 </resources>
