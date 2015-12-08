@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 public class ClassInfoActivity extends AppCompatActivity {
     ClassModel classModel;
     boolean newClassModel = false;
+    int semesterId;
 
     private void updateClassInfoView(ClassModel model) {
         String name = model.getName();
@@ -150,6 +151,7 @@ public class ClassInfoActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         int classId = getIntent().getExtras().getInt("classid");
+        semesterId = getIntent().getExtras().getInt("semesterid");
 
         if (classId == -1) {
             setTitle("Create New Class");
@@ -187,6 +189,7 @@ public class ClassInfoActivity extends AppCompatActivity {
                 if(newClassModel)//Go to class view if a new class was created
                 {
                     intent = new Intent(ClassInfoActivity.this, ClassActivity.class);
+                    intent.putExtra("semesterid", semesterId);
                     intent.putExtra("classid", classModel.getId());
                     saveNewClass();
                 }
