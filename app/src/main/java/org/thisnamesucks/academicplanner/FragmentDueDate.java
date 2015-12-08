@@ -35,7 +35,7 @@ public class FragmentDueDate extends DialogFragment implements DatePickerDialog.
         //Do something with the date chosen by the user
         month=month+1;
 
-        TextView et = (TextView) getActivity().findViewById(R.id.due_date_et);
+        TextView et = (TextView) getActivity().findViewById(R.id.assignment_due_entry);
         String stringOfDate = month + "/" + day + "/" + year;
         et.setText(stringOfDate);
     }
