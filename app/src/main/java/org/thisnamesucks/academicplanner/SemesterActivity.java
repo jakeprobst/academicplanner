@@ -30,13 +30,7 @@ public class SemesterActivity extends NavigationActivity {
     protected void onResume() {
         super.onResume();
 
-        if (getIntent().getExtras() != null) {
-            int semesterId = getIntent().getExtras().getInt("semesterid");
-            semesterModel = SemesterDataManager.getSemesterById(semesterId);
-        }
-        else {
-            semesterModel = SemesterDataManager.getCurrentSemester();
-        }
+
 
         setTitle(semesterModel.getName());
         classList = ClassDataManager.getClassesByIDs(semesterModel.getClasses());
@@ -73,7 +67,15 @@ public class SemesterActivity extends NavigationActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getIntent().getExtras() != null) {
+            int semesterId = getIntent().getExtras().getInt("semesterid");
+            semesterModel = SemesterDataManager.getSemesterById(semesterId);
+        }
+        else {
+            semesterModel = SemesterDataManager.getCurrentSemester();
+        }
         setContentView(R.layout.activity_semester);
+
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

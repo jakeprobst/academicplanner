@@ -41,9 +41,6 @@ public class NavigationActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_navigation);
 
-        SemesterDataManager.initialize(this);
-        ClassDataManager.initialize(this);
-        AssignmentDataManager.initialize(this);
 
 
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
