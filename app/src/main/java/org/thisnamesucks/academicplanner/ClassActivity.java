@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 public class ClassActivity extends NavigationActivity {
     ClassModel classModel;
+    int semesterId;
     ArrayList<AssignmentModel> assignmentList;
     AssignmentInformationAdapter assignmentInfoAdapter;
 
@@ -27,6 +28,7 @@ public class ClassActivity extends NavigationActivity {
         super.onResume();
 
         classModel = ClassDataManager.getClassById(getIntent().getExtras().getInt("classid"));
+        semesterId = getIntent().getExtras().getInt("semesterid");
         //ClassDataManager.updateScores(classModel);
 
         assignmentList = AssignmentDataManager.getAssignmentsByIds(classModel.getAssignments());
@@ -51,6 +53,7 @@ public class ClassActivity extends NavigationActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(ClassActivity.this, AssignmentActivity.class);
+                intent.putExtra("semesterid", semesterId);
                 intent.putExtra("assignmentid", ((AssignmentModel) parent.getItemAtPosition(position)).getId());
                 intent.putExtra("classid", classModel.getId());
                 startActivity(intent);
@@ -73,6 +76,7 @@ public class ClassActivity extends NavigationActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ClassActivity.this, AssignmentActivity.class);
+                intent.putExtra("semesterid", semesterId);
                 intent.putExtra("classid", classModel.getId());
                 intent.putExtra("assignmentid", -1);
                 startActivity(intent);
@@ -118,12 +122,18 @@ public class ClassActivity extends NavigationActivity {
     }
 
     public void delete(AssignmentModel item) {
-        classModel.getAssignments().remove((Object)item.getId());
+        classModel.getAssignments().remove((Object) item.getId());
         ClassDataManager.writeClassData(classModel);
         AssignmentDataManager.deleteAssignment(item);
         assignmentList.remove(item);
         assignmentInfoAdapter.notifyDataSetChanged();
 
         //Toast.makeText(ClassActivity.this, item.getName() + " Assignment Deleted!", Toast.LENGTH_SHORT).show();
+    }
+
+    public void onBackPressed() {
+        Intent intent = new Intent(this, SemesterActivity.class);
+        intent.putExtra("semesterid", semesterId);
+        startActivity(intent);
     }
 }

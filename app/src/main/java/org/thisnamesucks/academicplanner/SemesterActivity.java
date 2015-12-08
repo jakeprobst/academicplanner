@@ -30,7 +30,8 @@ public class SemesterActivity extends NavigationActivity {
     protected void onResume() {
         super.onResume();
 
-        semesterModel = SemesterDataManager.getCurrentSemester();
+
+
         setTitle(semesterModel.getName());
         classList = ClassDataManager.getClassesByIDs(semesterModel.getClasses());
         classInfoAdapter = new ClassInformationAdapter(this, classList);
@@ -44,6 +45,7 @@ public class SemesterActivity extends NavigationActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(SemesterActivity.this, ClassActivity.class);
+                intent.putExtra("semesterid", semesterModel.getId());
                 intent.putExtra("classid", ((ClassModel) parent.getItemAtPosition(position)).getId());
                 startActivity(intent);
             }
@@ -65,7 +67,15 @@ public class SemesterActivity extends NavigationActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getIntent().getExtras() != null) {
+            int semesterId = getIntent().getExtras().getInt("semesterid");
+            semesterModel = SemesterDataManager.getSemesterById(semesterId);
+        }
+        else {
+            semesterModel = SemesterDataManager.getCurrentSemester();
+        }
         setContentView(R.layout.activity_semester);
+
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -74,6 +84,7 @@ public class SemesterActivity extends NavigationActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(SemesterActivity.this, ClassInfoActivity.class);
                 intent.putExtra("classid", -1);
+                intent.putExtra("semesterid", semesterModel.getId());
                 startActivity(intent);
             }
         });
@@ -108,6 +119,7 @@ public class SemesterActivity extends NavigationActivity {
     public void edit(ClassModel item) {
         Intent intent = new Intent(SemesterActivity.this, ClassInfoActivity.class);
         intent.putExtra("classid", item.getId());
+        intent.putExtra("semesterid", semesterModel.getId());
         startActivity(intent);
 
         //Toast.makeText(SemesterActivity.this, "Class Opened!", Toast.LENGTH_SHORT).show();
@@ -143,6 +155,11 @@ public class SemesterActivity extends NavigationActivity {
         });
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 
 }

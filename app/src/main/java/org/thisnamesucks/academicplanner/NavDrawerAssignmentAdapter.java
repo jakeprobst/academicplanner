@@ -13,7 +13,10 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * Created by jake on 12/1/15.
@@ -22,6 +25,7 @@ public class NavDrawerAssignmentAdapter extends BaseAdapter implements AdapterVi
     Context context;
     int classId;
     ArrayList<AssignmentModel> assignmentsDue;
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
 
     NavDrawerAssignmentAdapter(Context c, int cid) {
         context = c;
@@ -36,8 +40,9 @@ public class NavDrawerAssignmentAdapter extends BaseAdapter implements AdapterVi
 
         ArrayList<AssignmentModel> out = new ArrayList<>();
         for(AssignmentModel assignment: AssignmentDataManager.getAssignmentsByIds(ClassDataManager.getClassById(classId).getAssignments())) {
-            // filter here!
-            out.add(assignment);
+            if (assignment.getCurrentScore() == 0) {
+                out.add(assignment);
+            }
         }
 
         notifyDataSetChanged();
@@ -60,8 +65,11 @@ public class NavDrawerAssignmentAdapter extends BaseAdapter implements AdapterVi
         text.setText(assignmentModel.getName());
 
         TextView dueDate = (TextView) assignmentView.findViewById(R.id.navbar_assignment_due);
-        dueDate.setText(assignmentModel.getDue());
-        //dueDate.setText("huh?");
+
+        ArrayList<Integer> date = assignmentModel.getDue();
+        Calendar cal = Calendar.getInstance();
+        cal.set(date.get(0), date.get(1), date.get(2));
+        dueDate.setText(dateFormat.format(cal.getTime()));
 
         return assignmentView;
     }
@@ -71,6 +79,7 @@ public class NavDrawerAssignmentAdapter extends BaseAdapter implements AdapterVi
         Intent intent = new Intent(view.getContext(), AssignmentActivity.class);
         intent.putExtra("assignmentid", ((AssignmentModel) parent.getItemAtPosition(position)).getId());
         intent.putExtra("classid", classId);
+        intent.putExtra("semesterid", SemesterDataManager.getCurrentSemester().getId());
         view.getContext().startActivity(intent);
     }
 

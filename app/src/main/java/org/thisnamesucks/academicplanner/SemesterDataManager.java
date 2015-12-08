@@ -14,8 +14,6 @@ import java.util.Map;
 public class SemesterDataManager {
     private static Context ctx;
     private static SemesterDataManagerJSON datastore;
-    //private static ArrayList<SemesterModel> semesters = new ArrayList<>();
-    private static Map<Integer, SemesterModel> semestercache = new HashMap<>();
 
     public static void makeTestData() {
         SemesterModel sem = new SemesterModel();
@@ -32,22 +30,18 @@ public class SemesterDataManager {
         SemesterDataManager.datastore = new SemesterDataManagerJSON(ctx);
 
         makeTestData();
-
-        //semesters = datastore.getSemesterData();
     }
 
     public static void writeSemesterData(SemesterModel semester) {
         datastore.writeSemesterData(semester);
     }
 
+    // TODO: getCurrentSemester should not be a thing
     public static SemesterModel getCurrentSemester() {
         return getSemesterById(1);
     }
 
     public static SemesterModel getSemesterById(int id) {
-        if (!semestercache.containsKey(id)){
-            semestercache.put(id, datastore.getSemesterById(id));
-        }
-        return semestercache.get(id);
+        return datastore.getSemesterById(id);
     }
 }

@@ -41,9 +41,6 @@ public class NavigationActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_navigation);
 
-        SemesterDataManager.initialize(this);
-        ClassDataManager.initialize(this);
-        AssignmentDataManager.initialize(this);
 
 
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -61,11 +58,15 @@ public class NavigationActivity extends AppCompatActivity
             LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View cView = inflater.inflate(R.layout.navbar_class, null);
 
+            NavDrawerAssignmentAdapter asAdapter = new NavDrawerAssignmentAdapter(this, c.getId());
+            if (asAdapter.assignmentsDue.size() == 0) {
+                continue;
+            }
+
             TextView text = (TextView) cView.findViewById(R.id.navbar_classname);
             text.setText(c.getName());
 
             ListView assignments = (ListView) cView.findViewById(R.id.navbar_assignments);
-            NavDrawerAssignmentAdapter asAdapter = new NavDrawerAssignmentAdapter(this, c.getId());
             assignments.setAdapter(asAdapter);
             assignments.setOnItemClickListener(asAdapter);
             layout.addView(cView);

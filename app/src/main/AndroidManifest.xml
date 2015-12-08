@@ -12,17 +12,11 @@
             android:name=".SemesterActivity"
             android:label="SemesterActivity"
             android:theme="@style/AppTheme.NoActionBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".ClassActivity"
             android:label="@string/title_activity_class"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AssignmentActivity"
             android:label="@string/title_activity_assignment"
@@ -35,13 +29,11 @@
         <activity
             android:name=".ClassInfoActivity"
             android:label="@string/title_activity_new_class"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RubricActivity"
             android:label="@string/title_activity_rubric"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <!--
              ATTENTION: This was auto-generated to add Google Play services to your project for
              App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -54,6 +46,23 @@
             android:name=".NavigationActivity"
             android:label="@string/title_activity_navigation"
             android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+
+        <service
+            android:name=".AssignmentListService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <receiver android:name=".AssignmentsDueWidget" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/assignments_due_widget_info" />
+        </receiver>
+
+        <activity android:name=".LauncherActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

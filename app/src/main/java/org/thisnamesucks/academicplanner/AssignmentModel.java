@@ -3,6 +3,7 @@ package org.thisnamesucks.academicplanner;
 import com.google.gson.annotations.SerializedName;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 /**
  * Created by jake on 11/10/15. Updated by Carlos 11/21/15
@@ -21,7 +22,8 @@ public class AssignmentModel implements Cloneable {
     @SerializedName("name")
     private String name = "";
     @SerializedName("due")
-    private String due = "";
+    ArrayList<Integer> due; // [year, month, day]
+    //private String due = "";
     @SerializedName("type")
     AssignmentType type = AssignmentType.Homework;
     @SerializedName("extraCredit")
@@ -46,9 +48,9 @@ public class AssignmentModel implements Cloneable {
     }
 
 
-    public String getDue() { return this.due; }
+    public ArrayList<Integer> getDue() { return this.due; }
 
-    public void setDue(String due) { this.due = due; }
+    public void setDue(ArrayList<Integer> due) { this.due = due; }
 
     public String getName() {return name;}
 

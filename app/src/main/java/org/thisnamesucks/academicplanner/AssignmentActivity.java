@@ -1,10 +1,11 @@
 package org.thisnamesucks.academicplanner;
 
-import android.app.DialogFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -14,22 +15,25 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.Date;
 
 public class AssignmentActivity extends AppCompatActivity {
     ClassModel classModel;
     AssignmentModel assignmentModel;
-
-    /*private EditText assignmentDate = (EditText) findViewById(R.id.assignment_due_entry);
-    private DatePickerDialog datePickerDialog;
-    private SimpleDateFormat dateFormatter;*/
-
+    int semesterId;
+    Calendar dueDate = Calendar.getInstance();
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-
         final int classId = getIntent().getExtras().getInt("classid");
         final int assignmentId = getIntent().getExtras().getInt("assignmentid");
+        semesterId = getIntent().getExtras().getInt("semesterid");
         classModel = ClassDataManager.getClassById(classId);
 
         super.onCreate(savedInstanceState);
@@ -37,11 +41,20 @@ public class AssignmentActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //date-picker for assignment
-        TextView start_btn = (TextView) findViewById(R.id.assignment_due_entry);
+        final TextView start_btn = (TextView) findViewById(R.id.assignment_due_entry);
         start_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                DialogFragment newFragment = new FragmentDueDate();
+                FragmentDatePicker newFragment = new FragmentDatePicker();
+                newFragment.setCallback(new FragmentDatePicker.FragmentDateCallback() {
+                    @Override
+                    public void setDate(int year, int month, int day) {
+                        dueDate.set(year, month, day);
+                        start_btn.setText(dateFormat.format(dueDate.getTime()));
+                    }
+                    public Calendar getDate() {
+                        return dueDate;
+                    }
+                });
                 newFragment.show(getFragmentManager(), "Date Picker");
             }
         });
@@ -92,29 +105,9 @@ public class AssignmentActivity extends AppCompatActivity {
             classModel.getAssignments().add(assignmentModel.getId());
         }
         ClassDataManager.writeClassData(classModel);
+
+        AssignmentsDueWidget.notifyDataChanged(this);
     }
-
-    //Initialize Date-Time field
-    /*private void setDateTimeField() {
-        assignmentDate.setInputType(InputType.TYPE_NULL);
-        assignmentDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                datePickerDialog.show();
-            }
-        });
-
-        Calendar newCalendar = Calendar.getInstance();
-        datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                Calendar newDate = Calendar.getInstance();
-                newDate.set(year, monthOfYear, dayOfMonth);
-                assignmentDate.setText(dateFormatter.format(newDate.getTime()));
-            }
-
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
-    }*/
 
     //Initializes a spinner to display current assignment types from the grading rubric. Returns false if the rubric was empty and no spinner was made.
     private boolean initializeAssignmentSpinner(ClassModel classModel)
@@ -140,7 +133,11 @@ public class AssignmentActivity extends AppCompatActivity {
     private void modelToView(AssignmentModel model)
     {
         String name = model.getName();
-        String dueDate = model.getDue();
+
+        ArrayList<Integer> dueTime = model.getDue();
+        dueDate.set(dueTime.get(0), dueTime.get(1), dueTime.get(2));
+        String dueString = dateFormat.format(dueDate.getTime());
+
         String description = model.getDescription();
         String notes = model.getNotes();
         String type = model.getType().name();
@@ -152,7 +149,7 @@ public class AssignmentActivity extends AppCompatActivity {
         text = (TextView) this.findViewById(R.id.assignment_name_entry);
         text.setText(name);
         text = (TextView) this.findViewById(R.id.assignment_due_entry);
-        text.setText(dueDate);
+        text.setText(dueString);
         text = (TextView) this.findViewById(R.id.assignment_description_entry);
         text.setText(description);
         text = (TextView) this.findViewById(R.id.assignment_notes_entry);
@@ -202,7 +199,10 @@ public class AssignmentActivity extends AppCompatActivity {
         CheckBox isExtraCredit = (CheckBox) findViewById(R.id.assignment_extra_credit_entry);
 
         model.setName(name_entry.getText().toString());
-        model.setDue(date_entry.getText().toString());
+        model.setDue(new ArrayList<Integer>(Arrays.asList(dueDate.get(Calendar.YEAR),
+                                                          dueDate.get(Calendar.MONTH),
+                                                          dueDate.get(Calendar.DAY_OF_MONTH))));
+
         model.setDescription(description_entry.getText().toString());
         model.setNotes(notes_entry.getText().toString());
         model.setExtraCredit(isExtraCredit.isChecked());
@@ -228,4 +228,13 @@ public class AssignmentActivity extends AppCompatActivity {
             model.setTotalScore(Integer.parseInt(total));
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, ClassActivity.class);
+        intent.putExtra("semesterid", semesterId);
+        intent.putExtra("classid", classModel.getId());
+        startActivity(intent);
+    }
 }
+
