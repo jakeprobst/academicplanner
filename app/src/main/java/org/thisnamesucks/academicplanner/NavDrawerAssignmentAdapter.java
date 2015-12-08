@@ -40,8 +40,9 @@ public class NavDrawerAssignmentAdapter extends BaseAdapter implements AdapterVi
 
         ArrayList<AssignmentModel> out = new ArrayList<>();
         for(AssignmentModel assignment: AssignmentDataManager.getAssignmentsByIds(ClassDataManager.getClassById(classId).getAssignments())) {
-            // filter here!
-            out.add(assignment);
+            if (assignment.getCurrentScore() == 0) {
+                out.add(assignment);
+            }
         }
 
         notifyDataSetChanged();
