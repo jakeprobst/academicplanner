@@ -20,6 +20,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by jake on 12/7/15.
@@ -105,7 +106,19 @@ public class AssignmentListProvider implements RemoteViewsService.RemoteViewsFac
         ArrayList<Integer> date = model.as.getDue();
         Calendar cal = Calendar.getInstance();
         cal.set(date.get(0), date.get(1), date.get(2));
-        assignmentRow.setTextViewText(R.id.widget_due, dateFormat.format(cal.getTime()));
+
+        //assignmentRow.setTextViewText(R.id.widget_due, dateFormat.format(cal.getTime()));
+        Calendar now = Calendar.getInstance();
+        long days = TimeUnit.MILLISECONDS.toDays(cal.getTimeInMillis() - now.getTimeInMillis());
+        if (days <= 0) {
+            assignmentRow.setTextViewText(R.id.widget_due, "due!");
+        }
+        else if (days == 1) {
+            assignmentRow.setTextViewText(R.id.widget_due, "1 day");
+        }
+        else {
+            assignmentRow.setTextViewText(R.id.widget_due, Long.toString(days) + " days");
+        }
 
         Intent intent = new Intent(context, AssignmentActivity.class);
         intent.putExtra("semesterid", model.se.getId());
