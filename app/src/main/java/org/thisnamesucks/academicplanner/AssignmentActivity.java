@@ -44,7 +44,7 @@ public class AssignmentActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //date-picker for assignment
-        final TextView start_btn = (TextView) findViewById(R.id.due_date_et);
+        final TextView start_btn = (TextView) findViewById(R.id.assignment_due_entry);
         start_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 FragmentDatePicker newFragment = new FragmentDatePicker();
@@ -178,7 +178,7 @@ public class AssignmentActivity extends AppCompatActivity {
         TextView text;
         text = (TextView) this.findViewById(R.id.assignment_name_entry);
         text.setText(name);
-        text = (TextView) this.findViewById(R.id.due_date_et);
+        text = (TextView) this.findViewById(R.id.assignment_due_entry);
         text.setText(dueDate);
         text = (TextView) this.findViewById(R.id.assignment_description_entry);
         text.setText(description);
@@ -219,7 +219,7 @@ public class AssignmentActivity extends AppCompatActivity {
     private void viewToModel(AssignmentModel model)
     {
         EditText name_entry = (EditText) this.findViewById(R.id.assignment_name_entry);
-        TextView date_entry = (TextView) findViewById(R.id.due_date_et);
+        TextView date_entry = (TextView) findViewById(R.id.assignment_due_entry);
         EditText score_entry = (EditText) findViewById(R.id.assignment_score_entry);
         EditText total_entry = (EditText) findViewById(R.id.assignment_total_score_entry);
 

@@ -1,24 +1,35 @@
 package org.thisnamesucks.academicplanner;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.widget.ListView;
 import android.widget.RemoteViews;
+
+import java.util.ArrayList;
 
 /**
  * Implementation of App Widget functionality.
  */
 public class AssignmentsDueWidget extends AppWidgetProvider {
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId) {
-
-        CharSequence widgetText = context.getString(R.string.appwidget_text);
-        // Construct the RemoteViews object
+    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.assignments_due_widget);
-        views.setTextViewText(R.id.appwidget_text, widgetText);
+        views.setTextViewText(R.id.appwidget_text, "Assignments");
 
-        // Instruct the widget manager to update the widget
+        Intent gotoapp = new Intent(context, AssignmentActivity.class);
+        PendingIntent pintent = PendingIntent.getActivity(context, 0, gotoapp, 0);
+        views.setPendingIntentTemplate(R.id.widget_list, pintent);
+
+        Intent intent = new Intent(context, AssignmentListService.class);
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+        intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
+        views.setRemoteAdapter(R.id.widget_list, intent);
+        views.setEmptyView(R.id.widget_list, R.id.empty_assignment_notice);
+
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
@@ -32,6 +43,9 @@ public class AssignmentsDueWidget extends AppWidgetProvider {
 
     @Override
     public void onEnabled(Context context) {
+        SemesterDataManager.initialize(context);
+        ClassDataManager.initialize(context);
+        AssignmentDataManager.initialize(context);
         // Enter relevant functionality for when the first widget is created
     }
 
