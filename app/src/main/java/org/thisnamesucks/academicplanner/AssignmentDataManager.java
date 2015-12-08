@@ -4,6 +4,7 @@ import android.content.Context;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +23,7 @@ public class AssignmentDataManager {
 
         as.setId(21);
         as.setName("Project 1");
-        as.setDue("2015/12/12");
+        as.setDue(new ArrayList<Integer>(Arrays.asList(2015, 11, 12)));
         as.setCurrentScore(100);
         as.setTotalScore(120);
         as.setType(AssignmentType.Project);
@@ -35,7 +36,7 @@ public class AssignmentDataManager {
 
         as.setId(22);
         as.setName("Exam");
-        as.setDue("2015/12/8");
+        as.setDue(new ArrayList<Integer>(Arrays.asList(2015, 11, 8)));
         as.setCurrentScore(75);
         as.setTotalScore(100);
         as.setType(AssignmentType.Exam);
@@ -48,7 +49,7 @@ public class AssignmentDataManager {
 
         as.setId(25);
         as.setName("Essay");
-        as.setDue("2015/12/4");
+        as.setDue(new ArrayList<Integer>(Arrays.asList(2015, 11, 4)));
         as.setCurrentScore(50);
         as.setTotalScore(50);
         as.setType(AssignmentType.Essay);
@@ -61,7 +62,7 @@ public class AssignmentDataManager {
 
         as.setId(27);
         as.setName("Lab");
-        as.setDue("2015/12/20");
+        as.setDue(new ArrayList<Integer>(Arrays.asList(2015, 11, 20)));
         as.setCurrentScore(80);
         as.setTotalScore(100);
         as.setType(AssignmentType.Lab);

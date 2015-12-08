@@ -9,13 +9,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Locale;
 
 /**
  * Created by jake on 12/7/15.
@@ -32,13 +36,20 @@ public class AssignmentListProvider implements RemoteViewsService.RemoteViewsFac
         }
 
         public int compareTo(CAPair other) {
-            return as.getDue().compareTo(other.as.getDue());
+            for(int i = 0; i < 3; i++) {
+                if (as.getDue().get(i) > other.as.getDue().get(i))
+                    return 1;
+                if (as.getDue().get(i) < other.as.getDue().get(i))
+                    return -1;
+            }
+            return 0;
         }
 
     }
     Context context;
     int widgetId;
     ArrayList<CAPair> assignmentList = new ArrayList<>();
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
 
     public AssignmentListProvider(Context c, Intent intent) {
         context = c;
@@ -90,7 +101,11 @@ public class AssignmentListProvider implements RemoteViewsService.RemoteViewsFac
         CAPair model = assignmentList.get(pos);
         assignmentRow.setTextViewText(R.id.widget_class, model.cl.getShortName());
         assignmentRow.setTextViewText(R.id.widget_name, model.as.getName());
-        assignmentRow.setTextViewText(R.id.widget_due, model.as.getDue());
+
+        ArrayList<Integer> date = model.as.getDue();
+        Calendar cal = Calendar.getInstance();
+        cal.set(date.get(0), date.get(1), date.get(2));
+        assignmentRow.setTextViewText(R.id.widget_due, dateFormat.format(cal.getTime()));
 
         Intent intent = new Intent(context, AssignmentActivity.class);
         intent.putExtra("assignmentid", model.as.getId());

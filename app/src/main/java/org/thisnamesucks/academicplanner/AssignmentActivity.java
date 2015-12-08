@@ -15,25 +15,24 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.Date;
 
+// TODO: when selected from the widget, the back button gets messed up, fix it
 public class AssignmentActivity extends AppCompatActivity {
     ClassModel classModel;
     AssignmentModel assignmentModel;
-
-    /*private EditText assignmentDate = (EditText) findViewById(R.id.assignment_due_entry);
-    private DatePickerDialog datePickerDialog;
-    private SimpleDateFormat dateFormatter;*/
-
+    Calendar dueDate = Calendar.getInstance();
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-
         final int classId = getIntent().getExtras().getInt("classid");
         final int assignmentId = getIntent().getExtras().getInt("assignmentid");
         classModel = ClassDataManager.getClassById(classId);
@@ -51,22 +50,20 @@ public class AssignmentActivity extends AppCompatActivity {
                 newFragment.setCallback(new FragmentDatePicker.FragmentDateCallback() {
                     @Override
                     public void setDate(int year, int month, int day) {
-                        //String stringOfDate = month + "/" + day + "/" + year;
-                        Calendar cal = Calendar.getInstance(); //new Calendar(year-1900, month, day);
-                        cal.set(year, month, day);
-                        start_btn.setText(dateFormat.format(cal.getTime()));
+                        dueDate.set(year, month, day);
+                        start_btn.setText(dateFormat.format(dueDate.getTime()));
                     }
                     public Calendar getDate() {
-                        Calendar cal = Calendar.getInstance();
-                        try {
-                            cal.setTime(dateFormat.parse(start_btn.getText().toString()));
+                        return dueDate;
+                        /*try {
+                            dueDate.setTime(dateFormat.parse(start_btn.getText().toString()));
                         }
                         catch (ParseException e) {
                             Log.d("parse exception", e.getMessage());
-                            cal = Calendar.getInstance();
+                            //duedate = Calendar.getInstance();
                         }
 
-                        return cal;
+                        return dueDate;*/
                     }
                 });
                 newFragment.show(getFragmentManager(), "Date Picker");
@@ -119,29 +116,9 @@ public class AssignmentActivity extends AppCompatActivity {
             classModel.getAssignments().add(assignmentModel.getId());
         }
         ClassDataManager.writeClassData(classModel);
+
+        // TODO: force widget update
     }
-
-    //Initialize Date-Time field
-    /*private void setDateTimeField() {
-        assignmentDate.setInputType(InputType.TYPE_NULL);
-        assignmentDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                datePickerDialog.show();
-            }
-        });
-
-        Calendar newCalendar = Calendar.getInstance();
-        datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                Calendar newDate = Calendar.getInstance();
-                newDate.set(year, monthOfYear, dayOfMonth);
-                assignmentDate.setText(dateFormatter.format(newDate.getTime()));
-            }
-
-        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
-    }*/
 
     //Initializes a spinner to display current assignment types from the grading rubric. Returns false if the rubric was empty and no spinner was made.
     private boolean initializeAssignmentSpinner(ClassModel classModel)
@@ -167,7 +144,11 @@ public class AssignmentActivity extends AppCompatActivity {
     private void modelToView(AssignmentModel model)
     {
         String name = model.getName();
-        String dueDate = model.getDue();
+
+        ArrayList<Integer> dueTime = model.getDue();
+        dueDate.set(dueTime.get(0), dueTime.get(1), dueTime.get(2));
+        String dueString = dateFormat.format(dueDate.getTime());
+
         String description = model.getDescription();
         String notes = model.getNotes();
         String type = model.getType().name();
@@ -179,7 +160,7 @@ public class AssignmentActivity extends AppCompatActivity {
         text = (TextView) this.findViewById(R.id.assignment_name_entry);
         text.setText(name);
         text = (TextView) this.findViewById(R.id.assignment_due_entry);
-        text.setText(dueDate);
+        text.setText(dueString);
         text = (TextView) this.findViewById(R.id.assignment_description_entry);
         text.setText(description);
         text = (TextView) this.findViewById(R.id.assignment_notes_entry);
@@ -229,7 +210,10 @@ public class AssignmentActivity extends AppCompatActivity {
         CheckBox isExtraCredit = (CheckBox) findViewById(R.id.assignment_extra_credit_entry);
 
         model.setName(name_entry.getText().toString());
-        model.setDue(date_entry.getText().toString());
+        model.setDue(new ArrayList<Integer>(Arrays.asList(dueDate.get(Calendar.YEAR),
+                                                          dueDate.get(Calendar.MONTH),
+                                                          dueDate.get(Calendar.DAY_OF_MONTH))));
+
         model.setDescription(description_entry.getText().toString());
         model.setNotes(notes_entry.getText().toString());
         model.setExtraCredit(isExtraCredit.isChecked());
