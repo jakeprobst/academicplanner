@@ -78,6 +78,7 @@ public class NavDrawerAssignmentAdapter extends BaseAdapter implements AdapterVi
         Intent intent = new Intent(view.getContext(), AssignmentActivity.class);
         intent.putExtra("assignmentid", ((AssignmentModel) parent.getItemAtPosition(position)).getId());
         intent.putExtra("classid", classId);
+        intent.putExtra("semesterid", SemesterDataManager.getCurrentSemester().getId());
         view.getContext().startActivity(intent);
     }
 

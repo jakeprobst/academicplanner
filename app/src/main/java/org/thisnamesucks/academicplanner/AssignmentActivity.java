@@ -1,6 +1,7 @@
 package org.thisnamesucks.academicplanner;
 
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -24,10 +25,10 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.Date;
 
-// TODO: when selected from the widget, the back button gets messed up, fix it
 public class AssignmentActivity extends AppCompatActivity {
     ClassModel classModel;
     AssignmentModel assignmentModel;
+    int semesterId;
     Calendar dueDate = Calendar.getInstance();
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
 
@@ -35,6 +36,7 @@ public class AssignmentActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         final int classId = getIntent().getExtras().getInt("classid");
         final int assignmentId = getIntent().getExtras().getInt("assignmentid");
+        semesterId = getIntent().getExtras().getInt("semesterid");
         classModel = ClassDataManager.getClassById(classId);
 
         super.onCreate(savedInstanceState);
@@ -238,6 +240,14 @@ public class AssignmentActivity extends AppCompatActivity {
         {
             model.setTotalScore(Integer.parseInt(total));
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, ClassActivity.class);
+        intent.putExtra("semesterid", semesterId);
+        intent.putExtra("classid", classModel.getId());
+        startActivity(intent);
     }
 }
 

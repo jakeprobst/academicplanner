@@ -27,15 +27,17 @@ import java.util.Locale;
 
 public class AssignmentListProvider implements RemoteViewsService.RemoteViewsFactory {
     // java doesnt have a pair builtin, huh
-    private class CAPair implements Comparable<CAPair> {
+    private class SCAPair implements Comparable<SCAPair> {
+        public SemesterModel se;
         public ClassModel cl;
         public AssignmentModel as;
-        public CAPair(ClassModel c, AssignmentModel a) {
+        public SCAPair(SemesterModel s, ClassModel c, AssignmentModel a) {
+            se = s;
             cl = c;
             as = a;
         }
 
-        public int compareTo(CAPair other) {
+        public int compareTo(SCAPair other) {
             for(int i = 0; i < 3; i++) {
                 if (as.getDue().get(i) > other.as.getDue().get(i))
                     return 1;
@@ -48,7 +50,7 @@ public class AssignmentListProvider implements RemoteViewsService.RemoteViewsFac
     }
     Context context;
     int widgetId;
-    ArrayList<CAPair> assignmentList = new ArrayList<>();
+    ArrayList<SCAPair> assignmentList = new ArrayList<>();
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
 
     public AssignmentListProvider(Context c, Intent intent) {
@@ -60,13 +62,11 @@ public class AssignmentListProvider implements RemoteViewsService.RemoteViewsFac
     public void onCreate() {
         SemesterModel sem = SemesterDataManager.getCurrentSemester();
         ArrayList<ClassModel> classes = ClassDataManager.getClassesByIDs(sem.getClasses());
-        //ArrayList<AssignmentModel> assignments = new ArrayList<>();
         assignmentList.clear();
         for(ClassModel c: classes) {
             for(AssignmentModel a: AssignmentDataManager.getAssignmentsByIds(c.getAssignments())) {
-                assignmentList.add(new CAPair(c, a));
+                assignmentList.add(new SCAPair(sem, c, a));
             }
-            //assignmentList.addAll(AssignmentDataManager.getAssignmentsByIds(c.getAssignments()));
         }
         Collections.sort(assignmentList);
     }
@@ -98,7 +98,7 @@ public class AssignmentListProvider implements RemoteViewsService.RemoteViewsFac
     public RemoteViews getViewAt(int pos) {
         RemoteViews assignmentRow = new RemoteViews(context.getPackageName(), R.layout.widget_assignment_layout);
 
-        CAPair model = assignmentList.get(pos);
+        SCAPair model = assignmentList.get(pos);
         assignmentRow.setTextViewText(R.id.widget_class, model.cl.getShortName());
         assignmentRow.setTextViewText(R.id.widget_name, model.as.getName());
 
@@ -108,6 +108,7 @@ public class AssignmentListProvider implements RemoteViewsService.RemoteViewsFac
         assignmentRow.setTextViewText(R.id.widget_due, dateFormat.format(cal.getTime()));
 
         Intent intent = new Intent(context, AssignmentActivity.class);
+        intent.putExtra("semesterid", model.se.getId());
         intent.putExtra("assignmentid", model.as.getId());
         intent.putExtra("classid", model.cl.getId());
 
