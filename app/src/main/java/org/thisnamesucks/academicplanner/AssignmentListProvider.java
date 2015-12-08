@@ -61,6 +61,15 @@ public class AssignmentListProvider implements RemoteViewsService.RemoteViewsFac
 
     @Override
     public void onCreate() {
+        onDataSetChanged();
+    }
+
+    public void onDestroy() {
+
+    }
+
+    @Override
+    public void onDataSetChanged() {
         SemesterModel sem = SemesterDataManager.getCurrentSemester();
         ArrayList<ClassModel> classes = ClassDataManager.getClassesByIDs(sem.getClasses());
         assignmentList.clear();
@@ -70,15 +79,6 @@ public class AssignmentListProvider implements RemoteViewsService.RemoteViewsFac
             }
         }
         Collections.sort(assignmentList);
-    }
-
-    public void onDestroy() {
-
-    }
-
-    @Override
-    public void onDataSetChanged() {
-
     }
 
     @Override

@@ -1,6 +1,5 @@
 package org.thisnamesucks.academicplanner;
 
-import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,8 +15,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,7 +41,6 @@ public class AssignmentActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //date-picker for assignment
         final TextView start_btn = (TextView) findViewById(R.id.assignment_due_entry);
         start_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -57,15 +53,6 @@ public class AssignmentActivity extends AppCompatActivity {
                     }
                     public Calendar getDate() {
                         return dueDate;
-                        /*try {
-                            dueDate.setTime(dateFormat.parse(start_btn.getText().toString()));
-                        }
-                        catch (ParseException e) {
-                            Log.d("parse exception", e.getMessage());
-                            //duedate = Calendar.getInstance();
-                        }
-
-                        return dueDate;*/
                     }
                 });
                 newFragment.show(getFragmentManager(), "Date Picker");
@@ -119,7 +106,7 @@ public class AssignmentActivity extends AppCompatActivity {
         }
         ClassDataManager.writeClassData(classModel);
 
-        // TODO: force widget update
+        AssignmentsDueWidget.notifyDataChanged(this);
     }
 
     //Initializes a spinner to display current assignment types from the grading rubric. Returns false if the rubric was empty and no spinner was made.
