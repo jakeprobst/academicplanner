@@ -32,10 +32,8 @@
         android:id="@+id/widget_due"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_toRightOf="@+id/widget_name"
+        android:layout_alignTop="@+id/widget_name"
         android:layout_alignParentRight="true"
         android:textSize="18sp"
         />
-
-
 </RelativeLayout>
