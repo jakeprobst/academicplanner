@@ -32,7 +32,9 @@
         <activity
             android:name=".ClassInfoActivity"
             android:label="@string/title_activity_new_class"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"
+            />
         <activity
             android:name=".RubricActivity"
             android:label="@string/title_activity_rubric"
