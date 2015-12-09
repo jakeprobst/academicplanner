@@ -9,6 +9,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -52,17 +54,6 @@ public class RubricActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 rubricadapter.add(new RubricItem());
-            }
-        });
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(RubricActivity.this, "Changes Saved!", Toast.LENGTH_SHORT).show();
-
-                //Go back with updated rubric data
-                goBack(gson.toJson(rubric));
             }
         });
 
@@ -112,5 +103,23 @@ public class RubricActivity extends AppCompatActivity {
         intent.putExtra("rubric", rubricJSON);
         setResult(0, intent);
         super.onBackPressed();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.assignment_save:
+                Toast.makeText(RubricActivity.this, "Changes Saved!", Toast.LENGTH_SHORT).show();
+                goBack(gson.toJson(rubric));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.assignment_toolbar, menu);
+        return true;
     }
 }

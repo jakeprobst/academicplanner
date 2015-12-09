@@ -8,6 +8,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -176,33 +178,38 @@ public class ClassInfoActivity extends AppCompatActivity {
                 startActivityForResult(intent, 0);
             }
         });
+    }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.assignment_save:
                 Intent intent;
 
                 updateClassModel(classModel);
 
-                if(newClassModel)//Go to class view if a new class was created
+                if (newClassModel)//Go to class view if a new class was created
                 {
                     intent = new Intent(ClassInfoActivity.this, ClassActivity.class);
                     intent.putExtra("semesterid", semesterId);
                     intent.putExtra("classid", classModel.getId());
                     saveNewClass();
-                }
-                else
-                {
+                    Toast.makeText(ClassInfoActivity.this, "Class Saved!", Toast.LENGTH_SHORT).show();
+                } else {
                     intent = new Intent(ClassInfoActivity.this, SemesterActivity.class);
+                    intent.putExtra("semesterid", semesterId);
                 }
-
-                Toast.makeText(ClassInfoActivity.this, "Class Saved!", Toast.LENGTH_SHORT).show();
 
                 startActivity(intent);
-                finish();
-            }
-        });
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.assignment_toolbar, menu);
+        return true;
     }
 }

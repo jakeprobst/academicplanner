@@ -6,6 +6,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -25,13 +27,14 @@ import java.util.Date;
 public class AssignmentActivity extends AppCompatActivity {
     ClassModel classModel;
     AssignmentModel assignmentModel;
+    int classId;
     int semesterId;
     Calendar dueDate = Calendar.getInstance();
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-        final int classId = getIntent().getExtras().getInt("classid");
+        classId = getIntent().getExtras().getInt("classid");
         final int assignmentId = getIntent().getExtras().getInt("assignmentid");
         semesterId = getIntent().getExtras().getInt("semesterid");
         classModel = ClassDataManager.getClassById(classId);
@@ -85,7 +88,7 @@ public class AssignmentActivity extends AppCompatActivity {
             modelToView(assignmentModel);
         }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,7 +101,7 @@ public class AssignmentActivity extends AppCompatActivity {
                 startActivity(intent);
                 //finish();
             }
-        });
+        });*/
     }
 
     private void saveAssignment()
@@ -240,6 +243,29 @@ public class AssignmentActivity extends AppCompatActivity {
         intent.putExtra("semesterid", semesterId);
         intent.putExtra("classid", classModel.getId());
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.assignment_save:
+                saveAssignment();
+                Toast.makeText(AssignmentActivity.this, "Assignment Saved!", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(AssignmentActivity.this, ClassActivity.class);
+                intent.putExtra("classid", classId);
+                intent.putExtra("semesterid", semesterId);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.assignment_toolbar, menu);
+        return true;
     }
 }
 
