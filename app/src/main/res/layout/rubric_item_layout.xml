@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="@drawable/drop_down_background">
 
@@ -8,13 +9,14 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content" />
 
-    <EditText
+    <org.thisnamesucks.academicplanner.EditTextNumberPicker
         android:id="@+id/rubric_weight"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_toRightOf="@+id/rubric_type_select"
         android:layout_toLeftOf="@+id/rubric_item_delete"
         android:hint="Percent"
+        custom:pickerText="Percent"
         android:inputType="number" />
 
     <ImageButton
