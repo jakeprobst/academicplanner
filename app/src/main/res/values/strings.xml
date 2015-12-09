@@ -35,4 +35,5 @@
     </string-array>
     <string name="title_activity_rubric">RubricActivity</string>
     <string name="title_activity_semester_list">SemesterListActivity</string>
+    <string name="title_activity_home_screen">HomeScreenActivity</string>
 </resources>

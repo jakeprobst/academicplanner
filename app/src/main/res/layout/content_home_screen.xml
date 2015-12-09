@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="org.thisnamesucks.academicplanner.HomeScreenActivity"
+    tools:showIn="@layout/activity_home_screen"
+    style="@android:style/Animation"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="0.5dp"
+    android:columnCount="2"
+    android:rowCount="3" >
+
+    <Button
+        android:id="@+id/semesters_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Semesters"
+        android:layout_gravity="top|left|fill"
+        android:layout_columnSpan="1" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Button 2"
+        android:layout_gravity="top|right|fill"
+        android:layout_columnSpan="1"
+        android:layout_columnWeight="1" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Button 3"
+        android:layout_gravity="left|fill"
+        android:layout_columnSpan="1"
+        android:layout_columnWeight="1" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Button 4"
+        android:layout_gravity="right|fill" />
+
+</GridLayout>
