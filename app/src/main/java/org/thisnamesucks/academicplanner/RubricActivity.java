@@ -20,13 +20,9 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 
 public class RubricActivity extends AppCompatActivity {
-    //ClassModel classModel;
     RubricModel rubric;
     Gson gson;
     String originalRubric;
-
-    //ArrayList<RubricItem> rubricitems = new ArrayList<>();
-    //RubricItemAdapter rubricadapter = new RubricItemAdapter(this, rubricitems);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +36,13 @@ public class RubricActivity extends AppCompatActivity {
         ClassModel classModel = ClassDataManager.getClassById(classId);
         Log.d("classid", Integer.toString(classId));
         gson = new Gson();
-        rubric = classModel.getRubric();
-        originalRubric = gson.toJson(rubric);//Takes the current unchanged rubric JSON string
-
-        //Rubric is instantiated when new class model is made to avoid null situations
-        /*if (rubric == null) {
-            Log.d("zzz", "hella null");
+        if (classModel != null) {
+            rubric = classModel.getRubric();
+        }
+        else {
             rubric = new RubricModel();
-            rubric.setRubricItems(new ArrayList<RubricItem>());
-        }*/
+        }
+        originalRubric = gson.toJson(rubric);//Takes the current unchanged rubric JSON string
 
         final RubricItemAdapter rubricadapter = new RubricItemAdapter(this, rubric.getRubricItems());
 
