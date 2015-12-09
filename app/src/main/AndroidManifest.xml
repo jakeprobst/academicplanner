@@ -21,7 +21,10 @@
             android:name=".AssignmentActivity"
             android:label="@string/title_activity_assignment"
             android:parentActivityName=".ClassActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"
+            >
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ClassActivity" />
