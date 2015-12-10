@@ -41,7 +41,15 @@ public class SemesterDataManager
 
     // TODO: getCurrentSemester should not be a thing
     public static SemesterModel getCurrentSemester() {
-        return getSemesterById(1);
+        Settings.SettingsModel settings = Settings.getInstance();
+        if (settings == null) {
+            return null;
+        }
+        if (settings.getSemesters().size() == 0) {
+            return null;
+        }
+        int id = settings.getSemesters().get(settings.getSemesters().size()-1);
+        return getSemesterById(id);
     }
 
     public static SemesterModel getSemesterById(int id) {
