@@ -34,7 +34,7 @@
         android:layout_alignParentTop="false"
         android:layout_alignParentRight="false"
         android:layout_alignParentEnd="true"
-        android:background="@drawable/rubric_button"
+        android:background="@drawable/rubric_button_delete"
         android:layout_alignBottom="@+id/rubric_weight"
         android:layout_marginRight="5dp"
         android:paddingRight="5dp"
