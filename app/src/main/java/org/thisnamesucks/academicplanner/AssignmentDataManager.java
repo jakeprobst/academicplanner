@@ -12,15 +12,14 @@ import java.util.Map;
 /**
  * Created by jake on 11/10/15.  Updated by Carlos 11/21/15
  */
-public class AssignmentDataManager {
+public class AssignmentDataManager
+{
     private static Context ctx;
     private static AssignmentDataManagerJSON datastore;
-    //private static ArrayList<SemesterModel> semesters = new ArrayList<>();
     private static Map<Integer, AssignmentModel> assignmentcache = new HashMap<>();
 
     public static void makeTestData() {
         AssignmentModel as = new AssignmentModel();
-
         as.setId(21);
         as.setName("Project 1");
         as.setDue(new ArrayList<Integer>(Arrays.asList(2015, 11, 12)));
@@ -75,7 +74,6 @@ public class AssignmentDataManager {
     public static void initialize(Context ctx) {
         AssignmentDataManager.ctx = ctx;
         AssignmentDataManager.datastore = new AssignmentDataManagerJSON(ctx);
-
         makeTestData();
     }
 

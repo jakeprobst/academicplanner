@@ -117,7 +117,6 @@ public class AssignmentActivity extends AppCompatActivity {
             classModel.getAssignments().add(assignmentModel.getId());
         }
         ClassDataManager.writeClassData(classModel);
-
         AssignmentsDueWidget.notifyDataChanged(this);
     }
 
