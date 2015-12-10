@@ -71,6 +71,9 @@ public class AssignmentListProvider implements RemoteViewsService.RemoteViewsFac
     @Override
     public void onDataSetChanged() {
         SemesterModel sem = SemesterDataManager.getCurrentSemester();
+        if (sem == null) {
+            return;
+        }
         ArrayList<ClassModel> classes = ClassDataManager.getClassesByIDs(sem.getClasses());
         assignmentList.clear();
         for(ClassModel c: classes) {
