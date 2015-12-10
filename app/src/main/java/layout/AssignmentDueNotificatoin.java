@@ -142,4 +142,9 @@ public class AssignmentDueNotificatoin {
             nm.cancel(NOTIFICATION_TAG.hashCode());
         }
     }
+
+    public static void scheduleNotification()
+    {
+
+    }
 }

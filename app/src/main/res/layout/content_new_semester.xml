@@ -23,8 +23,11 @@
     <Spinner
         android:id="@+id/semester_spinner"
         android:layout_below="@+id/autocomplete_school"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:background="@drawable/drop_down_background" />
 
     <EditText
