@@ -93,10 +93,16 @@ public class NewSemesterActivity extends AppCompatActivity {
         SemesterModel semesterModel = new SemesterModel();
         semesterModel.setId((int) System.currentTimeMillis());
 
+        Spinner spinner = (Spinner) findViewById(R.id.semester_spinner);
+        TextView start_btn = (TextView) findViewById(R.id.startdate_btn);
+        // TODO: this is way too specific?
+        String year = start_btn.getText().toString().substring(0, 4);
+        String name = spinner.getSelectedItem().toString() + ' ' + year;
+        semesterModel.setName(name);
+
         SemesterDataManager.writeSemesterData(semesterModel);
         settings.getSemesters().add(semesterModel.getId());
         Settings.save();
-
 
         Intent intent = new Intent(NewSemesterActivity.this, SemesterActivity.class);
         intent.putExtra("semesterid", semesterModel.getId());
