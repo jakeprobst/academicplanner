@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+// TODO: number picker on units, currently a double and that messes things up
 public class ClassInfoActivity extends AppCompatActivity {
     ClassModel classModel;
     boolean newClassModel = false;
