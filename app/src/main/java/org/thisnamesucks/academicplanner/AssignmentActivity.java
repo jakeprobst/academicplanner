@@ -71,7 +71,7 @@ public class AssignmentActivity extends AppCompatActivity {
 
         if (assignmentId == -1) {
             assignmentModel = new AssignmentModel();
-            assignmentModel.setName("Assignment " + String.valueOf(classModel.getAssignments().size())); //Set default name
+            //assignmentModel.setName("Assignment " + String.valueOf(classModel.getAssignments().size())); //Set default name
 
             if(!classModel.getRubric().getRubricItems().isEmpty()) //Set default type if rubric available
                 assignmentModel.setType(classModel.getRubric().getRubricItems().get(0).getType());
