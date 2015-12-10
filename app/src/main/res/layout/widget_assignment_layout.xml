@@ -2,14 +2,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget_assignment_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    android:background="@color/colorPrimary"
+    android:alpha=".8">
 
     <TextView
         android:id="@+id/widget_class"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:textSize="18sp"
-        />
+        android:textSize="14sp"
+        android:textColor="@color/textAccentColor"
+        android:textStyle="bold"
+        android:layout_margin="1dp"
+        android:gravity="center_vertical" />
 
     <TextView
         android:id="@+id/widget_slash"
@@ -17,16 +23,19 @@
         android:layout_width="wrap_content"
         android:layout_toRightOf="@+id/widget_class"
         android:text="/"
-        android:textSize="18sp"
-        />
+        android:textSize="14sp"
+        android:layout_margin="1dp"
+        android:gravity="center_vertical" />
 
     <TextView
         android:id="@+id/widget_name"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_toRightOf="@+id/widget_slash"
-        android:textSize="18sp"
-        />
+        android:textSize="14sp"
+        android:textColor="@color/textPrimaryColor"
+        android:layout_margin="1dp"
+        android:gravity="center_vertical" />
 
     <TextView
         android:id="@+id/widget_due"
@@ -34,6 +43,9 @@
         android:layout_width="wrap_content"
         android:layout_alignTop="@+id/widget_name"
         android:layout_alignParentRight="true"
-        android:textSize="18sp"
-        />
+        android:textSize="14sp"
+        android:textStyle="italic"
+        android:textColor="@color/colorAccent"
+        android:layout_margin="1dp"
+        android:gravity="center_vertical" />
 </RelativeLayout>

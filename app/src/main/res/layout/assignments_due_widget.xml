@@ -2,7 +2,7 @@
     android:id="@+id/widget_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#007f7f"
+    android:background="@color/colorPrimaryDark"
     android:padding="@dimen/widget_margin">
 
     <TextView
@@ -11,9 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_margin="8dp"
-        android:background="#007f7f"
-        android:textColor="#ffffff"
-        android:textSize="20sp"
+        android:textColor="@color/textPrimaryColor"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
     <ListView
@@ -21,6 +20,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/appwidget_text"
-        />
+        android:headerDividersEnabled="true"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="1dp"
+        android:padding="2dp" />
 
 </RelativeLayout>

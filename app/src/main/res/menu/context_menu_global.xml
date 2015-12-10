@@ -8,4 +8,12 @@
         android:visible="true"
         android:enabled="true" />
 
+    <item android:id="@+id/exit"
+        android:title="Settings"
+        android:titleCondensed="Exit"
+        android:alphabeticShortcut="string"
+        android:numericShortcut="string"
+        android:visible="true"
+        android:enabled="true" />
+
 </menu>

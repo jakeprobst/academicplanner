@@ -24,7 +24,8 @@
         android:id="@+id/semester_spinner"
         android:layout_below="@+id/autocomplete_school"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@drawable/drop_down_background" />
 
     <Button
         android:id="@+id/startdate_btn"
@@ -33,7 +34,8 @@
         android:layout_height="wrap_content"
         android:text="Semester Start Date"
         android:onClick="onButtonClicked"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:background="@drawable/button_background" />
 
     <Button
         android:id="@+id/enddate_btn"
@@ -42,7 +44,8 @@
         android:layout_height="wrap_content"
         android:text="Semester End Date"
         android:onClick="onButtonClicked"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:background="@drawable/button_background" />
 
     <TextView
         android:id="@+id/startdate_tv"

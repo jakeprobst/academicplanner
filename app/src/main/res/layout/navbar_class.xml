@@ -4,7 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="5dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:scrollbarAlwaysDrawVerticalTrack="false"
+    android:scrollbars="none"
+    android:isScrollContainer="false"
+    android:overScrollMode="never">
 
     <TextView
         android:id="@+id/navbar_classname"
@@ -17,7 +21,8 @@
         android:id="@+id/navbar_assignments"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@null"
-        android:scrollbars="none" />
+        android:divider="@android:color/transparent"
+        android:scrollbars="none"
+        android:dividerHeight="2dp" />
     <!--android:dividerHeight="0dp"-->
 </LinearLayout>

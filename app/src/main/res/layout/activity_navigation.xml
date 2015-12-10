@@ -3,31 +3,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" android:id="@+id/drawer_layout"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:fitsSystemWindows="true" tools:openDrawer="start">
+    android:fitsSystemWindows="true" tools:openDrawer="start"
+    android:background="@color/colorPrimaryBackground"
+    android:hapticFeedbackEnabled="true"
+    android:isScrollContainer="true">
 
     <include layout="@layout/app_bar_navigation" android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <android.support.design.widget.NavigationView android:id="@+id/nav_view"
         android:layout_width="wrap_content" android:layout_height="match_parent"
-        android:layout_gravity="start" android:fitsSystemWindows="true">
+        android:layout_gravity="start" android:fitsSystemWindows="true"
+        android:fadeScrollbars="true">
 
-        <LinearLayout
-            android:id="@+id/navbar_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/navbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/colorPrimaryBackground"
+                android:isScrollContainer="true">
 
-            <include layout="@layout/nav_header_navigation" />
+                <include layout="@layout/nav_header_navigation" />
 
-            <!--ListView
-                android:id="@+id/navbar_due"
-                android:layout_height="match_parent"
-                android:layout_width="wrap_content"
-                android:divider="@null"
-                android:dividerHeight="15dp"
-                -->
-        </LinearLayout>
+                <!--ListView
+                    android:id="@+id/navbar_due"
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:divider="@null"
+                    android:dividerHeight="15dp"
+                    -->
+            </LinearLayout>
     </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>
