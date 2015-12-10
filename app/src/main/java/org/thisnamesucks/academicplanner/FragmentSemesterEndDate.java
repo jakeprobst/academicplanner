@@ -34,8 +34,8 @@ public class FragmentSemesterEndDate extends DialogFragment implements DatePicke
         //Do something with the date chosen by the user
         month=month+1;
 
-        TextView tv = (TextView) getActivity().findViewById(R.id.enddate_tv);
-        String stringOfDate = month + "/" + day + "/" + year;
-        tv.setText("End Date: " + stringOfDate);
+        //TextView tv = (TextView) getActivity().findViewById(R.id.enddate_tv);
+        //String stringOfDate = month + "/" + day + "/" + year;
+        //tv.setText("End Date: " + stringOfDate);
     }
 }

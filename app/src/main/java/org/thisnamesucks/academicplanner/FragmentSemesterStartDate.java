@@ -31,9 +31,9 @@ public class FragmentSemesterStartDate extends DialogFragment implements DatePic
     public void onDateSet(DatePicker view, int year, int month, int day)
     {
         month = month+1;
-        TextView tv = (TextView) getActivity().findViewById(R.id.startdate_tv);
+        /*TextView tv = (TextView) getActivity().findViewById(R.id.startdate_tv);
         String stringOfDate = month + "/" + day + "/" + year;
-        tv.setText("Start Date: " + stringOfDate);
+        tv.setText("Start Date: " + stringOfDate);*/
     }
 
 }
