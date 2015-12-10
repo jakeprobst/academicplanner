@@ -37,6 +37,7 @@
         android:focusable="false"
         android:editable="false"
         android:inputType="none"
+        android:hint="Enter Start Date"
         />
 
     <EditText
@@ -48,5 +49,6 @@
         android:editable="false"
         android:inputType="none"
         android:textSize="18sp"
+        android:hint="Enter End Date"
         />
 </RelativeLayout>
