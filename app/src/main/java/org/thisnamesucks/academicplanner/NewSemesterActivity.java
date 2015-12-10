@@ -10,9 +10,15 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+
+import java.util.Calendar;
 
 public class NewSemesterActivity extends AppCompatActivity {
+    Calendar startDate = Calendar.getInstance();
+    Calendar endDate = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,23 +37,38 @@ public class NewSemesterActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        Button start_btn = (Button) findViewById(R.id.startdate_btn);
-        start_btn.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
-                DialogFragment newFragment = new FragmentSemesterStartDate();
-                newFragment.show(getFragmentManager(),"Date Picker");
+        final TextView start_btn = (TextView) findViewById(R.id.startdate_btn);
+        start_btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                FragmentDatePicker newFragment = new FragmentDatePicker();
+                newFragment.setCallback(new FragmentDatePicker.FragmentDateCallback() {
+                    @Override
+                    public void setDate(int year, int month, int day) {
+                        startDate.set(year, month, day);
+                        start_btn.setText(dateFormat.format(startDate.getTime()));
+                    }
+                    public Calendar getDate() {
+                        return startDate;
+                    }
+                });
+                newFragment.show(getFragmentManager(), "Date Picker");
             }
         });
-
-        Button end_btn = (Button) findViewById(R.id.enddate_btn);
-        end_btn.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
-                DialogFragment newFragment = new FragmentSemesterEndDate();
-                newFragment.show(getFragmentManager(),"Date Picker");
+        final TextView end_btn = (TextView) findViewById(R.id.enddate_btn);
+        end_btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                FragmentDatePicker newFragment = new FragmentDatePicker();
+                newFragment.setCallback(new FragmentDatePicker.FragmentDateCallback() {
+                    @Override
+                    public void setDate(int year, int month, int day) {
+                        endDate.set(year, month, day);
+                        end_btn.setText(dateFormat.format(endDate.getTime()));
+                    }
+                    public Calendar getDate() {
+                        return endDate;
+                    }
+                });
+                newFragment.show(getFragmentManager(), "Date Picker");
             }
         });
 
