@@ -53,7 +53,14 @@ public class AssignmentDueNotificatoin {
 
         final String ticker = classM.getName() + " - " + assnM.getName() + " is due.";
         final String title = classM.getName() + " Assignment Due: " + assnM.getName();
-        final String text = "Description: " + assnM.getDescription();
+        String text;
+        if (assnM.getDescription() != "") {
+            text = "Description: " + assnM.getDescription();
+        }
+        else {
+            text = "";
+        }
+
 
         Intent intent = new Intent(context, AssignmentActivity.class);
         intent.putExtra("semesterid", SemesterDataManager.getCurrentSemester().getId());
