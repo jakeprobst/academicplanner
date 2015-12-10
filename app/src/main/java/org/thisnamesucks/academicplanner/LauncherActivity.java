@@ -20,7 +20,7 @@ public class LauncherActivity extends AppCompatActivity {
 
         }
 
-        Intent intent = new Intent(this, SemesterActivity.class);
+        Intent intent = new Intent(this, NewSemesterActivity.class);
         intent.putExtra("semesterid", SemesterDataManager.getCurrentSemester().getId());
         startActivity(intent);
     }
