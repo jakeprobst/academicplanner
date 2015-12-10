@@ -45,4 +45,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="appwidget_text">Pending Assignments</string>
     <string name="add_widget">Add widget</string>
+
+    <string name="assignment_due_notificatoin_notification_title_template">Assignment due:</string>
+
 </resources>

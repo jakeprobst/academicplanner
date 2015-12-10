@@ -24,6 +24,8 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.Date;
 
+import layout.AssignmentDueNotificatoin;
+
 public class AssignmentActivity extends AppCompatActivity {
     ClassModel classModel;
     AssignmentModel assignmentModel;
@@ -106,6 +108,8 @@ public class AssignmentActivity extends AppCompatActivity {
 
     private void saveAssignment()
     {
+        AssignmentDueNotificatoin.notify(AssignmentActivity.this,classModel,assignmentModel);
+
         viewToModel(assignmentModel);
         AssignmentDataManager.writeAssignmentData(assignmentModel);
 
