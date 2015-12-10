@@ -40,7 +40,8 @@ public class ClassModel {
     @SerializedName("assignmentList")
     private ArrayList<Integer> assignmentList = new ArrayList<>();
 
-    public ArrayList<Integer> getAssignments() {
+    public ArrayList<Integer> getAssignments()
+    {
         return assignmentList;
     }
 

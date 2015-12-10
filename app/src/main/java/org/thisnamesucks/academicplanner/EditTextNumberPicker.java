@@ -68,18 +68,25 @@ public class EditTextNumberPicker extends EditText {
                 picker3.setMaxValue(9);
                 picker3.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 
-                int number = Integer.parseInt(getText().toString());
-                picker1.setValue(number/100);
-                picker2.setValue((number/10)%10);
-                picker3.setValue(number%10);
+                int number;
+                try {
+                    number = Integer.parseInt(getText().toString());
+                }
+                catch (NumberFormatException e) {
+                    number = 0;
+                }
+
+                picker1.setValue(number / 100);
+                picker2.setValue((number / 10) % 10);
+                picker3.setValue(number % 10);
 
                 d.show();
                 d.setOnDismissListener(new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialog) {
                         int num = picker1.getValue() * 100 +
-                                  picker2.getValue() * 10  +
-                                  picker3.getValue();
+                                picker2.getValue() * 10 +
+                                picker3.getValue();
                         setText(Integer.toString(num));
                     }
                 });

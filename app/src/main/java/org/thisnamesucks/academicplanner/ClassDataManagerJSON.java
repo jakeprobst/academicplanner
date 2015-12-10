@@ -22,11 +22,6 @@ public class ClassDataManagerJSON {
         return Integer.toString(id);
     }
 
-    /*public ArrayList<ClassModel> getClassData() {
-        String data = Util.getFileContents(ctx, "semesterdata.json");
-        Gson gson = new Gson();
-        return gson.fromJson(data, new TypeToken<ArrayList<ClassModel>>() {}.getType());
-    }*/
     public ClassModel getClassById(int id) {
         String data = Util.getFileContents(ctx, getFilePath(id));
         Gson gson = new Gson();

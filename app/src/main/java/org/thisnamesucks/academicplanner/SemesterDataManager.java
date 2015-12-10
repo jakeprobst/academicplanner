@@ -11,11 +11,13 @@ import java.util.Map;
  * Created by jake on 11/9/15.
  */
 
-public class SemesterDataManager {
+public class SemesterDataManager
+{
     private static Context ctx;
     private static SemesterDataManagerJSON datastore;
 
-    public static void makeTestData() {
+    public static void makeTestData()
+    {
         SemesterModel sem = new SemesterModel();
         sem.setName("Fall 2015");
         sem.setId(1);
@@ -25,14 +27,15 @@ public class SemesterDataManager {
         datastore.writeSemesterData(sem);
     }
 
-    public static void initialize(Context ctx) {
+    public static void initialize(Context ctx)
+    {
         SemesterDataManager.ctx = ctx;
         SemesterDataManager.datastore = new SemesterDataManagerJSON(ctx);
-
         makeTestData();
     }
 
-    public static void writeSemesterData(SemesterModel semester) {
+    public static void writeSemesterData(SemesterModel semester)
+    {
         datastore.writeSemesterData(semester);
     }
 

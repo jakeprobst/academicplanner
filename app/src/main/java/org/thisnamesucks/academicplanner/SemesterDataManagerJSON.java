@@ -17,8 +17,6 @@ import java.util.ArrayList;
  * Created by jake on 11/9/15.
  */
 
-// if I were less lazy this would probably inherit from a base SemesterDataResource class
-// I`m just not abstract enough to do that.
 public class SemesterDataManagerJSON {
     private Context ctx;
 
@@ -30,13 +28,8 @@ public class SemesterDataManagerJSON {
         return Integer.toString(id);
     }
 
-    /*public ArrayList<SemesterModel> getSemesterData() {
-        String data = Util.getFileContents(ctx, "semesterdata.json");
-        Gson gson = new Gson();
-        return gson.fromJson(data, new TypeToken<ArrayList<SemesterModel>>() {}.getType());
-    }*/
-
-    public SemesterModel getSemesterById(int id) {
+    public SemesterModel getSemesterById(int id)
+    {
         String data = Util.getFileContents(ctx, getFilePath(id));
         Gson gson = new Gson();
         Log.d("from file", data);

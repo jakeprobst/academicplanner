@@ -48,4 +48,6 @@
 
     <string name="assignment_due_notificatoin_notification_title_template">Assignment due:</string>
 
+    <string name="title_activity_semester_list">SemesterListActivity</string>
+    <string name="title_activity_home_screen">HomeScreenActivity</string>
 </resources>
