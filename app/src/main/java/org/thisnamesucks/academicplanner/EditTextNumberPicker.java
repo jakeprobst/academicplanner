@@ -18,6 +18,7 @@ import android.widget.NumberPicker;
 public class EditTextNumberPicker extends EditText {
     Context context;
     String pickerTitle;
+    int pickerCount = 3;
 
     public EditTextNumberPicker(Context c) {
         super(c);
@@ -33,6 +34,9 @@ public class EditTextNumberPicker extends EditText {
             switch(attr) {
                 case R.styleable.EditTextNumberPicker_pickerText:
                     pickerTitle = a.getString(i);
+                    break;
+                case R.styleable.EditTextNumberPicker_pickerCount:
+                    pickerCount = a.getInt(i, 3);
                     break;
             }
         }
@@ -52,44 +56,53 @@ public class EditTextNumberPicker extends EditText {
         setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Dialog d = new Dialog(context);
-                d.setContentView(R.layout.edit_number_picker);
-                d.setTitle(pickerTitle);
-                final NumberPicker picker1 = (NumberPicker) d.findViewById(R.id.dialog_number_picker1);
-                picker1.setMinValue(0);
-                picker1.setMaxValue(9);
-                picker1.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
-                final NumberPicker picker2 = (NumberPicker) d.findViewById(R.id.dialog_number_picker2);
-                picker2.setMinValue(0);
-                picker2.setMaxValue(9);
-                picker2.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
-                final NumberPicker picker3 = (NumberPicker) d.findViewById(R.id.dialog_number_picker3);
-                picker3.setMinValue(0);
-                picker3.setMaxValue(9);
-                picker3.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+            Dialog d = new Dialog(context);
+            d.setContentView(R.layout.edit_number_picker);
+            d.setTitle(pickerTitle);
+            final NumberPicker picker1 = (NumberPicker) d.findViewById(R.id.dialog_number_picker1);
+            picker1.setMinValue(0);
+            picker1.setMaxValue(9);
+            picker1.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+            final NumberPicker picker2 = (NumberPicker) d.findViewById(R.id.dialog_number_picker2);
+            picker2.setMinValue(0);
+            picker2.setMaxValue(9);
+            picker2.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+            final NumberPicker picker3 = (NumberPicker) d.findViewById(R.id.dialog_number_picker3);
+            picker3.setMinValue(0);
+            picker3.setMaxValue(9);
+            picker3.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
 
-                int number;
-                try {
-                    number = Integer.parseInt(getText().toString());
+            int number;
+            try {
+                number = Integer.parseInt(getText().toString());
+            }
+            catch (NumberFormatException e) {
+                number = 0;
+            }
+
+            picker1.setValue(number / 100);
+            picker2.setValue((number / 10) % 10);
+            picker3.setValue(number % 10);
+
+            d.show();
+            d.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    int num = picker1.getValue() * 100 +
+                            picker2.getValue() * 10 +
+                            picker3.getValue();
+                    setText(Integer.toString(num));
                 }
-                catch (NumberFormatException e) {
-                    number = 0;
-                }
+            });
 
-                picker1.setValue(number / 100);
-                picker2.setValue((number / 10) % 10);
-                picker3.setValue(number % 10);
-
-                d.show();
-                d.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        int num = picker1.getValue() * 100 +
-                                picker2.getValue() * 10 +
-                                picker3.getValue();
-                        setText(Integer.toString(num));
-                    }
-                });
+            // lazyyyyy
+            if (pickerCount == 2) {
+                picker1.setVisibility(View.GONE);
+            }
+            if (pickerCount == 1) {
+                picker1.setVisibility(View.GONE);
+                picker2.setVisibility(View.GONE);
+            }
             }
         });
     }

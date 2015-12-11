@@ -2,5 +2,6 @@
 <resources>
     <declare-styleable name="EditTextNumberPicker">
         <attr name="pickerText" format="string"/>
+        <attr name="pickerCount" format="integer"/>
     </declare-styleable>
 </resources>

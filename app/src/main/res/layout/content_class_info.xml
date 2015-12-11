@@ -79,6 +79,7 @@
             android:maxLines="1"
             android:layout_below="@+id/textView7"
             custom:pickerText="Units"
+            custom:pickerCount="1"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentRight="true"
