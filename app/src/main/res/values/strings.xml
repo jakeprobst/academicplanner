@@ -11,7 +11,7 @@
         <item>Fall</item>
         <item>Winter</item>
         <item>Spring</item>
-        <item>Fall</item>
+        <item>Summer</item>
     </string-array>
     <string-array name="schools_array">
         <item>sonoma state university</item>
