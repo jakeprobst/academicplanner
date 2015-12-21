@@ -1,6 +1,8 @@
 package org.thisnamesucks.academicplanner;
 
+import android.app.AlertDialog;
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -95,8 +97,27 @@ public class NewSemesterActivity extends AppCompatActivity {
 
         Spinner spinner = (Spinner) findViewById(R.id.semester_spinner);
         TextView start_btn = (TextView) findViewById(R.id.startdate_btn);
-        // TODO: this is way too specific?
-        String year = start_btn.getText().toString().substring(0, 4);
+
+        String year = start_btn.getText().toString();
+        if(year.equals(""))
+        {
+            //Make warning message that start date should be entered
+            AlertDialog.Builder builder = new AlertDialog.Builder(NewSemesterActivity.this);
+            builder.setTitle("Warning");
+            builder.setMessage("You must enter at least the start date for your new semester.");
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.dismiss();
+                }
+            });
+            builder.show();
+            return;
+        }
+        else
+        {
+            year = year.substring(0, 4);
+        }
+
         String name = spinner.getSelectedItem().toString() + ' ' + year;
         semesterModel.setName(name);
 
