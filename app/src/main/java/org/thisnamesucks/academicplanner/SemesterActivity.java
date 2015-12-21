@@ -25,6 +25,7 @@ public class SemesterActivity extends NavigationActivity {
     SemesterModel semesterModel;
     ArrayList<ClassModel> classList;
     ClassInformationAdapter classInfoAdapter;
+    int backButtonCount = 0;
 
     private void getSemesterModel() {
         if (getIntent().getExtras() != null) {
@@ -39,6 +40,7 @@ public class SemesterActivity extends NavigationActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        backButtonCount = 0;
         getSemesterModel();
 
         setTitle(semesterModel.getName());
@@ -126,8 +128,6 @@ public class SemesterActivity extends NavigationActivity {
         //Toast.makeText(SemesterActivity.this, "Class Opened!", Toast.LENGTH_SHORT).show();
     }
 
-
-
     public void delete(ClassModel item) {
         semesterModel.getClasses().remove((Object)item.getId());
         ClassDataManager.deleteClass(item);
@@ -160,6 +160,18 @@ public class SemesterActivity extends NavigationActivity {
 
     @Override
     public void onBackPressed() {
+        if(backButtonCount >= 1)
+        {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
+        else
+        {
+            Toast.makeText(SemesterActivity.this, "Press the back button again to close the application.", Toast.LENGTH_SHORT).show();
+            backButtonCount++;
+        }
 
     }
 
